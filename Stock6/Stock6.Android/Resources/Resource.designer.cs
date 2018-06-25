@@ -2856,6 +2856,9 @@ namespace Stock6.Droid
 			// aapt resource value: 0x7f080023
 			public const int always = 2131230755;
 			
+			// aapt resource value: 0x7f0800b2
+			public const int animationview = 2131230898;
+			
 			// aapt resource value: 0x7f08002f
 			public const int auto = 2131230767;
 			
@@ -3012,8 +3015,8 @@ namespace Stock6.Droid
 			// aapt resource value: 0x7f080048
 			public const int list_item = 2131230792;
 			
-			// aapt resource value: 0x7f0800b5
-			public const int masked = 2131230901;
+			// aapt resource value: 0x7f0800b6
+			public const int masked = 2131230902;
 			
 			// aapt resource value: 0x7f0800a1
 			public const int media_actions = 2131230881;
@@ -3213,8 +3216,8 @@ namespace Stock6.Droid
 			// aapt resource value: 0x7f080017
 			public const int showTitle = 2131230743;
 			
-			// aapt resource value: 0x7f0800b2
-			public const int sliding_tabs = 2131230898;
+			// aapt resource value: 0x7f0800b3
+			public const int sliding_tabs = 2131230899;
 			
 			// aapt resource value: 0x7f080073
 			public const int smallLabel = 2131230835;
@@ -3291,8 +3294,8 @@ namespace Stock6.Droid
 			// aapt resource value: 0x7f080057
 			public const int title_template = 2131230807;
 			
-			// aapt resource value: 0x7f0800b3
-			public const int toolbar = 2131230899;
+			// aapt resource value: 0x7f0800b4
+			public const int toolbar = 2131230900;
 			
 			// aapt resource value: 0x7f080029
 			public const int top = 2131230761;
@@ -3318,8 +3321,8 @@ namespace Stock6.Droid
 			// aapt resource value: 0x7f08000e
 			public const int view_offset_helper = 2131230734;
 			
-			// aapt resource value: 0x7f0800b4
-			public const int visible = 2131230900;
+			// aapt resource value: 0x7f0800b5
+			public const int visible = 2131230901;
 			
 			// aapt resource value: 0x7f080093
 			public const int volume_item_container = 2131230867;
@@ -3607,13 +3610,16 @@ namespace Stock6.Droid
 			public const int select_dialog_singlechoice_material = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int support_simple_spinner_dropdown_item = 2130903105;
+			public const int splashscreen = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int Tabbar = 2130903106;
+			public const int support_simple_spinner_dropdown_item = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int Toolbar = 2130903107;
+			public const int Tabbar = 2130903107;
+			
+			// aapt resource value: 0x7f030044
+			public const int Toolbar = 2130903108;
 			
 			static Layout()
 			{
@@ -4726,6 +4732,9 @@ namespace Stock6.Droid
 			
 			// aapt resource value: 0x7f0b0006
 			public const int Theme_MediaRouter_LightControlPanel = 2131427334;
+			
+			// aapt resource value: 0x7f0b018c
+			public const int Theme_Splash = 2131427724;
 			
 			// aapt resource value: 0x7f0b011f
 			public const int ThemeOverlay_AppCompat = 2131427615;
