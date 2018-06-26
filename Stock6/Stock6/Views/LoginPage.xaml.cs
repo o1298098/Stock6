@@ -15,8 +15,18 @@ namespace Stock6.Views
 		public LoginPage ()
 		{
 			InitializeComponent ();
-            animationView.Loop = true;
-            animationView.Play();
+            login.Style = new Style(typeof(Button))
+            {
+                Setters = { new Setter { Property = Button.CornerRadiusProperty, Value = 40 } }
+            };
+            register.Style = new Style(typeof(Button))
+            {
+                Setters = { new Setter { Property = Button.CornerRadiusProperty, Value = 40 } }
+            };
+            login.Clicked += delegate
+            {
+                animationView.Play();
+            };
 		}
 	}
 }

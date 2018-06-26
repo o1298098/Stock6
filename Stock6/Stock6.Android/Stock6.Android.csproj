@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Stock6.Droid</RootNamespace>
     <AssemblyName>Stock6.Android</AssemblyName>
-    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -29,7 +29,7 @@
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -53,7 +53,9 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
       <Version>2.5.4</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>3.1.0.583944</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -63,6 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\dotted_loader.json" />
+    <AndroidAsset Include="Assets\an_endless_hike_on_a_tiny_world_.json" />
+    <AndroidAsset Include="Assets\worm.json" />
+    <AndroidAsset Include="Assets\rey_updated.json" />
+    <AndroidAsset Include="Assets\cycle_animation.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidAsset Include="Assets\loading_hamster.json" />
@@ -82,9 +88,6 @@
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\splashscreen.xml" />
