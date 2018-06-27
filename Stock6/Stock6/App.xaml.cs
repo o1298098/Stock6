@@ -11,9 +11,7 @@ namespace Stock6
 		public App ()
 		{
 			InitializeComponent();
-
-
-            MainPage = new LoginPage();
+            MainPage =new MasterDetailPage1();
         }
 
 		protected override void OnStart ()

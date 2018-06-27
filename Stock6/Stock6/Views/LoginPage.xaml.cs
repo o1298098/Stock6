@@ -15,17 +15,12 @@ namespace Stock6.Views
 		public LoginPage ()
 		{
 			InitializeComponent ();
-            login.Style = new Style(typeof(Button))
+            go.Clicked +=async delegate
             {
-                Setters = { new Setter { Property = Button.CornerRadiusProperty, Value = 40 } }
-            };
-            register.Style = new Style(typeof(Button))
-            {
-                Setters = { new Setter { Property = Button.CornerRadiusProperty, Value = 40 } }
-            };
-            login.Clicked += delegate
-            {
-                animationView.Play();
+                App.Current.MainPage = new NavigationPage(new MasterDetailPage1());
+                var pages = (NavigationPage)this.Parent;
+                Navigation.InsertPageBefore(new MasterDetailPage1(), pages.RootPage);                
+                await Navigation.PopAsync(true);
             };
 		}
 	}

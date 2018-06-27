@@ -1,37 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms" 
              x:Class="Stock6.Views.LoginPage">
     <ContentPage.Content>
-        <Grid BackgroundColor="#D7EDFF">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="16*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <forms:AnimationView 
-            x:Name="animationView" 
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Grid.Row="0"
-            Animation="cycle_animation.json" 
-            Loop="True"
-            AutoPlay="True"  
-            VerticalOptions="CenterAndExpand" 
-            HorizontalOptions="CenterAndExpand" />
-            <Label Grid.Column="1" Grid.Row="1" Text="注册后你能balabala!!!" HorizontalTextAlignment="Center" VerticalTextAlignment="End" FontSize="12"></Label>
-            <Button x:Name="register" Text="Register" Grid.Column="1" Grid.Row="2" BackgroundColor="#00D85E" TextColor="#FFFFFF"></Button>
-            <Label Grid.Column="1" Grid.Row="3" Text="已经有账号?" HorizontalTextAlignment="Center" VerticalTextAlignment="End" FontSize="12"></Label>
-            <Button x:Name="login" Text="Login" Grid.Column="1" Grid.Row="4"  BackgroundColor="#FFFFFF"></Button>           
-        </Grid>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="go" Text="go"></Button>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

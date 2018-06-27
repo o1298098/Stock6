@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Stock6.Views.MasterDetailPage1Master"
+             xmlns:customforms="clr-namespace:Stock6.CustomForms"
              Title="Master">
   <StackLayout>
     <ListView x:Name="MenuItemsListView"
@@ -12,7 +13,8 @@
         <Grid BackgroundColor="#03A9F4">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
           <Grid.RowDefinitions>
@@ -26,7 +28,16 @@
               Grid.Row="2"
               Text="AppName"
               Style="{DynamicResource SubtitleStyle}"/>
-        </Grid>
+           <customforms:CircleImage
+              x:Name="Userimg"
+              Grid.Column="1"
+              Grid.Row="1"
+              Source="xiaobin.jpg"              
+              />
+           <Button
+               
+              />
+                </Grid>
       </ListView.Header>
       <ListView.ItemTemplate>
         <DataTemplate>
