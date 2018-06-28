@@ -15,6 +15,8 @@ namespace Stock6.Views
 		public AsseccPage()
 		{
 			InitializeComponent ();
+            animationView.HorizontalOptions=LayoutOptions.FillAndExpand;
+            animationView.VerticalOptions = LayoutOptions.FillAndExpand;
             login.Style = new Style(typeof(Button))
             {
                 Setters = { new Setter { Property = Button.CornerRadiusProperty, Value = 40 } }
@@ -28,7 +30,12 @@ namespace Stock6.Views
                 var loginPage = new LoginPage();
                 await Navigation.PushAsync(loginPage);
             };
-		}
+            register.Clicked += async delegate
+            {
+                var registerPage = new RegisterPage();
+                await Navigation.PushAsync(registerPage);
+            };
+        }
         protected override void OnAppearing()
         {
 

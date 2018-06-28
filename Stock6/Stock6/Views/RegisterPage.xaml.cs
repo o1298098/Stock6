@@ -10,15 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace Stock6.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoginPage : ContentPage
+	public partial class RegisterPage : ContentPage
 	{
-		public LoginPage ()
+		public RegisterPage ()
 		{
 			InitializeComponent ();
-            go.Clicked +=async delegate
-            {
-               await this.Navigation.PopAsync();
-            };
 		}
 	}
 }

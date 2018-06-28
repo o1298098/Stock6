@@ -16,7 +16,12 @@ namespace Stock6.Views
         {
             InitializeComponent();
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
+            MasterPage.LoginBtn.Clicked += async delegate {
+                await Navigation.PushAsync(new AsseccPage());
+            };
         }
+
+        
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {

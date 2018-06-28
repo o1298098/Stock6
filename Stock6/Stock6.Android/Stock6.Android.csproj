@@ -54,7 +54,7 @@
       <Version>2.5.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.0.0.561731</Version>
+      <Version>3.1.0.583944</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +70,12 @@
     <AndroidAsset Include="Assets\worm.json" />
     <AndroidAsset Include="Assets\rey_updated.json" />
     <AndroidAsset Include="Assets\cycle_animation.json" />
+    <AndroidAsset Include="Assets\Option.json" />
+    <AndroidAsset Include="Assets\ScanIcon.json" />
+    <AndroidAsset Include="Assets\CircleIcon.json" />
+    <AndroidAsset Include="Assets\emoji_tongue.json" />
+    <AndroidAsset Include="Assets\emoji_wink.json" />
+    <AndroidAsset Include="Assets\emoji_shock.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidAsset Include="Assets\loading_hamster.json" />
@@ -95,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\xiaobin.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\menubackground.png" />
   </ItemGroup>
   <Import Project="..\Stock6\Stock6.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

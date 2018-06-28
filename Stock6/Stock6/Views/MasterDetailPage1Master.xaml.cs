@@ -16,6 +16,7 @@ namespace Stock6.Views
     public partial class MasterDetailPage1Master : ContentPage
     {
         public ListView ListView;
+        public Button LoginBtn;
 
         public MasterDetailPage1Master()
         {
@@ -23,6 +24,8 @@ namespace Stock6.Views
 
             BindingContext = new MasterDetailPage1MasterViewModel();
             ListView = MenuItemsListView;
+            LoginBtn = login;
+           
         }
 
         class MasterDetailPage1MasterViewModel : INotifyPropertyChanged
@@ -33,11 +36,11 @@ namespace Stock6.Views
             {
                 MenuItems = new ObservableCollection<MasterDetailPage1MenuItem>(new[]
                 {
-                    new MasterDetailPage1MenuItem { Id = 0, Title = "Page 1" },
-                    new MasterDetailPage1MenuItem { Id = 1, Title = "Page 2" },
-                    new MasterDetailPage1MenuItem { Id = 2, Title = "Page 3" },
-                    new MasterDetailPage1MenuItem { Id = 3, Title = "Page 4" },
-                    new MasterDetailPage1MenuItem { Id = 4, Title = "Page 5" },
+                    new MasterDetailPage1MenuItem { Id = 0, Title = "备货扫描",Icon="ScanIcon.json" },
+                    new MasterDetailPage1MenuItem { Id = 1, Title = "组装拆卸",Icon="emoji_tongue.json" },
+                    new MasterDetailPage1MenuItem { Id = 2, Title = "？？？？",Icon="emoji_shock.json" },
+                    new MasterDetailPage1MenuItem { Id = 3, Title = "？？？？",Icon="emoji_wink.json"},
+                    new MasterDetailPage1MenuItem { Id = 4, Title = "？？？？",Icon="emoji_shock.json" },
                 });
             }
             
