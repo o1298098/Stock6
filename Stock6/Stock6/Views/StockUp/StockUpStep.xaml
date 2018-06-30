@@ -28,7 +28,7 @@
                     <forms:AnimationView 
                                x:Name="scanBarAnimation"
                                Animation="scanbar.json"
-                               HeightRequest="220"
+                               HeightRequest="190"
                                WidthRequest="300"
                                Loop="True"
                                AutoPlay="True"
@@ -37,35 +37,40 @@
                     <Label Text="Step1.点击扫描备货单条形码" HorizontalOptions="CenterAndExpand" FontSize="24"></Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" x:Name="resultstacklayout" IsVisible="False">
-                    <StackLayout Style="{StaticResource  InfoStackLayout}" WidthRequest="100">
+                    <StackLayout Style="{StaticResource  InfoStackLayout}" WidthRequest="105">
                         <Label Text="备货单号" Style="{StaticResource  TitleLabelStyle}"></Label>
-                        <Label Text="WLBHD20180630001" Style="{StaticResource  ValueStyle}"></Label>
+                        <Label x:Name="BillNo" Style="{StaticResource  ValueStyle}"></Label>
                     </StackLayout>
                     <StackLayout Style="{StaticResource  InfoStackLayout}">
                         <Label Text="客户" Style="{StaticResource  TitleLabelStyle}"></Label>
-                        <Label Text="李天一" Style="{StaticResource  ValueStyle}"></Label>
+                        <Label x:Name="Name" Style="{StaticResource  ValueStyle}"></Label>
                     </StackLayout>
                     <StackLayout Style="{StaticResource  InfoStackLayout}">
                         <Label Text="联系电话" Style="{StaticResource  TitleLabelStyle}"></Label>
-                        <Label Text="454545454545" Style="{StaticResource  ValueStyle}"></Label>
+                        <Label x:Name="Phone" Style="{StaticResource  ValueStyle}"></Label>
                     </StackLayout>
                     <StackLayout Style="{StaticResource  InfoStackLayout}">
                         <Label Text="物流公司" Style="{StaticResource  TitleLabelStyle}"></Label>
-                        <Label Text="跨越" Style="{StaticResource  ValueStyle}"></Label>
+                        <Label x:Name="Logistics" Style="{StaticResource  ValueStyle}"></Label>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
             <StackLayout Style="{StaticResource  StackLayoutStyle}" >
+                <StackLayout x:Name="QRStacklayout">
                 <forms:AnimationView 
                                x:Name="scanQrAnimation"
                                Animation="scan_qr_code_success.json"
                                Loop="True"
                                AutoPlay="True"
-                               HeightRequest="220"
+                               HeightRequest="190"
                                WidthRequest="300"
                                HorizontalOptions="CenterAndExpand"
                                VerticalOptions="FillAndExpand"/>
                 <Label Text="Step2.点击扫描二维码" HorizontalOptions="CenterAndExpand" FontSize="24"></Label>
+                </StackLayout>
+                <StackLayout IsVisible="False" x:Name="QrResultstacklayouy">
+                    <ListView HorizontalOptions="FillAndExpand"></ListView>
+                </StackLayout>
             </StackLayout>            
         </StackLayout>
     </ContentPage.Content>

@@ -12,11 +12,15 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Action\apiHelper\HttpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Action\apiHelper\InvokeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Action\Jsonhelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomForms\CircleImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomForms\ZXingOverlay.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpBillModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AsseccPage.xaml.cs">
       <DependentUpon>AsseccPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -42,6 +46,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ScanPage.xaml.cs">
+      <DependentUpon>ScanPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPage.xaml.cs">
@@ -72,7 +80,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
   </ItemGroup>
@@ -102,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpStep.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ScanPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

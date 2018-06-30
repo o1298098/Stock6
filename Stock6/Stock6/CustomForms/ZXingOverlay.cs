@@ -45,9 +45,18 @@ namespace candaBarcode.Forms
                 Opacity = 0.6,
 
             };
+            var boxview3 = new BoxView
+            {
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                HeightRequest=2,
+                BackgroundColor = Color.Red ,
+                Opacity = 0.6,
+
+            };
             Children.Add(boxview, 0, 0);
             Children.Add(boxview2, 0, 2);
-
+            Children.Add(boxview3, 0, 1);
             //SetColumnSpan(boxview, 5);
             //SetColumnSpan(boxview2, 5);
             var AbsoluteLayouts = new AbsoluteLayout();
@@ -83,7 +92,7 @@ namespace candaBarcode.Forms
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 //HeightRequest = 3,
-                Image= "flashlightoff.png",
+                //Image= "flashlightoff.png",
                 TextColor = Color.White,
                 BackgroundColor = Color.Black,
                 Opacity = 0.2,

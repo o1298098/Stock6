@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Stock6.Models;
 using Stock6.Views;
 using Xamarin.Forms;
 
@@ -7,8 +7,7 @@ namespace Stock6
 {
 	public partial class App : Application
 	{
-
-		public App ()
+        public App ()
 		{
 			InitializeComponent();
             MainPage =new NavigationPage(new MasterDetailPage1());
