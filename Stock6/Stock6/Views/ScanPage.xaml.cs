@@ -11,6 +11,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
 using Xamarin.Essentials;
+using Stock6.apiHelper;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Stock6.Views
 {
@@ -39,7 +42,7 @@ namespace Stock6.Views
                     Vibration.Vibrate();
                     var duration = TimeSpan.FromSeconds(1);
                     Vibration.Vibrate(duration);
-                    string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNo,F_XAY_Custom,F_XAY_Phone,F_XAY_Logistics.FSimpleName\",\"FilterString\":\"FBillNo='WLBHD201806290003'and  FDocumentStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                    string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNo,F_XAY_Custom,F_XAY_Phone,F_XAY_Logistics.FSimpleName,F_XAY_StockUpOrderEntity\",\"FilterString\":\"FBillNo='WLBHD201806290003'and  FDocumentStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                     string[] results = Jsonhelper.JsonToString(content);
                     if (results == null)
                     {
@@ -55,11 +58,6 @@ namespace Stock6.Views
                         stockUpBillModel.phone = array[2];
                         stockUpBillModel.logistics = array[3].Replace("]", "");
                     }
-                    // Stop analysis until we navigate away so we don't keep reading barcodes
-                    //zxing.IsAnalyzing = false;
-                    // Show an alert
-                    //await DisplayAlert("扫描条码", result.Text, "OK");                   
-                    //Navigate away
                     await Navigation.PopAsync(true);
                 });
 
@@ -78,11 +76,18 @@ namespace Stock6.Views
                 Text="hahha"
             };
             button.Clicked += async delegate {
-                Vibration.Vibrate();
-                var duration = TimeSpan.FromSeconds(1);
-                Vibration.Vibrate(duration);
-                string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNo,F_XAY_Custom,F_XAY_Phone,F_XAY_Logistics.FSimpleName\",\"FilterString\":\"FBillNo='WLBHD201806290003'and  FBillStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                //Vibration.Vibrate();
+                //var duration = TimeSpan.FromMilliseconds(100);
+                //Vibration.Vibrate(duration);
+                string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNo,F_XAY_Custom,F_XAY_Phone,F_XAY_Logistics.FSimpleName,F_XAY_FMaterial.FName,F_XAY_FQty,F_XAY_Count,F_XAY_CMaterial.FName\",\"FilterString\":\"FBillNo='WLBHD201806220001'and  FBillStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                 string[] results = Jsonhelper.JsonToString(content);
+                List<object> Parameters = new List<object>();
+                Parameters.Add("5ab05fc34e03d1");
+                Parameters.Add("WLBHD201806220001");
+                InvokeHelper.Login();
+                string hahah = apiHelper.InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.StockUpExecuteService", Parameters);
+                var jSONObject = (JObject)JsonConvert.DeserializeObject(hahah);
+                var sds = jSONObject["XAY_StockUpOrderEntry"];
                 if (results == null)
                 {
                     await DisplayAlert("提示", "系统无此单号", "OK");

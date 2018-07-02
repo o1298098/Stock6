@@ -12,6 +12,7 @@ namespace Stock6.Models
         private string _name;
         private string _phone;
         private string _logistics;
+
         /// <summary>
         /// 备货单号
         /// </summary>
@@ -64,6 +65,42 @@ namespace Stock6.Models
                 _logistics = value;
                 OnPropertyChanged("logistics");
             }
+        }
+        public class XAY_StockUpOrderEntry
+        {
+            public int Id { get; set; }           
+            /// <summary>
+            /// 主物料
+            /// </summary>
+            public FMaterial F_XAY_FMaterial { get; set; }
+            /// <summary>
+            /// 数量
+            /// </summary>
+            public int F_XAY_FQty { get; set; }
+            /// <summary>
+            /// 件数
+            /// </summary>
+            public int F_XAY_Count { get; set; }
+            /// <summary>
+            /// 单位
+            /// </summary>
+            public int F_XAY_Mart { get; set; }
+
+        }
+        public class FMaterial
+        {
+            /// <summary>
+            /// ID
+            /// </summary>
+            public int Id { get; set; }
+            public Name Name { get; set; }
+            public string Number { get; set; }
+
+        }
+        public class Name
+        {
+            public string Value { get; set; }
+
         }
 
         public StockUpBillModel() { }
