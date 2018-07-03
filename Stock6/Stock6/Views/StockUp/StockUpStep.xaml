@@ -55,7 +55,7 @@
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
-            <StackLayout Style="{StaticResource  StackLayoutStyle}" >
+            <StackLayout Style="{StaticResource  StackLayoutStyle}" x:Name="QrMainStacklayout" >
                 <StackLayout x:Name="QRStacklayout">
                 <forms:AnimationView 
                                x:Name="scanQrAnimation"
@@ -66,11 +66,35 @@
                                WidthRequest="300"
                                HorizontalOptions="CenterAndExpand"
                                VerticalOptions="FillAndExpand"/>
-                <Label Text="Step2.点击扫描二维码" HorizontalOptions="CenterAndExpand" FontSize="24"></Label>
+                <Label Text="Step2.点击扫描二维码" HorizontalOptions="CenterAndExpand" FontSize="24" x:Name="Qrlabel"></Label>
                 </StackLayout>
-                <StackLayout IsVisible="False" x:Name="QrResultstacklayouy">
-                    <ListView HorizontalOptions="FillAndExpand"></ListView>
-                </StackLayout>
+                    <ListView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  x:Name="listview" BackgroundColor="BurlyWood" IsVisible="False">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout BackgroundColor="Crimson" >
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding F_XAY_Mart}"></Label>
+                                            <Label Text="1"></Label>
+                                            <Label Text="箱"></Label>
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <StackLayout HeightRequest="80">
+                                                <Label Text="原汁机"></Label>
+                                                <Label Text="1"></Label>
+                                                <Label Text="箱"></Label>
+                                            </StackLayout>
+                                            <StackLayout HeightRequest="80">
+                                                <Label Text="原汁机"></Label>
+                                                <Label Text="2"></Label>
+                                                <Label Text="箱"></Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>                
             </StackLayout>            
         </StackLayout>
     </ContentPage.Content>

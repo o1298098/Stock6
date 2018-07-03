@@ -1,101 +1,148 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Stock6.Models
 {
    public class StockUpBillModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private string _billno;
-        private string _name;
-        private string _phone;
-        private string _logistics;
-
+        private string _FBillNo;
+        private string _F_XAY_Custom;
+        private string _F_XAY_Phone;
+        private Logistics _F_XAY_Logistics;
+        private ObservableCollection<StockUpOrderEntry> _XAY_StockUpOrderEntry;
+        [JsonProperty("FBillNo")]
         /// <summary>
         /// 备货单号
         /// </summary>
-        public string billno {
+        public string FBillNo
+        {
             get{
-                return _billno;
+                return _FBillNo;
             }
             set {
-                _billno = value;
-                OnPropertyChanged("billno");
+                _FBillNo = value;
+                OnPropertyChanged("FBillNo");
             }
         }
+        [JsonProperty("F_XAY_Custom")]
         /// <summary>
         /// 客户名称
         /// </summary>
-        public string name {
+        public string F_XAY_Custom
+        {
             get {
-                return _name;
+                return _F_XAY_Custom;
             }
             set {
-                _name = value;
-                OnPropertyChanged("name");
+                _F_XAY_Custom = value;
+                OnPropertyChanged("F_XAY_Custom");
             }
         }
+        [JsonProperty("F_XAY_Phone")]
         /// <summary>
         /// 联系电话
         /// </summary>
-        public string phone {
-            get
-            {
-                return _phone;
-            }
-            set
-            {
-                _phone = value;
-                OnPropertyChanged("phone");
-            }
-        }
-        /// <summary>
-        /// 物流公司
-        /// </summary>
-        public string logistics
+        public string F_XAY_Phone
         {
             get
             {
-                return _logistics;
+                return _F_XAY_Phone;
             }
             set
             {
-                _logistics = value;
+                _F_XAY_Phone = value;
+                OnPropertyChanged("F_XAY_Phone");
+            }
+        }
+        [JsonProperty("F_XAY_Logistics")]
+        /// <summary>
+        /// 物流公司
+        /// </summary>
+        public Logistics F_XAY_Logistics
+        {
+            get
+            {
+                return _F_XAY_Logistics;
+            }
+            set
+            {
+                _F_XAY_Logistics = value;
                 OnPropertyChanged("logistics");
             }
         }
-        public class XAY_StockUpOrderEntry
+        public ObservableCollection<StockUpOrderEntry> XAY_StockUpOrderEntry
+        {
+            get
+            {
+                return _XAY_StockUpOrderEntry;
+            }
+            set
+            {
+                _XAY_StockUpOrderEntry = value;
+                OnPropertyChanged("XAY_StockUpOrderEntry");
+            }
+        }
+        public class StockUpOrderEntry
         {
             public int Id { get; set; }           
             /// <summary>
             /// 主物料
             /// </summary>
-            public FMaterial F_XAY_FMaterial { get; set; }
+            public Material F_XAY_FMaterial { get; set; }
             /// <summary>
             /// 数量
             /// </summary>
-            public int F_XAY_FQty { get; set; }
+            public decimal F_XAY_FQty { get; set; }
             /// <summary>
             /// 件数
             /// </summary>
-            public int F_XAY_Count { get; set; }
+            public decimal F_XAY_Count { get; set; }
             /// <summary>
             /// 单位
             /// </summary>
-            public int F_XAY_Mart { get; set; }
+            public string F_XAY_Mart { get; set; }
+            /// <summary>
+            /// 是否套餐
+            /// </summary>
+            public bool F_XAY_Isgroup { get; set; }
+            /// <summary>
+            /// 是否散件
+            /// </summary>
+            public bool F_XAY_SpareParts { get; set; }
+            /// <summary>
+            /// 是否扫描
+            /// </summary>
+            public bool F_XAY_IsScan { get; set; }
+            public List<StockUpOrderSubEntry> XAY_t_StockUpOrderSubEntry { get; set; }
 
         }
-        public class FMaterial
+        public class Material
         {
             /// <summary>
             /// ID
             /// </summary>
             public int Id { get; set; }
-            public Name Name { get; set; }
+            public List<Name> Name { get; set; }
             public string Number { get; set; }
 
+        }
+        public class Logistics
+        {
+
+            public int Id { get; set; }
+            public string Number { get; set; }
+
+            [JsonProperty("SimpleName")]
+            public List<SimpleName> SimpleName { get; set; }
+        }
+        public class SimpleName
+        {
+            public string Value { get; set; }
         }
         public class Name
         {
@@ -103,7 +150,37 @@ namespace Stock6.Models
 
         }
 
-        public StockUpBillModel() { }
+        public class StockUpOrderSubEntry
+        {
+            public int id { get; set; }
+            /// <summary>
+            /// 子物料
+            /// </summary>
+            public Material F_XAY_CMaterial { get; set; }
+            /// <summary>
+            /// 数量
+            /// </summary>
+            public decimal F_XAY_CQty { get; set; }
+            /// <summary>
+            /// 件数
+            /// </summary>
+            public decimal F_XAY_SubCount { get; set; }
+            /// <summary>
+            /// 单位
+            /// </summary>
+            public string F_XAY_SubUnit { get; set; }
+            /// <summary>
+            /// 子件扫描
+            /// </summary>
+            public bool F_XAY_IsCScan { get; set; }
+
+        }
+
+        public StockUpBillModel() {
+            F_XAY_Logistics = new Logistics();
+            F_XAY_Logistics.SimpleName = new List<SimpleName>();
+            XAY_StockUpOrderEntry = new ObservableCollection<StockUpOrderEntry>();
+        }
 
         protected void OnPropertyChanged(string propertyName)
         {

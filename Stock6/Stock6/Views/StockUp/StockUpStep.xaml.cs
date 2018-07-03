@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Stock6.Models;
 using Xamarin.Forms;
@@ -17,30 +18,41 @@ namespace Stock6.Views.StockUp
 		{
 			InitializeComponent ();
             stockUpBillModel = new StockUpBillModel();
-            BillNo.SetBinding(Label.TextProperty, new Binding("billno") { Source = stockUpBillModel });
-            Name.SetBinding(Label.TextProperty, new Binding("name") { Source = stockUpBillModel });
-            Phone.SetBinding(Label.TextProperty, new Binding("phone") { Source = stockUpBillModel });
-            Logistics.SetBinding(Label.TextProperty, new Binding("logistics") { Source = stockUpBillModel });
+            BillNo.SetBinding(Label.TextProperty, new Binding("FBillNo") { Source = stockUpBillModel });
+            Name.SetBinding(Label.TextProperty, new Binding("F_XAY_Custom") { Source = stockUpBillModel });
+            Phone.SetBinding(Label.TextProperty, new Binding("F_XAY_Phone") { Source = stockUpBillModel });
             scanBarAnimation.OnClick += async delegate
             {
-                ScanPage scanPage = new ScanPage();
+                ScanPage scanPage = new ScanPage(1);
                 scanPage.BindingContext = stockUpBillModel;
                 await Navigation.PushAsync(scanPage);
                 //scanstacklayout.IsVisible = false;
                 //resultstacklayout.IsVisible = true;
             };
             scanQrAnimation.OnClick +=async delegate {
-                await Navigation.PushAsync(new ScanPage());
+                if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
+                {
+                    Qrlabel.Text = "请先操作Step1";
+                    Qrlabel.TextColor = Color.Red;
+                }
+                else
+                {
+                    await Navigation.PushAsync(new ScanPage(2));
+                }                
                 //QrResultstacklayouy.IsVisible = true;
                 //QRStacklayout.IsVisible = false;
             };
 		}
         protected override void OnAppearing()
         {
-            if (!string.IsNullOrWhiteSpace(stockUpBillModel.billno))
+            if (!string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
             {
                 scanstacklayout.IsVisible = false;
                 resultstacklayout.IsVisible = true;
+                listview.IsVisible = true;
+                QRStacklayout.IsVisible = false;
+                listview.ItemsSource = stockUpBillModel.XAY_StockUpOrderEntry;
+                Logistics.SetBinding(Label.TextProperty, new Binding("Value") { Source = stockUpBillModel.F_XAY_Logistics.SimpleName[0]});
             }
             base.OnAppearing();
            
