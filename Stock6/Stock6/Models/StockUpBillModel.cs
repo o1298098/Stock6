@@ -89,6 +89,8 @@ namespace Stock6.Models
         }
         public class StockUpOrderEntry
         {
+            private decimal _F_XAY_FQty;
+            private decimal _F_XAY_Count;
             public int Id { get; set; }           
             /// <summary>
             /// 主物料
@@ -97,15 +99,33 @@ namespace Stock6.Models
             /// <summary>
             /// 数量
             /// </summary>
-            public decimal F_XAY_FQty { get; set; }
+            public decimal F_XAY_FQty {
+                get
+                {
+                    return Convert.ToInt32(_F_XAY_FQty);
+                }
+                set
+                {
+                    _F_XAY_FQty = value;
+                }
+            }            
             /// <summary>
             /// 件数
             /// </summary>
-            public decimal F_XAY_Count { get; set; }
+            public decimal F_XAY_Count {
+                get
+                {
+                    return Convert.ToInt32(_F_XAY_Count);
+                }
+                set
+                {
+                    _F_XAY_Count = value;
+                }
+            }
             /// <summary>
             /// 单位
             /// </summary>
-            public string F_XAY_Mart { get; set; }
+            public string F_XAY_Mark { get; set; }
             /// <summary>
             /// 是否套餐
             /// </summary>
@@ -138,20 +158,18 @@ namespace Stock6.Models
             public string Number { get; set; }
 
             [JsonProperty("SimpleName")]
-            public List<SimpleName> SimpleName { get; set; }
+            public List<Name> SimpleName { get; set; }
         }
-        public class SimpleName
-        {
-            public string Value { get; set; }
-        }
+      
         public class Name
         {
             public string Value { get; set; }
-
         }
 
         public class StockUpOrderSubEntry
         {
+            private decimal _F_XAY_CQty;
+            private decimal _F_XAY_SubCount;
             public int id { get; set; }
             /// <summary>
             /// 子物料
@@ -160,11 +178,29 @@ namespace Stock6.Models
             /// <summary>
             /// 数量
             /// </summary>
-            public decimal F_XAY_CQty { get; set; }
+            public decimal F_XAY_CQty {
+                get
+                {
+                    return Convert.ToInt32(_F_XAY_CQty);
+                }
+                set
+                {
+                    _F_XAY_CQty = value;
+                }
+            }
             /// <summary>
             /// 件数
             /// </summary>
-            public decimal F_XAY_SubCount { get; set; }
+            public decimal F_XAY_SubCount {
+                get
+                {
+                    return Convert.ToInt32(_F_XAY_SubCount);
+                }
+                set
+                {
+                    _F_XAY_SubCount = value;
+                }
+            }
             /// <summary>
             /// 单位
             /// </summary>
@@ -173,12 +209,11 @@ namespace Stock6.Models
             /// 子件扫描
             /// </summary>
             public bool F_XAY_IsCScan { get; set; }
-
         }
 
         public StockUpBillModel() {
             F_XAY_Logistics = new Logistics();
-            F_XAY_Logistics.SimpleName = new List<SimpleName>();
+            F_XAY_Logistics.SimpleName = new List<Name>();
             XAY_StockUpOrderEntry = new ObservableCollection<StockUpOrderEntry>();
         }
 

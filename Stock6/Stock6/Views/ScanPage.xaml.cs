@@ -44,24 +44,27 @@ namespace Stock6.Views
                     Vibration.Vibrate(duration);                    
                     if (mode == 1)
                     {
+                        zxing.IsAnalyzing = false;
                         List<object> Parameters = new List<object>();
                         Parameters.Add("5ab05fc34e03d1");
-                        Parameters.Add(result);
+                        Parameters.Add(result.ToString());
                         InvokeHelper.Login();
                         string json = apiHelper.InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.StockUpExecuteService", Parameters);
-                        if (json == "err")
+                        if (json == "err"||string.IsNullOrWhiteSpace(json))
                         {
                             await DisplayAlert("提示", "系统无此单号", "OK");
                         }
                         else
                         {
-                            var jsonobject = JsonConvert.DeserializeObject<StockUpBillModel>(json);
-                            StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
-                            stockUpBillModel.FBillNo = jsonobject.FBillNo;
-                            stockUpBillModel.F_XAY_Custom = jsonobject.F_XAY_Custom;
-                            stockUpBillModel.F_XAY_Phone = jsonobject.F_XAY_Phone;
-                            stockUpBillModel.F_XAY_Logistics = jsonobject.F_XAY_Logistics;
-                            stockUpBillModel.XAY_StockUpOrderEntry = jsonobject.XAY_StockUpOrderEntry;
+                           await Task.Run(() => {
+                                var jsonobject = JsonConvert.DeserializeObject<StockUpBillModel>(json);
+                                StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
+                                stockUpBillModel.FBillNo = jsonobject.FBillNo;
+                                stockUpBillModel.F_XAY_Custom = jsonobject.F_XAY_Custom;
+                                stockUpBillModel.F_XAY_Phone = jsonobject.F_XAY_Phone;
+                                stockUpBillModel.F_XAY_Logistics = jsonobject.F_XAY_Logistics;
+                                stockUpBillModel.XAY_StockUpOrderEntry = jsonobject.XAY_StockUpOrderEntry;
+                            });                            
                         }
                     }
                     else if (mode == 2)
@@ -92,7 +95,6 @@ namespace Stock6.Views
                 List<object> Parameters = new List<object>();
                 Parameters.Add("5ab05fc34e03d1");
                 Parameters.Add("WLBHD201806220001");
-                InvokeHelper.Login();
                 string result = apiHelper.InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.StockUpExecuteService", Parameters);
                 if (result == "err")
                 {
@@ -100,15 +102,18 @@ namespace Stock6.Views
                 }
                 else
                 {
-                    var json = JsonConvert.DeserializeObject<StockUpBillModel>(result);
-                    StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
-                    stockUpBillModel.FBillNo = json.FBillNo;
-                    stockUpBillModel.F_XAY_Custom = json.F_XAY_Custom;
-                    stockUpBillModel.F_XAY_Phone = json.F_XAY_Phone;
-                    stockUpBillModel.F_XAY_Logistics = json.F_XAY_Logistics;
-                    stockUpBillModel.XAY_StockUpOrderEntry = json.XAY_StockUpOrderEntry;
+                    await Task.Run(() =>
+                    {
+                        var json = JsonConvert.DeserializeObject<StockUpBillModel>(result);
+                        StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
+                        stockUpBillModel.FBillNo = json.FBillNo;
+                        stockUpBillModel.F_XAY_Custom = json.F_XAY_Custom;
+                        stockUpBillModel.F_XAY_Phone = json.F_XAY_Phone;
+                        stockUpBillModel.F_XAY_Logistics = json.F_XAY_Logistics;
+                        stockUpBillModel.XAY_StockUpOrderEntry = json.XAY_StockUpOrderEntry;
+                    });
                 }
-                await Navigation.PopAsync(true);
+                await Navigation.PopAsync();
             };
             overlay = new ZXingOverlay
             {

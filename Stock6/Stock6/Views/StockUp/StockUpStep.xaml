@@ -22,7 +22,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#EDEDED">
+        <StackLayout BackgroundColor="#EDEDED"  HorizontalOptions="FillAndExpand" >
             <StackLayout Style="{StaticResource  StackLayoutStyle}">
                 <StackLayout x:Name="scanstacklayout" >
                     <forms:AnimationView 
@@ -55,8 +55,7 @@
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
-            <StackLayout Style="{StaticResource  StackLayoutStyle}" x:Name="QrMainStacklayout" >
-                <StackLayout x:Name="QRStacklayout">
+                <StackLayout  Style="{StaticResource  StackLayoutStyle}" x:Name="QRStacklayout">
                 <forms:AnimationView 
                                x:Name="scanQrAnimation"
                                Animation="scan_qr_code_success.json"
@@ -68,25 +67,23 @@
                                VerticalOptions="FillAndExpand"/>
                 <Label Text="Step2.点击扫描二维码" HorizontalOptions="CenterAndExpand" FontSize="24" x:Name="Qrlabel"></Label>
                 </StackLayout>
-                    <ListView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  x:Name="listview" BackgroundColor="BurlyWood" IsVisible="False">
-                        <ListView.ItemTemplate>
+            <ScrollView>
+            <StackLayout x:Name="QrResultstacklayout" IsVisible="False"></StackLayout>
+            </ScrollView>
+            <ListView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  x:Name="listview" BackgroundColor="BurlyWood" IsVisible="False" HasUnevenRows="True">
+                        <ListView.ItemTemplate>                            
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout BackgroundColor="Crimson" >
+                                    <StackLayout BackgroundColor="Crimson" Margin="0,5">
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding F_XAY_Mart}"></Label>
-                                            <Label Text="1"></Label>
-                                            <Label Text="箱"></Label>
+                                    <Label Text="{Binding F_XAY_FMaterial.Name[0].Value}"></Label>
+                                    <Label Text="{Binding F_XAY_Count}"></Label>
+                                    <Label Text="{Binding F_XAY_Mark}"></Label>
                                         </StackLayout>
-                                        <StackLayout>
-                                            <StackLayout HeightRequest="80">
-                                                <Label Text="原汁机"></Label>
+                                        <StackLayout x:Name="listcell">
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding XAY_t_StockUpOrderSubEntry}"></Label>
                                                 <Label Text="1"></Label>
-                                                <Label Text="箱"></Label>
-                                            </StackLayout>
-                                            <StackLayout HeightRequest="80">
-                                                <Label Text="原汁机"></Label>
-                                                <Label Text="2"></Label>
                                                 <Label Text="箱"></Label>
                                             </StackLayout>
                                         </StackLayout>
@@ -95,7 +92,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>                
-            </StackLayout>            
+                   
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
