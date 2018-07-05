@@ -41,7 +41,8 @@ namespace Stock6.Views
                 {
                     Vibration.Vibrate();
                     var duration = TimeSpan.FromMilliseconds(100);
-                    Vibration.Vibrate(duration);                    
+                    Vibration.Vibrate(duration);
+                    StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
                     if (mode == 1)
                     {
                         zxing.IsAnalyzing = false;
@@ -58,20 +59,44 @@ namespace Stock6.Views
                         {
                            await Task.Run(() => {
                                 var jsonobject = JsonConvert.DeserializeObject<StockUpBillModel>(json);
-                                StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
                                 stockUpBillModel.FBillNo = jsonobject.FBillNo;
                                 stockUpBillModel.F_XAY_Custom = jsonobject.F_XAY_Custom;
                                 stockUpBillModel.F_XAY_Phone = jsonobject.F_XAY_Phone;
                                 stockUpBillModel.F_XAY_Logistics = jsonobject.F_XAY_Logistics;
                                 stockUpBillModel.XAY_StockUpOrderEntry = jsonobject.XAY_StockUpOrderEntry;
-                            });                            
+                            });
+                            await Navigation.PopAsync(true);
                         }
                     }
                     else if (mode == 2)
                     {
+                        string qrstring = result.ToString();
+                        if (qrstring.Substring(0, 2) != "#%")
+                        {
+                            await DisplayAlert("提示", "二维码数据格式有误", "OK");
+                            return;
+                        }
+                        string jsonstring = qrstring.Substring(2, qrstring.Length - 2);
+                        JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
+                        if (jObject.ContainsKey("Id") && jObject.ContainsKey("BillNo"))
+                        {
+                            if (stockUpBillModel.FBillNo != jObject["BillNo"].ToString())
+                                return;
+                            var s = jObject["Id"];
+                            if ((bool)jObject["isgroup"])
+                            {
+                                for (int i = 0; i < jObject["MaterialInfo"].Count(); i++)
+                                {
 
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                        }
                     }
-                    await Navigation.PopAsync(true);
+                   
                 });
 
             label = new Label
@@ -92,26 +117,75 @@ namespace Stock6.Views
                 //Vibration.Vibrate();
                 //var duration = TimeSpan.FromMilliseconds(100);
                 //Vibration.Vibrate(duration);
-                List<object> Parameters = new List<object>();
-                Parameters.Add("5ab05fc34e03d1");
-                Parameters.Add("WLBHD201806220001");
-                string result = apiHelper.InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.StockUpExecuteService", Parameters);
-                if (result == "err")
+                StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
+                if (mode == 1)
                 {
-                    await DisplayAlert("提示", "系统无此单号", "OK");
-                }
-                else
-                {
-                    await Task.Run(() =>
+                    List<object> Parameters = new List<object>();
+                    Parameters.Add("5ab05fc34e03d1");
+                    Parameters.Add("WLBHD201806220001");                    
+                    string result = apiHelper.InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.StockUpExecuteService", Parameters);
+                    if (result == "err")
                     {
-                        var json = JsonConvert.DeserializeObject<StockUpBillModel>(result);
-                        StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
-                        stockUpBillModel.FBillNo = json.FBillNo;
-                        stockUpBillModel.F_XAY_Custom = json.F_XAY_Custom;
-                        stockUpBillModel.F_XAY_Phone = json.F_XAY_Phone;
-                        stockUpBillModel.F_XAY_Logistics = json.F_XAY_Logistics;
-                        stockUpBillModel.XAY_StockUpOrderEntry = json.XAY_StockUpOrderEntry;
-                    });
+                        await DisplayAlert("提示", "系统无此单号", "OK");
+                    }
+                    else
+                    {
+                        await Task.Run(() =>
+                        {
+                            var json = JsonConvert.DeserializeObject<StockUpBillModel>(result);                            
+                            stockUpBillModel.FBillNo = json.FBillNo;
+                            stockUpBillModel.F_XAY_Custom = json.F_XAY_Custom;
+                            stockUpBillModel.F_XAY_Phone = json.F_XAY_Phone;
+                            stockUpBillModel.F_XAY_Logistics = json.F_XAY_Logistics;
+                            stockUpBillModel.XAY_StockUpOrderEntry = json.XAY_StockUpOrderEntry;
+                        });
+                    }
+                }
+                else if (mode == 2)
+                {
+                    string a = "#%{'BillNo':'WLBHD201806220001','Reveice':'df','Phone':'123456789','Logistics':'跨越','Id':'100049','FMaterialid':'228671','Piece':1,'Qty':0,'Unit':' ','isSpareParts':false,'isgroup':true,'MaterialInfo':[{'Id':'100040','MaterialId':'4154077','Piece':1,'Qty':7,'Unit':'个'},{'Id':'100041','MaterialId':'449700','Piece':1,'Qty':4,'Unit':'个'}]}";
+                    if (a.Substring(0, 2) != "#%")
+                    {
+                        await DisplayAlert("提示", "二维码数据格式有误", "OK");
+                        return;
+                    }
+                    string jsonstring = a.Substring(2, a.Length - 2);
+                    JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
+                    if (jObject.ContainsKey("Id")&& jObject.ContainsKey("BillNo"))
+                    {
+                        if (stockUpBillModel.FBillNo != jObject["BillNo"].ToString())
+                            return;
+                        string ID = jObject["Id"].ToString();
+                        if ((bool)jObject["isgroup"])
+                        {
+                            var MaterialInfo = jObject["MaterialInfo"];
+                            for (int i = 0; i < MaterialInfo.Count(); i++)
+                            {
+                                string subID = MaterialInfo[i]["Id"].ToString();
+                                List<object> Parameters = new List<object>();
+                                Parameters.Add("5ab05fc34e03d1");
+                                Parameters.Add(2);
+                                Parameters.Add(subID);
+                                string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.UpdateStockUpScanState", Parameters); ;
+                                if (result == "1")
+                                {
+                                    var sd = stockUpBillModel.XAY_StockUpOrderEntry.Single(o => o.Id == ID && o.XAY_t_StockUpOrderSubEntry[i].id== subID);
+                                    sd.XAY_t_StockUpOrderSubEntry[i].F_XAY_IsCScan = true;
+                                    var scancount = (from q in sd.XAY_t_StockUpOrderSubEntry
+                                                    where q.F_XAY_IsCScan == false
+                                                    select new { q.F_XAY_IsCScan }).Count();
+                                    if (scancount == 0)
+                                    {
+                                        updateScanState(stockUpBillModel, ID, 1);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            updateScanState(stockUpBillModel, ID,1);
+                        }
+                    }
                 }
                 await Navigation.PopAsync();
             };
@@ -140,7 +214,6 @@ namespace Stock6.Views
                 catch (Exception ex)
                 {
                     throw ex;
-
                 }
             };
             var grid = new Grid
@@ -150,8 +223,30 @@ namespace Stock6.Views
             };
             grid.Children.Add(zxing);
             overlay.Children.Add(button, 0, 0);
+            overlay.Children.Add(label, 0, 2);
             grid.Children.Add(overlay);
             Content = grid;
+        }
+
+        private static void updateScanState(StockUpBillModel stockUpBillModel, string ID,int mode)
+        {
+            List<object> Parameters = new List<object>();
+            Parameters.Add("5ab05fc34e03d1");
+            Parameters.Add(mode);
+            Parameters.Add(ID);
+            string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.UpdateStockUpScanState", Parameters);
+            if (result == "1")
+            {
+                var sd = stockUpBillModel.XAY_StockUpOrderEntry.Single(o => o.Id == ID);
+                sd.F_XAY_IsScan = true;
+            }
+        }
+
+        private static string BaseToString(string basetext)
+        {
+            byte[] by = Convert.FromBase64String(basetext);
+            string result = Encoding.UTF8.GetString(by);
+            return result;
         }
 
         protected override void OnAppearing()

@@ -91,7 +91,7 @@ namespace Stock6.Models
         {
             private decimal _F_XAY_FQty;
             private decimal _F_XAY_Count;
-            public int Id { get; set; }           
+            public string Id { get; set; }           
             /// <summary>
             /// 主物料
             /// </summary>
@@ -154,7 +154,7 @@ namespace Stock6.Models
         public class Logistics
         {
 
-            public int Id { get; set; }
+            public string Id { get; set; }
             public string Number { get; set; }
 
             [JsonProperty("SimpleName")]
@@ -170,7 +170,7 @@ namespace Stock6.Models
         {
             private decimal _F_XAY_CQty;
             private decimal _F_XAY_SubCount;
-            public int id { get; set; }
+            public string id { get; set; }
             /// <summary>
             /// 子物料
             /// </summary>

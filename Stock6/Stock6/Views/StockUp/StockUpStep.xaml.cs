@@ -15,10 +15,12 @@ namespace Stock6.Views.StockUp
 	public partial class StockUpStep : ContentPage
 	{
         private static StockUpBillModel stockUpBillModel;
+        private bool stepstate;
         public StockUpStep ()
 		{
 			InitializeComponent ();
             stockUpBillModel = new StockUpBillModel();
+            stepstate = false;
             BillNo.SetBinding(Label.TextProperty, new Binding("FBillNo") { Source = stockUpBillModel });
             Name.SetBinding(Label.TextProperty, new Binding("F_XAY_Custom") { Source = stockUpBillModel });
             Phone.SetBinding(Label.TextProperty, new Binding("F_XAY_Phone") { Source = stockUpBillModel });
@@ -41,10 +43,25 @@ namespace Stock6.Views.StockUp
                 }
                 else
                 {
-                    await Navigation.PushAsync(new ScanPage(2));
-                }                
-                //QrResultstacklayouy.IsVisible = true;
-                //QRStacklayout.IsVisible = false;
+                    ScanPage scanPage = new ScanPage(2);
+                    scanPage.BindingContext = stockUpBillModel;
+                    await Navigation.PushAsync(scanPage);
+                } 
+            };
+            scanbtn.Clicked += async delegate
+            {
+                ScanPage scanPage;
+                
+                if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
+                {
+                    scanPage = new ScanPage(1);
+                }
+                else
+                {
+                    scanPage = new ScanPage(2);                    
+                }
+                scanPage.BindingContext = stockUpBillModel;
+                await Navigation.PushAsync(scanPage);
             };
 		}
         protected override void OnAppearing()
@@ -52,31 +69,42 @@ namespace Stock6.Views.StockUp
             if (!string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
             {
                 scanstacklayout.IsVisible = false;
-                resultstacklayout.IsVisible = true;
+                resultstacklayout.IsVisible = true;                
+                Logistics.SetBinding(Label.TextProperty, new Binding("Value") { Source = stockUpBillModel.F_XAY_Logistics.SimpleName[0] });
+                if (stepstate) { 
                 QRStacklayout.IsVisible = false;
                 //listview.IsVisible = true;
                 listview.ItemsSource = stockUpBillModel.XAY_StockUpOrderEntry;
-                Logistics.SetBinding(Label.TextProperty, new Binding("Value") { Source = stockUpBillModel.F_XAY_Logistics.SimpleName[0]});
                 UpdateUI();
                 QrResultstacklayout.IsVisible = true;
-
+                }
+                stepstate = stepstate? stepstate:!stepstate;
             }
             base.OnAppearing();
            
         }
         private void UpdateUI()
         {
+            QrResultstacklayout.Children.Clear();
             foreach (var q in stockUpBillModel.XAY_StockUpOrderEntry)
             {
 
                 StackLayout sLayout = new StackLayout{
-                    BackgroundColor = Color.White
+                    BackgroundColor = Color.White,
+                    Spacing=0
                 };
                 StackLayout title = new StackLayout
                 {
                     Orientation = StackOrientation.Horizontal,
-                    Padding =new Thickness(5,5,5,5),
+                    Padding =new Thickness(15,2,5,2),
                 };
+                Grid subtitle = new Grid();
+                subtitle.ColumnDefinitions.Add(new ColumnDefinition { Width=new GridLength(1,GridUnitType.Star) });
+                subtitle.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                subtitle.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                subtitle.RowDefinitions.Add(new RowDefinition { Height=new GridLength(1,GridUnitType.Auto) });
+                subtitle.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                subtitle.RowSpacing = 0;
                 AnimationView animation = new AnimationView
                 {
                     Animation = "more.json",
@@ -92,21 +120,33 @@ namespace Stock6.Views.StockUp
                     WidthRequest=100,
                     HeightRequest = 30,
                     VerticalOptions = LayoutOptions.CenterAndExpand,
+                    HorizontalOptions=LayoutOptions.StartAndExpand,
                     VerticalTextAlignment = TextAlignment.Center,
-                    HorizontalTextAlignment=TextAlignment.Start
+                    HorizontalTextAlignment=TextAlignment.Start,
+                    TextColor = Color.Black
                 };
-                Label FCount = new Label
-                {
-                    WidthRequest = 100,
-                    HeightRequest = 30,
-                    HorizontalOptions = LayoutOptions.StartAndExpand,
-                    VerticalOptions = LayoutOptions.CenterAndExpand,
-                    VerticalTextAlignment = TextAlignment.Center,
-                    HorizontalTextAlignment=TextAlignment.Start
+                Label CountTitle = new Label { Text = "件数" ,Margin=new Thickness(15,0,0,0),FontSize=12};
+                Label UnitTitle = new Label {Text="单位", Margin = new Thickness(15, 0, 0, 0), FontSize = 12 };
+                Label ScanStateTitle = new Label {Text="扫描状态", Margin = new Thickness(15, 0, 0, 0), FontSize = 12 };
+                Label Count = new Label {
+                    Text = q.F_XAY_Count.ToString(),
+                    Margin = new Thickness(15, 0, 0, 5),
+                    TextColor = Color.Black,
+                    FontSize = 12
                 };
-
+                Label Unit = new Label {
+                    Text = q.F_XAY_Mark,
+                    Margin = new Thickness(15, 0, 0, 5),
+                    TextColor = Color.Black,
+                    FontSize = 12
+                };
+                Label ScanState = new Label {
+                    Text = q.F_XAY_IsScan?"是":"否",
+                    Margin = new Thickness(15, 0, 0, 5),
+                    TextColor = Color.Black,
+                    FontSize = 12
+                };
                 FMaterial.Text = q.F_XAY_FMaterial.Name[0].Value;
-                FCount.Text = string.Format("{0} {1}",q.F_XAY_Count,q.F_XAY_Mark);
                 foreach (var c in q.XAY_t_StockUpOrderSubEntry)
                 {
 
@@ -129,10 +169,16 @@ namespace Stock6.Views.StockUp
                       cLayout.IsVisible = clickstate;
                   };
                 title.Children.Add(FMaterial);
-                title.Children.Add(FCount);
-                if (q.XAY_t_StockUpOrderSubEntry.Count!=0)
+                if (q.XAY_t_StockUpOrderSubEntry.Count != 0)
                     title.Children.Add(animation);
+                subtitle.Children.Add(CountTitle,0,0);
+                subtitle.Children.Add(UnitTitle,1,0);
+                subtitle.Children.Add(ScanStateTitle,2,0);
+                subtitle.Children.Add(Count, 0, 1);
+                subtitle.Children.Add(Unit, 1, 1);
+                subtitle.Children.Add(ScanState, 2, 1);                
                 sLayout.Children.Add(title);
+                sLayout.Children.Add(subtitle);
                 sLayout.Children.Add(cLayout);
                 QrResultstacklayout.Children.Add(sLayout);
             }

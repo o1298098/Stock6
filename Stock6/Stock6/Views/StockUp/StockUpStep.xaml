@@ -7,7 +7,7 @@
     <ContentPage.Resources>
         <Style x:Key="StackLayoutStyle" TargetType="StackLayout">
             <Setter Property="BackgroundColor" Value="White"/>
-            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Padding" Value="15,10,10,10"/>
         </Style>
         <Style x:Key="InfoStackLayout" TargetType="StackLayout">
             <Setter Property="Margin" Value="0,0,15,0"/>
@@ -21,8 +21,12 @@
             <Setter Property="FontSize" Value="10"></Setter>
         </Style>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="picbtn" Icon="pic.png"/>
+        <ToolbarItem x:Name="scanbtn" Icon="QR.png"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#EDEDED"  HorizontalOptions="FillAndExpand" >
+        <StackLayout BackgroundColor="#EDEDED"  HorizontalOptions="FillAndExpand" >            
             <StackLayout Style="{StaticResource  StackLayoutStyle}">
                 <StackLayout x:Name="scanstacklayout" >
                     <forms:AnimationView 
@@ -36,24 +40,24 @@
                                VerticalOptions="FillAndExpand"/>
                     <Label Text="Step1.点击扫描备货单条形码" HorizontalOptions="CenterAndExpand" FontSize="24"></Label>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" x:Name="resultstacklayout" IsVisible="False">
-                    <StackLayout Style="{StaticResource  InfoStackLayout}" WidthRequest="105">
-                        <Label Text="备货单号" Style="{StaticResource  TitleLabelStyle}"></Label>
-                        <Label x:Name="BillNo" Style="{StaticResource  ValueStyle}"></Label>
+                    <StackLayout Orientation="Horizontal" x:Name="resultstacklayout" IsVisible="False">
+                        <StackLayout Style="{StaticResource  InfoStackLayout}" WidthRequest="105">
+                            <Label Text="备货单号" Style="{StaticResource  TitleLabelStyle}"></Label>
+                            <Label x:Name="BillNo" Style="{StaticResource  ValueStyle}"></Label>
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource  InfoStackLayout}">
+                            <Label Text="客户" Style="{StaticResource  TitleLabelStyle}"></Label>
+                            <Label x:Name="Name" Style="{StaticResource  ValueStyle}"></Label>
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource  InfoStackLayout}">
+                            <Label Text="联系电话" Style="{StaticResource  TitleLabelStyle}"></Label>
+                            <Label x:Name="Phone" Style="{StaticResource  ValueStyle}"></Label>
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource  InfoStackLayout}">
+                            <Label Text="物流公司" Style="{StaticResource  TitleLabelStyle}"></Label>
+                            <Label x:Name="Logistics" Style="{StaticResource  ValueStyle}"></Label>
+                        </StackLayout>
                     </StackLayout>
-                    <StackLayout Style="{StaticResource  InfoStackLayout}">
-                        <Label Text="客户" Style="{StaticResource  TitleLabelStyle}"></Label>
-                        <Label x:Name="Name" Style="{StaticResource  ValueStyle}"></Label>
-                    </StackLayout>
-                    <StackLayout Style="{StaticResource  InfoStackLayout}">
-                        <Label Text="联系电话" Style="{StaticResource  TitleLabelStyle}"></Label>
-                        <Label x:Name="Phone" Style="{StaticResource  ValueStyle}"></Label>
-                    </StackLayout>
-                    <StackLayout Style="{StaticResource  InfoStackLayout}">
-                        <Label Text="物流公司" Style="{StaticResource  TitleLabelStyle}"></Label>
-                        <Label x:Name="Logistics" Style="{StaticResource  ValueStyle}"></Label>
-                    </StackLayout>
-                </StackLayout>
             </StackLayout>
                 <StackLayout  Style="{StaticResource  StackLayoutStyle}" x:Name="QRStacklayout">
                 <forms:AnimationView 
