@@ -95,6 +95,7 @@
     <AndroidAsset Include="Assets\scan_qr_code_success.json" />
     <AndroidAsset Include="Assets\checked_done_.json" />
     <AndroidAsset Include="Assets\more.json" />
+    <AndroidAsset Include="Assets\loading.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidAsset Include="Assets\loading_hamster.json" />

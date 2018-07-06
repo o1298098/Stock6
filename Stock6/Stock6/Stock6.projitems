@@ -20,7 +20,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomForms\CircleImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomForms\ZXingOverlay.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\KingdeeJsonResultModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpBillModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpJsonModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StockUpPageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AsseccPage.xaml.cs">
       <DependentUpon>AsseccPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -81,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
-    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AsseccPage.xaml">

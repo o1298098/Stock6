@@ -113,7 +113,7 @@ namespace Stock6.Views.StockUp
                     HeightRequest=30
                 };
                 StackLayout cLayout = new StackLayout {
-                    IsVisible = false,
+                    IsVisible = true,
                     Padding = new Thickness(30, 2, 5, 5),
                 };
                 Label FMaterial = new Label {
@@ -150,11 +150,14 @@ namespace Stock6.Views.StockUp
                 foreach (var c in q.XAY_t_StockUpOrderSubEntry)
                 {
 
-                    Label CMaterial = new Label();
+                    Label CMaterial = new Label {
+                        FontSize = 11
+                    };
                     CMaterial.Text = string.Format("{0} {1} {2}", c.F_XAY_CMaterial.Name[0].Value,q.F_XAY_SpareParts? c.F_XAY_CQty:c.F_XAY_SubCount, c.F_XAY_SubUnit);
                     cLayout.Children.Add(CMaterial);
                 }
-                bool clickstate = false;
+                bool clickstate = true;
+                animation.PlayProgressSegment(0.37f, 0.5f);
                 animation.OnClick += delegate
                   {
                       clickstate = !clickstate;
