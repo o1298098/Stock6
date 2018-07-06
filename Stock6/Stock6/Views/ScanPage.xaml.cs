@@ -315,8 +315,20 @@ namespace Stock6.Views
             {
                 var sd = ob.XAY_StockUpOrderEntry.Single(o => o.Id == ID);
                 sd.F_XAY_IsScan = true;
+                //var scancount = (from q in ob.XAY_StockUpOrderEntry
+                //                 where q.F_XAY_IsScan == false
+                //                 select new { q.F_XAY_IsScan }).Count();
+                //if (scancount == 0)
+                //{
+                //    Parameters = new List<object>();
+                //    Parameters.Add("5ab05fc34e03d1");
+                //    Parameters.Add(4);
+                //    Parameters.Add(ID);
+                //    result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.UpdateStockUpScanState", Parameters);
+                //}
+             }
+          
             }
-        }
 
         private static string BaseToString(string basetext)
         {

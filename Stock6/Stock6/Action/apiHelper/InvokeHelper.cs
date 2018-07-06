@@ -7,7 +7,7 @@ namespace Stock6.apiHelper
 {
     public static class InvokeHelper
     {
-        private static string CloudUrl = "http://192.168.1.52/k3cloud/";//K/3 Cloud 业务站点地址http://canda.f3322.net:8003/k3cloud/
+        private static string CloudUrl = App.Context.ServerUrl;//K/3 Cloud 业务站点地址http://canda.f3322.net:8003/k3cloud/
 
         /// <summary>
         /// 登陆
@@ -17,7 +17,7 @@ namespace Stock6.apiHelper
             HttpClient httpClient = new HttpClient();
             httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc");
             List<object> Parameters = new List<object>();
-            Parameters.Add("5ab05fc34e03d1");//帐套Id 测试5ab05fc34e03d1 正式59a12c8ba824d2
+            Parameters.Add(App.Context.DataCenterId);//帐套Id 测试5ab05fc34e03d1 正式59a12c8ba824d2
             Parameters.Add("何志彬");//用户名
             Parameters.Add("o1298098@live.com");//密码
             Parameters.Add(2052);

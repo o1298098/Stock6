@@ -7,11 +7,12 @@ namespace Stock6
 {
 	public partial class App : Application
 	{
+        public static  Context Context;
         public App ()
 		{
 			InitializeComponent();
             MainPage =new NavigationPage(new MasterDetailPage1());
-            
+            Context = new Context();            
         }
 
 		protected override void OnStart ()

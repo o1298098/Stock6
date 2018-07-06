@@ -178,7 +178,6 @@ namespace Stock6.Views
                             Id = bill[4].ToString()
                         });
                 }
-
             }
         }
         protected override void OnAppearing()

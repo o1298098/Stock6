@@ -20,6 +20,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomForms\CircleImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomForms\ZXingOverlay.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Context.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\KingdeeJsonResultModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpBillModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpJsonModel.cs" />
