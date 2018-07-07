@@ -18,52 +18,61 @@ namespace Stock6.Views.StockUp
         private bool stepstate;
         public StockUpStep ()
 		{
-			InitializeComponent ();
-            stockUpBillModel = new StockUpBillModel();
-            stepstate = false;
-            BillNo.SetBinding(Label.TextProperty, new Binding("FBillNo") { Source = stockUpBillModel });
-            Name.SetBinding(Label.TextProperty, new Binding("F_XAY_Custom") { Source = stockUpBillModel });
-            Phone.SetBinding(Label.TextProperty, new Binding("F_XAY_Phone") { Source = stockUpBillModel });
-            listview.ItemTapped += delegate {
-                var a=listview.ItemTemplate.Values;
-            };
-            scanBarAnimation.OnClick += async delegate
-            {
-                ScanPage scanPage = new ScanPage(1);
-                scanPage.BindingContext = stockUpBillModel;
-                await Navigation.PushAsync(scanPage);
+			InitializeComponent ();            
+                stockUpBillModel = new StockUpBillModel();
+                stepstate = false;
+                BillNo.SetBinding(Label.TextProperty, new Binding("FBillNo") { Source = stockUpBillModel });
+                Name.SetBinding(Label.TextProperty, new Binding("F_XAY_Custom") { Source = stockUpBillModel });
+                Phone.SetBinding(Label.TextProperty, new Binding("F_XAY_Phone") { Source = stockUpBillModel });
+                listview.ItemTapped += delegate
+                {
+                    var a = listview.ItemTemplate.Values;
+                };
+                scanBarAnimation.OnClick += async delegate
+                {
+                    ScanPage scanPage = new ScanPage(1);
+                    scanPage.BindingContext = stockUpBillModel;
+                    await Navigation.PushAsync(scanPage);
                 //scanstacklayout.IsVisible = false;
                 //resultstacklayout.IsVisible = true;
             };
-            scanQrAnimation.OnClick +=async delegate {
-                if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
+                scanQrAnimation.OnClick += async delegate
                 {
-                    Qrlabel.Text = "请先操作Step1";
-                    Qrlabel.TextColor = Color.Red;
-                }
-                else
+                    if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
+                    {
+                        await scanQrAnimation.TranslateTo(20, 0, 50);
+                        await scanQrAnimation.TranslateTo(0, 0, 50);
+                        await scanQrAnimation.TranslateTo(-20, 0, 50);
+                        await scanQrAnimation.TranslateTo(0, 0, 50);
+                        await scanQrAnimation.TranslateTo(20, 0, 50);
+                        await scanQrAnimation.TranslateTo(0, 0, 50);
+                        Qrlabel.Text = "请先操作Step1";
+                        Qrlabel.TextColor = Color.Red;
+                    }
+                    else
+                    {
+                        ScanPage scanPage = new ScanPage(2);
+                        scanPage.BindingContext = stockUpBillModel;
+                        await Navigation.PushAsync(scanPage);
+                    }
+                };
+                scanbtn.Clicked += async delegate
                 {
-                    ScanPage scanPage = new ScanPage(2);
+                    ScanPage scanPage;
+
+                    if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
+                    {
+                        scanPage = new ScanPage(1);
+                    }
+                    else
+                    {
+                        scanPage = new ScanPage(2);
+                    }
                     scanPage.BindingContext = stockUpBillModel;
                     await Navigation.PushAsync(scanPage);
-                } 
-            };
-            scanbtn.Clicked += async delegate
-            {
-                ScanPage scanPage;
-                
-                if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
-                {
-                    scanPage = new ScanPage(1);
-                }
-                else
-                {
-                    scanPage = new ScanPage(2);                    
-                }
-                scanPage.BindingContext = stockUpBillModel;
-                await Navigation.PushAsync(scanPage);
-            };
-		}
+                };
+
+        }
         protected override void OnAppearing()
         {
             if (!string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
@@ -168,7 +177,7 @@ namespace Stock6.Views.StockUp
                       else
                       {
                           animation.PlayProgressSegment(0.37f, 0.5f);
-                      }
+                      }    
                       cLayout.IsVisible = clickstate;
                   };
                 title.Children.Add(FMaterial);

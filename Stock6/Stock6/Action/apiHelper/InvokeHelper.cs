@@ -7,19 +7,17 @@ namespace Stock6.apiHelper
 {
     public static class InvokeHelper
     {
-        private static string CloudUrl = App.Context.ServerUrl;//K/3 Cloud 业务站点地址http://canda.f3322.net:8003/k3cloud/
-
         /// <summary>
         /// 登陆
         /// </summary>
         public static string Login()
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc");
+            httpClient.Url = string.Concat(App.Context.ServerUrl, "Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc");
             List<object> Parameters = new List<object>();
-            Parameters.Add(App.Context.DataCenterId);//帐套Id 测试5ab05fc34e03d1 正式59a12c8ba824d2
-            Parameters.Add("何志彬");//用户名
-            Parameters.Add("o1298098@live.com");//密码
+            Parameters.Add(App.Context.DataCenterId);
+            Parameters.Add("kingdee");//用户名
+            Parameters.Add("kd!123456");//密码
             Parameters.Add(2052);
             httpClient.Content = JsonConvert.SerializeObject(Parameters);
             return httpClient.SysncRequest();
@@ -34,7 +32,7 @@ namespace Stock6.apiHelper
         public static string Save(string formId, string content)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc");
+            httpClient.Url = string.Concat(App.Context.ServerUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc");
 
             List<object> Parameters = new List<object>();
             //业务对象Id 
@@ -52,7 +50,7 @@ namespace Stock6.apiHelper
         public static string ExecuteBillQuery(string content)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.ExecuteBillQuery.common.kdsvc");
+            httpClient.Url = string.Concat(App.Context.ServerUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.ExecuteBillQuery.common.kdsvc");
 
             List<object> Parameters = new List<object>();
             //Json字串
@@ -70,7 +68,7 @@ namespace Stock6.apiHelper
         public static string Delete(string formId, string content)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Delete.common.kdsvc");
+            httpClient.Url = string.Concat(App.Context.ServerUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Delete.common.kdsvc");
 
             List<object> Parameters = new List<object>();
             //业务对象Id 
@@ -90,7 +88,7 @@ namespace Stock6.apiHelper
         public static string Audit(string formId, string content)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Audit.common.kdsvc");
+            httpClient.Url = string.Concat(App.Context.ServerUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Audit.common.kdsvc");
 
             List<object> Parameters = new List<object>();
             //业务对象Id 
@@ -110,7 +108,7 @@ namespace Stock6.apiHelper
         public static string AbstractWebApiBusinessService(string key, List<object> args)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Url = string.Concat(CloudUrl, key, ".common.kdsvc");
+            httpClient.Url = string.Concat(App.Context.ServerUrl, key, ".common.kdsvc");
 
             httpClient.Content = JsonConvert.SerializeObject(args);
             return httpClient.SysncRequest();

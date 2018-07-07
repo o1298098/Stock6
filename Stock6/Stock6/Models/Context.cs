@@ -14,7 +14,7 @@ namespace Stock6.Models
         /// <summary>
         /// 金蝶数据中心ID
         /// </summary>
-        public string DataCenterId { get; }
+        public  string DataCenterId { get; }
         /// <summary>
         /// 用户名称
         /// </summary>
@@ -22,8 +22,8 @@ namespace Stock6.Models
 
         public Context()
         {
-            ServerUrl = "htttp://canda.f3322.net:8003/k3cloud";
-            DataCenterId = "59a12c8ba824d2";
+            ServerUrl = "http://canda.f3322.net:8003/k3cloud/";
+            DataCenterId = "59a12c8ba824d2";//帐套Id 测试5ab05fc34e03d1 正式59a12c8ba824d2
         }         
 
         public event PropertyChangedEventHandler PropertyChanged;

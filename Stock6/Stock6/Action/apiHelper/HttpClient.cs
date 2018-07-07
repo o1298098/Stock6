@@ -56,7 +56,7 @@ namespace Stock6.apiHelper
                     }
                 }
             }
-            catch { return "err"; }
+            catch(Exception ex) { return "err"; }
         }
 
         private static string ValidateResult(string responseText)

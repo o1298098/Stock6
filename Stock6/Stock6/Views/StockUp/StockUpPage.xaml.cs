@@ -89,7 +89,7 @@ namespace Stock6.Views
                 {
                     if (!clickstate)
                     {
-                        string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"F_XAY_FMATERIAL.FName,F_XAY_FQTY,F_XAY_MARK\",\"FilterString\":\"FID =" + animation.ClassId + " and FBillStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                        string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"F_XAY_FMATERIAL.FName,F_XAY_Count,F_XAY_MARK\",\"FilterString\":\"FID =" + animation.ClassId + " and FBillStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                         string[] lists = Jsonhelper.JsonToString(content);
                         if (lists != null)
                         {
@@ -159,7 +159,7 @@ namespace Stock6.Views
         private void modelrefresh()
         {
             model.Clear();
-            string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNo,F_XAY_Custom,F_XAY_Phone,F_XAY_Logistics.FSimpleName,FID\",\"FilterString\":\"F_XAY_LogisticsNum ='' and FBillStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+            string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNo,F_XAY_Custom,F_XAY_Phone,F_XAY_Logistics.FSimpleName,FID\",\"FilterString\":\"F_XAY_LogisticsNum ='' and FBillStatus='A' and F_XAY_ScanState=1\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
             string[] lists = Jsonhelper.JsonToString(content);
             if (lists != null)
             {

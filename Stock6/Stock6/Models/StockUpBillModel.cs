@@ -15,7 +15,12 @@ namespace Stock6.Models
         private string _F_XAY_Phone;
         private Logistics _F_XAY_Logistics;
         private ObservableCollection<StockUpOrderEntry> _XAY_StockUpOrderEntry;
-        [JsonProperty("FBillNo")]
+        [JsonProperty("Id")]
+        public int Id
+        {
+            get;set;
+        }
+            [JsonProperty("FBillNo")]
         /// <summary>
         /// 备货单号
         /// </summary>
