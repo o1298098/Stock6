@@ -103,13 +103,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <forms:AnimationView 
+            <!--<forms:AnimationView 
             x:Name="animationView" 
             Grid.Column="0"
             Grid.Row="0"
             Animation="Option.json" 
             Loop="True"
-            AutoPlay="True"/>
+            AutoPlay="True"/>-->
         </Grid>
     </StackLayout>
 </ContentPage>

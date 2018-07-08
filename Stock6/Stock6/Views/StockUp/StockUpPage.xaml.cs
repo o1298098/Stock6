@@ -29,7 +29,6 @@ namespace Stock6.Views
             model= new ObservableCollection<StockUpPageModel>();
             listview.ItemsSource = model;
             listview.IsPullToRefreshEnabled = true;
-            listview.IsRefreshing = true;
             DataTemplate template = new DataTemplate(() => {
                 Grid grid = new Grid()
                 {
@@ -139,14 +138,14 @@ namespace Stock6.Views
             listview.ItemTemplate = template;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += delegate {
-                    modelrefresh();
+                listview.IsRefreshing = true;
+                modelrefresh();
             };
             worker.RunWorkerCompleted += delegate {
-                listview.EndRefresh();
+                listview.IsRefreshing = false;
             };
             listview.Refreshing += delegate {
-                modelrefresh();
-                listview.IsRefreshing = false;
+                worker.RunWorkerAsync();
             };
             listview.ItemTapped += async (sender, e) => {
 

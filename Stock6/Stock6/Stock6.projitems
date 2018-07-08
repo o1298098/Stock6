@@ -10,6 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPhoto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Action\apiHelper\HttpClient.cs" />
@@ -19,11 +23,15 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomForms\CircleImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomForms\CustomImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomForms\ZXingOverlay.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Context.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ImageColloection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ImageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\KingdeeJsonResultModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpBillModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpJsonModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IPicturePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StockUpPageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AsseccPage.xaml.cs">
       <DependentUpon>AsseccPage.xaml</DependentUpon>
@@ -56,6 +64,10 @@
       <DependentUpon>ScanPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPhoto.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>StockUpPhoto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPage.xaml.cs">
       <DependentUpon>StockUpPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -82,9 +94,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Services\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AsseccPage.xaml">
@@ -121,6 +130,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPhoto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <!--#if (CreateBackendProject)
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureDataStore.cs" />

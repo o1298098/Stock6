@@ -60,7 +60,7 @@ namespace Stock6.Views
                             string json = apiHelper.InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.StockUpExecuteService", Parameters);
                             if (json == "err" || string.IsNullOrWhiteSpace(json))
                             {
-                                label.Text= "系统无此单号";
+                                return;
                             }
                             else
                             {
@@ -214,7 +214,7 @@ namespace Stock6.Views
                 else if (mode == 2)
                 {
                     StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
-                    string a = "#%{'BillNo':'WLBHD201806220001','Reveice':'df','Phone':'123456789','Logistics':'跨越','Id':'100049','FMaterialid':'228671','Piece':1,'Qty':0,'Unit':' ','isSpareParts':false,'isgroup':true,'MaterialInfo':[{'Id':'100040','MaterialId':'4154077','Piece':1,'Qty':7,'Unit':'个'},{'Id':'100041','MaterialId':'449700','Piece':1,'Qty':4,'Unit':'个'}]}";
+                    string a = "#%{'Id':'100049','isSpareParts':false,'isgroup':true,'MaterialInfo':[{'Id':'100040','MaterialId':'4154077','Piece':1,'Qty':7,'Unit':'个'}]}";
                     if (a.Substring(0, 2) != "#%")
                     {
                         await DisplayAlert("提示", "二维码数据格式有误", "OK");

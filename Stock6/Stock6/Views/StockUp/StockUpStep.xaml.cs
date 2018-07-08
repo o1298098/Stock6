@@ -71,6 +71,9 @@ namespace Stock6.Views.StockUp
                     scanPage.BindingContext = stockUpBillModel;
                     await Navigation.PushAsync(scanPage);
                 };
+            picbtn.Clicked += async delegate {
+                await Navigation.PushAsync(new StockUpPhoto());
+            };
 
         }
         protected override void OnAppearing()
