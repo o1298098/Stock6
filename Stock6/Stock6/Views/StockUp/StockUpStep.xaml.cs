@@ -32,6 +32,7 @@ namespace Stock6.Views.StockUp
                 scanBarAnimation.OnClick += async delegate
                 {
                     ScanPage scanPage = new ScanPage(1);
+                    scanPage.Title = "扫描一维码";
                     scanPage.BindingContext = stockUpBillModel;
                     await Navigation.PushAsync(scanPage);
                 //scanstacklayout.IsVisible = false;
@@ -52,6 +53,7 @@ namespace Stock6.Views.StockUp
                     else
                     {
                         ScanPage scanPage = new ScanPage(2);
+                        scanPage.Title = "扫描二维码";
                         scanPage.BindingContext = stockUpBillModel;
                         await Navigation.PushAsync(scanPage);
                     }
@@ -63,10 +65,12 @@ namespace Stock6.Views.StockUp
                     if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
                     {
                         scanPage = new ScanPage(1);
+                        scanPage.Title = "扫描一维码";
                     }
                     else
                     {
                         scanPage = new ScanPage(2);
+                        scanPage.Title = "扫描二维码";
                     }
                     scanPage.BindingContext = stockUpBillModel;
                     await Navigation.PushAsync(scanPage);

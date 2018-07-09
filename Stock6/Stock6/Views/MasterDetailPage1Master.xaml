@@ -4,6 +4,7 @@
              x:Class="Stock6.Views.MasterDetailPage1Master"
              xmlns:customforms="clr-namespace:Stock6.CustomControls"
              xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:local="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              Title="Master">
   <StackLayout>
     <ListView x:Name="MenuItemsListView"
@@ -26,14 +27,14 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
-          <Image 
+         <local:CachedImage 
               Source="menubackground.png"
               Grid.Column="0"
               Grid.ColumnSpan="5"
               Grid.Row="0"
               Grid.RowSpan="4"
               Aspect="AspectFill"
-              ></Image>
+              ></local:CachedImage>
            <Label
               Grid.Column="1"
               Grid.ColumnSpan="2"
@@ -103,6 +104,7 @@
                     Source="setting.png"
                     HeightRequest="50"
                     WidthRequest="50"
+                    Scale="0.8"
                     Aspect="AspectFill"></Image>
         </Grid>
     </StackLayout>

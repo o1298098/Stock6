@@ -50,10 +50,9 @@ namespace Stock6.Views
                     {
                         StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
                         Loadinganimation.IsVisible = true;
-                        BackgroundWorker worker = new BackgroundWorker();
-                        worker.DoWork += delegate
-                        {
+                        //BackgroundWorker worker = new BackgroundWorker();
 
+                       await Task.Run(() => { 
                             List<object> Parameters = new List<object>();
                             Parameters.Add(App.Context.DataCenterId);
                             Parameters.Add(result.ToString());
@@ -74,9 +73,12 @@ namespace Stock6.Views
                                 stockUpBillModel.XAY_StockUpOrderEntry = jsonobject.XAY_StockUpOrderEntry;
 
                             }
-                        };
-                        worker.RunWorkerAsync();
-                        worker.RunWorkerCompleted += async delegate { await Navigation.PopAsync(); };
+                        });
+                        await Navigation.PopAsync();
+                        //worker.DoWork += delegate
+                        //{};
+                        //worker.RunWorkerAsync();
+                        //worker.RunWorkerCompleted += async delegate { await Navigation.PopAsync(); };
                     }
                     else if (mode == 2)
                     {
@@ -182,17 +184,14 @@ namespace Stock6.Views
                 {
                     StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
                     Loadinganimation.IsVisible = true;
-                    BackgroundWorker worker = new BackgroundWorker();
-                    worker.DoWork +=delegate
-                    {
-
+                    await Task.Run(() => {
                         List<object> Parameters = new List<object>();
                         Parameters.Add(App.Context.DataCenterId);
                         Parameters.Add("WLBHD201806220001");
                         string result = apiHelper.InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.StockUpExecuteService", Parameters);
                         if (result == "err"||string.IsNullOrWhiteSpace(result))
                         {
-                             DisplayAlert("提示", "系统无此单号", "OK");
+                            return;
                         }
                         else
                         {
@@ -205,9 +204,9 @@ namespace Stock6.Views
                             stockUpBillModel.XAY_StockUpOrderEntry = json.XAY_StockUpOrderEntry;
 
                         }
-                    };
-                    worker.RunWorkerAsync();
-                    worker.RunWorkerCompleted += async delegate { await Navigation.PopAsync(); };
+                    });
+                    
+                  await Navigation.PopAsync(); 
                 }
                 else if (mode == 2)
                 {

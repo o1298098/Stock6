@@ -5,7 +5,6 @@ using Stock6.Views.StockUp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -136,33 +135,27 @@ namespace Stock6.Views
                     View = grid
                 };
             });
-            listview.ItemTemplate = template;
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += delegate {
-                listview.IsRefreshing = true;
-                modelrefresh();
-            };
-            worker.RunWorkerCompleted += delegate {
-                listview.IsRefreshing = false;
-            };
-            listview.Refreshing += delegate {
-                if(!worker.IsBusy)
-                    worker.RunWorkerAsync();
+            listview.ItemTemplate = template;           
+            listview.Refreshing += async delegate {
+                   await modelrefresh();
+                  
             };
             listview.ItemTapped += async (sender, e) => {
 
                 ScanPage scanPage = new ScanPage(3);
                 scanPage.BindingContext = e.Item;
+                scanPage.Title = "扫描物流单号条码";
                 await Navigation.PushAsync(scanPage);
             };
         }
-        private void modelrefresh()
+        private async Task modelrefresh()
         {
             model.Clear();
             string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNo,F_XAY_Custom,F_XAY_Phone,F_XAY_Logistics.FSimpleName,FID\",\"FilterString\":\"F_XAY_LogisticsNum ='' and FBillStatus='A' and F_XAY_ScanState=1\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
             string[] lists = Jsonhelper.JsonToString(content);
             if (lists != null)
             {
+               await Task.Run(() => {
                 for (int i = 0; i < lists.Count(); i++)
                 {
                     string billstring = lists[i].Replace("[", "");
@@ -178,6 +171,8 @@ namespace Stock6.Views
                             Id = bill[4].ToString()
                         });
                 }
+                   listview.EndRefresh();
+               });
             }
            
         }

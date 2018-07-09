@@ -76,11 +76,7 @@ namespace Stock6.Models
         /// </summary>
         public object Current
         {
-            get { return ps[i++]; }  //注意这里的i++ ，是先运算再自增。
-            //相当于
-            //object o=ps[i];
-            //i++;
-            //return o;
+            get { return ps[i++]; } 
 
         }
 
@@ -96,8 +92,6 @@ namespace Stock6.Models
             }
             return true;
         }
-
-        //重置
         public void Reset()
         {
             i = 0;
