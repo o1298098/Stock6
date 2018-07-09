@@ -18,6 +18,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Action\apiHelper\HttpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Action\apiHelper\InvokeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Action\FtpHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Action\Jsonhelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -54,6 +55,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\MasterDetailPage1MenuItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\OptionPage.xaml.cs">
+      <DependentUpon>OptionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterPage.xaml.cs">
@@ -132,6 +137,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\OptionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <Page Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPhoto.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

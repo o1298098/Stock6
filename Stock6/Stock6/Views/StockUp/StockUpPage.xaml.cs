@@ -153,7 +153,7 @@ namespace Stock6.Views
                 scanPage.BindingContext = e.Item;
                 await Navigation.PushAsync(scanPage);
             };
-            worker.RunWorkerAsync();
+            //worker.RunWorkerAsync();
         }
         private void modelrefresh()
         {
@@ -182,15 +182,12 @@ namespace Stock6.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var scan = from q in model
-                       where q.isscan == true
-                       select q;
-            if (scan.Count() > 0)
+            try
             {
-               for(int i=scan.Count()-1;i>=0; i--)
-                { model.Remove(scan.ElementAt(i)); }
-                    
+                listview.BeginRefresh();
             }
+            catch(Exception ex) { }
+            
         }
     }
 }

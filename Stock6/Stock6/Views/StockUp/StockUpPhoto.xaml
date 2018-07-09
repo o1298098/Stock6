@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Stock6.Views.StockUpPhoto">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="发送" x:Name="SendBtn"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <!--<StackLayout>
         <Button x:Name="sdsdsd" Text="zxc"></Button>
@@ -13,7 +16,8 @@
             <ScrollView x:Name="scrollview">
                     <FlexLayout x:Name="flexLayout"
                         Wrap="Wrap"
-                        JustifyContent="SpaceAround" />
+                        JustifyContent="SpaceAround"
+                        FlowDirection="LeftToRight"/>
                 </ScrollView>
 
                 <ActivityIndicator x:Name="activityIndicator"

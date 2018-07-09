@@ -104,12 +104,17 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <!--<forms:AnimationView 
-            x:Name="animationView" 
+            x:Name="Option" 
             Grid.Column="0"
             Grid.Row="0"
-            Animation="Option.json" 
-            Loop="True"
-            AutoPlay="True"/>-->
+            Animation="Option.json" />-->
+            <Button x:Name="Option"  
+                    Grid.Column="0"
+                     Grid.Row="0" 
+                    BackgroundColor="#fafafa" 
+                    Image="setting.png" 
+                    WidthRequest="50" 
+                    HeightRequest="50" ></Button>
         </Grid>
     </StackLayout>
 </ContentPage>

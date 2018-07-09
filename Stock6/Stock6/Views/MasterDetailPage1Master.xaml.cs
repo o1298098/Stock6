@@ -25,7 +25,11 @@ namespace Stock6.Views
             BindingContext = new MasterDetailPage1MasterViewModel();
             ListView = MenuItemsListView;
             LoginBtn = login;
-           
+            Option.Clicked += async delegate {
+               await Navigation.PushAsync(new OptionPage());
+            };
+
+
         }
 
         class MasterDetailPage1MasterViewModel : INotifyPropertyChanged

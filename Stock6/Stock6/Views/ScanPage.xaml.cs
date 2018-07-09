@@ -89,10 +89,8 @@ namespace Stock6.Views
                         }
                         string jsonstring = qrstring.Substring(2, qrstring.Length - 2);
                         JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
-                        if (jObject.ContainsKey("Id") && jObject.ContainsKey("BillNo"))
-                        {
-                            if (stockUpBillModel.FBillNo != jObject["BillNo"].ToString())
-                                return;
+                        if (jObject.ContainsKey("Id"))
+                        {                           
                             string ID = jObject["Id"].ToString();
                             if ((bool)jObject["isgroup"])
                             {
@@ -115,7 +113,7 @@ namespace Stock6.Views
                                                          select new { q.F_XAY_IsCScan }).Count();
                                         if (scancount == 0)
                                         {
-                                            UpdateScanState(stockUpBillModel, ID, 1);
+                                          await  UpdateScanStateAsync(stockUpBillModel, ID, 1);
                                         }
                                     }
                                     else
@@ -126,7 +124,7 @@ namespace Stock6.Views
                             }
                             else
                             {
-                                UpdateScanState(stockUpBillModel, ID, 1);
+                               await UpdateScanStateAsync(stockUpBillModel, ID, 1);
                                 label.Text = "扫描成功";
                             }
                         }
@@ -248,14 +246,14 @@ namespace Stock6.Views
                                     label.Text = "扫描成功";
                                     if (scancount == 0)
                                     {
-                                        UpdateScanState(stockUpBillModel, ID, 1);
+                                      await  UpdateScanStateAsync(stockUpBillModel, ID, 1);
                                     }
                                 }
                             }
                         }
                         else  
                         {
-                            UpdateScanState(stockUpBillModel, ID, 1);
+                         await  UpdateScanStateAsync(stockUpBillModel, ID, 1);
                         }
                     }
                 }
@@ -320,7 +318,7 @@ namespace Stock6.Views
 
        
 
-        private static void UpdateScanState(StockUpBillModel ob, string ID,int mode)
+        private async Task UpdateScanStateAsync(StockUpBillModel ob, string ID,int mode)
         {
             List<object> Parameters = new List<object>();
             Parameters.Add(App.Context.DataCenterId);
@@ -342,16 +340,20 @@ namespace Stock6.Views
                     Parameters.Add(ob.Id);
                     Parameters.Add(1);
                     result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.UpdateStockUpScanState", Parameters);
+                    await Navigation.PopToRootAsync();
                 }
             }
-          
-            }
+         }
 
         private static string BaseToString(string basetext)
         {
-            byte[] by = Convert.FromBase64String(basetext);
-            string result = Encoding.UTF8.GetString(by);
-            return result;
+            try
+            {
+                byte[] by = Convert.FromBase64String(basetext);
+                string result = Encoding.UTF8.GetString(by);
+                return result;
+            }
+            catch { return "err"; }
         }
 
         protected override void OnAppearing()

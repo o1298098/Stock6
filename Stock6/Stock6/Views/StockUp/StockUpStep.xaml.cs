@@ -72,7 +72,9 @@ namespace Stock6.Views.StockUp
                     await Navigation.PushAsync(scanPage);
                 };
             picbtn.Clicked += async delegate {
-                await Navigation.PushAsync(new StockUpPhoto());
+                StockUpPhoto picpage = new StockUpPhoto();
+                picpage.BindingContext = stockUpBillModel.FBillNo;
+                await Navigation.PushAsync(picpage);
             };
 
         }
