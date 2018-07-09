@@ -17,7 +17,7 @@ namespace Stock6.action
                 InvokeHelper.Login();
                 string result = InvokeHelper.ExecuteBillQuery(content);
                 //JArray array = new JArray(result);
-                if (result == "[]" || result == "err") return results;
+                if (result == "[]" || result == "err"||string.IsNullOrWhiteSpace(result)) return results;
                 result = result.Substring(0, result.Length - 1);
                 result = result.Substring(1, result.Length - 1);
                 result = result.Replace("\"", "");

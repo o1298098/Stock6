@@ -42,6 +42,11 @@ namespace Stock6.Views
             this.Selected = 0;
             this.selectedImages = new List<ImageModel>();
             ImageService.Instance.Config.MaxMemoryCacheSize = 100000;
+            Grid firstgrid = new Grid()
+            {
+                WidthRequest = 120,
+                HeightRequest = 120,
+            };
             Image takaphoto = new Image
             {
                 WidthRequest = 120,
@@ -49,6 +54,11 @@ namespace Stock6.Views
                 Scale = 0.4,
                 Source = "camera_black.png"
 
+            };
+            BoxView box = new BoxView
+            {
+                Opacity = 0.5,
+                Color = Color.Black,
             };
             TapGestureRecognizer recognizer = new TapGestureRecognizer();
             recognizer.Tapped += async (sender2, args) =>
@@ -77,8 +87,10 @@ namespace Stock6.Views
                     return stream;
                 });
             };
-            takaphoto.GestureRecognizers.Add(recognizer);
-            flexLayout.Children.Add(takaphoto);
+            box.GestureRecognizers.Add(recognizer);
+            firstgrid.Children.Add(takaphoto);
+            firstgrid.Children.Add(box);
+            flexLayout.Children.Add(firstgrid);
             this.Appearing += async (sender, e) =>
             {                
                 images = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync(); 
@@ -104,7 +116,7 @@ namespace Stock6.Views
 
 
             };
-            SendBtn.Clicked += delegate
+            SendBtn.Clicked +=async delegate
             {
                 string billno ;
                 if (BindingContext != null)
@@ -116,16 +128,28 @@ namespace Stock6.Views
                     billno = "bababab";
                 }
                 if (selectedImages.Count > 0)
-                    {
-                        FtpHelper ftpHelper = new FtpHelper(App.Context.FtpUrl, App.Context.FtpUser, App.Context.FtpPassword);
-                       bool isdirexist = ftpHelper.DirectoryExist(billno);
-                       if(!isdirexist)
-                        ftpHelper.MakeDir(billno);
-                    foreach (var a in selectedImages)
-                    {
-
-                        ftpHelper.Upload(a.Path, billno);
+                {
+                    if (string.IsNullOrWhiteSpace(App.Context.FtpUrl) || string.IsNullOrWhiteSpace(App.Context.FtpUser) || string.IsNullOrWhiteSpace(App.Context.FtpPassword)) {
+                       DependencyService.Get<IToast>().LongAlert("请在设置中完善ftp信息");
+                        return;
                     }
+                    FtpHelper ftpHelper = new FtpHelper(App.Context.FtpUrl, App.Context.FtpUser, App.Context.FtpPassword);
+                    bool isdirexist = ftpHelper.DirectoryExist(billno);
+                    if (!isdirexist)
+                        ftpHelper.MakeDir(billno);
+                    progressbar.IsVisible = true;
+                    progressbar.Progress = 0;
+                  await  Task.Run(()=> {
+                        for (int i=0;i<selectedImages.Count;i++)
+                        {
+                            ftpHelper.Upload(selectedImages[i].Path, billno);
+                            progressbar.Progress = (double)(i + 1) / (double) selectedImages.Count;
+                        }
+                        
+                    });
+
+                    progressbar.IsVisible = false;
+                    DependencyService.Get<IToast>().LongAlert("成功");
                 }
             };
             //BackgroundWorker worker = new BackgroundWorker();

@@ -68,6 +68,7 @@ namespace Stock6.Views
                         new Setter{Property=Label.VerticalOptionsProperty,Value=LayoutOptions.Start },
                         new Setter{Property=Label.HorizontalOptionsProperty,Value=LayoutOptions.Start },
                         new Setter{Property=Label.MarginProperty,Value=new Thickness(15,0,0,0) },
+                        new Setter{Property=Label.TextColorProperty,Value=Color.Black}
                     }
                 };
                 Label BillNoTitle = new Label { Text="备货单号",Style= titlestyle };
@@ -145,7 +146,8 @@ namespace Stock6.Views
                 listview.IsRefreshing = false;
             };
             listview.Refreshing += delegate {
-                worker.RunWorkerAsync();
+                if(!worker.IsBusy)
+                    worker.RunWorkerAsync();
             };
             listview.ItemTapped += async (sender, e) => {
 
@@ -153,7 +155,6 @@ namespace Stock6.Views
                 scanPage.BindingContext = e.Item;
                 await Navigation.PushAsync(scanPage);
             };
-            //worker.RunWorkerAsync();
         }
         private void modelrefresh()
         {
@@ -178,16 +179,12 @@ namespace Stock6.Views
                         });
                 }
             }
+           
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            try
-            {
-                listview.BeginRefresh();
-            }
-            catch(Exception ex) { }
-            
+            listview.BeginRefresh();
         }
     }
 }

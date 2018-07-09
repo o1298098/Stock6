@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stock6.CustomControls;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -16,7 +17,8 @@ namespace Stock6.Views
     public partial class MasterDetailPage1Master : ContentPage
     {
         public ListView ListView;
-        public Button LoginBtn;
+        public CircleImage LoginBtn;
+        public Image OptionBtn;
 
         public MasterDetailPage1Master()
         {
@@ -24,12 +26,8 @@ namespace Stock6.Views
 
             BindingContext = new MasterDetailPage1MasterViewModel();
             ListView = MenuItemsListView;
-            LoginBtn = login;
-            Option.Clicked += async delegate {
-               await Navigation.PushAsync(new OptionPage());
-            };
-
-
+            LoginBtn = Userimg;
+            OptionBtn = Option;
         }
 
         class MasterDetailPage1MasterViewModel : INotifyPropertyChanged

@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace candaBarcode.Forms
+namespace Stock6.CustomControls
 {
 	public class ZXingOverlay :Grid
 	{

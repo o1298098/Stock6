@@ -27,7 +27,7 @@ namespace Stock6.Views
             Task.Run(async () => {
                 EntryCell cellURL = new EntryCell { Label = "FtpURL", Text = await SecureStorage.GetAsync("FtpURL"), };
                 EntryCell cellUser = new EntryCell { Label = "FtpUser", Text = await SecureStorage.GetAsync("FtpUser"), };
-                EntryCell cellPassword = new EntryCell { Label = "FtpPassword", Text = await SecureStorage.GetAsync("FtpPassword"), };
+                EntryCell cellPassword = new EntryCell { Label = "FtpPassword", Text = await SecureStorage.GetAsync("FtpPassword") };
                 section.Add(cellURL);
                 section1.Add(cellUser);
                 section2.Add(cellPassword);
@@ -38,7 +38,7 @@ namespace Stock6.Views
                     await SecureStorage.SetAsync("FtpURL", cellURL.Text);
                     await SecureStorage.SetAsync("FtpUser", cellUser.Text);
                     await SecureStorage.SetAsync("FtpPassword", cellPassword.Text);
-                    await DisplayAlert("提示", "成功", "OK");
+                    DependencyService.Get<Services.IToast>().LongAlert("保存成功");
                     App.Context = new Models.Context();
 
                 };

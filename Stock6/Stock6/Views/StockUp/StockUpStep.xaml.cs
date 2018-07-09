@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Lottie.Forms;
 using Stock6.Models;
+using Stock6.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -46,8 +47,7 @@ namespace Stock6.Views.StockUp
                         await scanQrAnimation.TranslateTo(0, 0, 50);
                         await scanQrAnimation.TranslateTo(20, 0, 50);
                         await scanQrAnimation.TranslateTo(0, 0, 50);
-                        Qrlabel.Text = "请先操作Step1";
-                        Qrlabel.TextColor = Color.Red;
+                        DependencyService.Get<IToast>().LongAlert("请先完成Step1");
                     }
                     else
                     {
@@ -96,6 +96,11 @@ namespace Stock6.Views.StockUp
             }
             base.OnAppearing();
            
+        }
+        protected override void OnDisappearing()
+        {
+            GC.Collect();
+            base.OnDisappearing();
         }
         private void UpdateUI()
         {

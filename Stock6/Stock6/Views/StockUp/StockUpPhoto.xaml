@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Stock6.Views.StockUpPhoto">
+             x:Class="Stock6.Views.StockUpPhoto"
+             Title="相册">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="发送" x:Name="SendBtn"></ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -23,6 +24,7 @@
                 <ActivityIndicator x:Name="activityIndicator"
                            IsRunning="True"
                            VerticalOptions="Center" />
-            </Grid><!--</StackLayout>-->
+            <ProgressBar x:Name="progressbar" Progress="0" VerticalOptions="Start" BackgroundColor="#fafafa" Opacity="0.9" HeightRequest="50" IsVisible="False" />
+        </Grid><!--</StackLayout>-->
     </ContentPage.Content>
 </ContentPage>

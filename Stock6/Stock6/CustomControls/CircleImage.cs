@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace Stock6.CustomForms
+namespace Stock6.CustomControls
 {
     public class CircleImage:Image
     {

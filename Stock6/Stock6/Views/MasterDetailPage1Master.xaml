@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Stock6.Views.MasterDetailPage1Master"
-             xmlns:customforms="clr-namespace:Stock6.CustomForms"
+             xmlns:customforms="clr-namespace:Stock6.CustomControls"
              xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              Title="Master">
   <StackLayout>
@@ -47,18 +47,7 @@
               Grid.Row="1"
               Source="xiaobin.jpg"
               />
-           <Button
-              x:Name="login"
-              Grid.Column="2"
-              Grid.Row="1" 
-              HeightRequest="30"
-              WidthRequest="80"
-              HorizontalOptions="Center"
-              VerticalOptions="Center"
-              FontSize="8"
-              Text="登陆"
-              />
-                </Grid>
+            </Grid>
       </ListView.Header>
       <ListView.ItemTemplate>
         <DataTemplate>
@@ -94,7 +83,7 @@
     </ListView>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -108,13 +97,13 @@
             Grid.Column="0"
             Grid.Row="0"
             Animation="Option.json" />-->
-            <Button x:Name="Option"  
+            <Image x:Name="Option"  
                     Grid.Column="0"
-                     Grid.Row="0" 
-                    BackgroundColor="#fafafa" 
-                    Image="setting.png" 
-                    WidthRequest="50" 
-                    HeightRequest="50" ></Button>
+                    Grid.Row="0" 
+                    Source="setting.png"
+                    HeightRequest="50"
+                    WidthRequest="50"
+                    Aspect="AspectFill"></Image>
         </Grid>
     </StackLayout>
 </ContentPage>

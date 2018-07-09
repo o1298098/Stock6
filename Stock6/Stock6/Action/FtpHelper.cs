@@ -48,7 +48,7 @@ namespace Stock6.Action
             }
             catch (Exception ex)
             {
-                throw new Exception("Ftphelper Upload Error --> " + ex.Message);
+                //throw new Exception("Ftphelper Upload Error --> " + ex.Message);
             }
         }
         public void MakeDir(string dirName)
@@ -70,12 +70,14 @@ namespace Stock6.Action
             }
             catch (Exception ex)
             {
-                throw new Exception("FtpHelper MakeDir Error --> " + ex.Message);
+                //throw new Exception("FtpHelper MakeDir Error --> " + ex.Message);
             }
         }
         public bool DirectoryExist(string RemoteDirectoryName)
         {
             string[] dirList = GetDirectoryList();
+            if (dirList == null)
+                return false;
             foreach (string str in dirList)
             {
                 if (str.Trim() == RemoteDirectoryName.Trim())
@@ -106,7 +108,6 @@ namespace Stock6.Action
                 string line = reader.ReadLine();
                 //line = reader.ReadLine();
                 //line = reader.ReadLine();
-
                 while (line != null)
                 {
                     result.Append(line);
@@ -120,34 +121,42 @@ namespace Stock6.Action
             }
             catch (Exception ex)
             {
-                downloadFiles = null;
-                throw new Exception("FtpHelper  Error --> " + ex.Message);
+                
+                return downloadFiles = null;
+                //throw new Exception("FtpHelper  Error --> " + ex.Message);
             }
         }
         public string[] GetDirectoryList()
         {
             string[] drectory = GetFilesDetailList();
             string m = string.Empty;
-            foreach (string str in drectory)
+            if (drectory != null)
             {
-                int dirPos = str.IndexOf("<DIR>");
-                if (dirPos > 0)
+                foreach (string str in drectory)
                 {
-                    m += str.Substring(dirPos + 5).Trim() + "\n";
-                }
-                else if (str.Trim().Substring(0, 1).ToUpper() == "D")
-                {
-                  
-                    string dir = str.Substring(54).Trim();
-                    if (dir != "." && dir != "..")
+                    int dirPos = str.IndexOf("<DIR>");
+                    if (dirPos > 0)
                     {
-                        m += dir + "\n";
+                        m += str.Substring(dirPos + 5).Trim() + "\n";
+                    }
+                    else if (str.Trim().Substring(0, 1).ToUpper() == "D")
+                    {
+
+                        string dir = str.Substring(54).Trim();
+                        if (dir != "." && dir != "..")
+                        {
+                            m += dir + "\n";
+                        }
                     }
                 }
-            }
 
-            char[] n = new char[] { '\n' };
-            return m.Split(n);
+                char[] n = new char[] { '\n' };
+                return m.Split(n);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

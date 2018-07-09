@@ -13,7 +13,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Stock6.CustomForms;
+using Stock6.CustomControls;
 using Stock6.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

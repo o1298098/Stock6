@@ -1,5 +1,4 @@
-﻿using candaBarcode.Forms;
-using Stock6.action;
+﻿using Stock6.action;
 using Stock6.Models;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,7 @@ using Newtonsoft.Json;
 using Lottie.Forms;
 using System.ComponentModel;
 using Stock6.ViewModels;
+using Stock6.CustomControls;
 
 namespace Stock6.Views
 {
