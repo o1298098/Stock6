@@ -27,6 +27,7 @@
             Animation="cycle_animation.json" 
             Loop="True"
             AutoPlay="True"  
+            Speed="1.5"
             VerticalOptions="CenterAndExpand" 
             HorizontalOptions="CenterAndExpand" />
             <Label Grid.Column="1" Grid.Row="1" Text="注册后你能balabala!!!" HorizontalTextAlignment="Center" VerticalTextAlignment="End" FontSize="12"></Label>

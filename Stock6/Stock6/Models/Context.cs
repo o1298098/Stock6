@@ -37,14 +37,15 @@ namespace Stock6.Models
         /// </summary>
         public string FtpPassword { get=>_FtpPassword; }
 
-        public Context()
+        public  Context()
         {
             ServerUrl = "http://canda.f3322.net:8003/k3cloud/";
             DataCenterId = "59a12c8ba824d2";//帐套Id 测试5ab05fc34e03d1 正式59a12c8ba824d2
-            Task.Run(async ()=>{
-                string furl= await SecureStorage.GetAsync("FtpURL");
-                string fuser= await SecureStorage.GetAsync("FtpUser");
-                string fpassword= await SecureStorage.GetAsync("FtpPassword");
+            Task.Run(async () =>
+            {
+                string furl = await SecureStorage.GetAsync("FtpURL");
+                string fuser = await SecureStorage.GetAsync("FtpUser");
+                string fpassword = await SecureStorage.GetAsync("FtpPassword");
                 _FtpUrl = string.IsNullOrEmpty(furl) ? "ftp://canda.f3322.net:8066/STOCKPIC/" : furl;
                 _FtpUser = string.IsNullOrEmpty(fuser) ? "administrator" : fuser;
                 _FtpPassword = string.IsNullOrEmpty(fpassword) ? "ergochef@2018" : fpassword;

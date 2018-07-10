@@ -174,8 +174,8 @@ namespace Stock6.Views
                     int curretcount = (this.PageIndex + 1) * this.PageSize;
                     int count = curretcount < images.Count ? curretcount : images.Count;
 
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
+                   
+                       Device.BeginInvokeOnMainThread(()=>{ 
                         for (int i = this.PageIndex * this.PageSize; i < count; i++)
                         {
                             string filepath = images[i].Path;
@@ -244,8 +244,8 @@ namespace Stock6.Views
 
                         }
                         this.PageIndex++;
-                    });
-                    return true;
+                       });
+                return true;
                 }
                 else
                 {

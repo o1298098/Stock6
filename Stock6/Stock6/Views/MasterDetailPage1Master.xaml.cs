@@ -26,7 +26,7 @@ namespace Stock6.Views
 
             BindingContext = new MasterDetailPage1MasterViewModel();
             ListView = MenuItemsListView;
-            //LoginBtn = Userimg;
+            LoginBtn = Userimg;
             OptionBtn = Option;
         }
 
@@ -40,9 +40,9 @@ namespace Stock6.Views
                 {
                     new MasterDetailPage1MenuItem { Id = 0, Title = "备货扫描",TargetType=typeof(StockUpPage),Icon="ScanIcon.json" },
                     new MasterDetailPage1MenuItem { Id = 1, Title = "组装拆卸",Icon="emoji_tongue.json" },
-                    new MasterDetailPage1MenuItem { Id = 2, Title = "？？？？",Icon="emoji_shock.json" },
-                    new MasterDetailPage1MenuItem { Id = 3, Title = "？？？？",Icon="emoji_wink.json"},
-                    new MasterDetailPage1MenuItem { Id = 4, Title = "？？？？",Icon="emoji_shock.json" },
+                    new MasterDetailPage1MenuItem { Id = 2, Title = "待定",Icon="emoji_shock.json" },
+                    new MasterDetailPage1MenuItem { Id = 3, Title = "待定",Icon="emoji_wink.json"},
+                    new MasterDetailPage1MenuItem { Id = 4, Title = "待定",Icon="emoji_shock.json" },
                 });
             }
             

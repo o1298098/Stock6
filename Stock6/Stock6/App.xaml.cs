@@ -11,7 +11,7 @@ namespace Stock6
         public App ()
 		{
 			InitializeComponent();
-            MainPage =new NavigationPage(new MasterDetailPage1());
+            MainPage =new NavigationPage( new MasterDetailPage1());
             Context = new Context();            
         }
 

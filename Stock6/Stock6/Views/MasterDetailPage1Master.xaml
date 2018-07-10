@@ -16,25 +16,24 @@
             BackgroundColor="#03A9F4">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="50"/>
               <ColumnDefinition Width="1*"/>
-              <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
           <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
-         <!--<local:CachedImage 
+         <local:CachedImage 
               Source="menubackground.png"
               Grid.Column="0"
-              Grid.ColumnSpan="5"
+              Grid.ColumnSpan="4"
               Grid.Row="0"
               Grid.RowSpan="4"
               Aspect="AspectFill"
-              ></local:CachedImage>-->
+              ></local:CachedImage>
            <Label
               Grid.Column="1"
               Grid.ColumnSpan="2"
@@ -42,12 +41,12 @@
               Text="BaLaBaLa"
               TextColor="Black"
               Style="{DynamicResource SubtitleStyle}"/>
-           <!--<customforms:CircleImage
+           <customforms:CircleImage
               x:Name="Userimg"
               Grid.Column="1"
               Grid.Row="1"
               Source="xiaobin.jpg"
-              />-->
+              />
             </Grid>
       </ListView.Header>
       <ListView.ItemTemplate>
@@ -56,8 +55,8 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="7*"/>
+                                <!--<ColumnDefinition Width="1*"/>-->
+                                <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="10"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -72,7 +71,7 @@
                                Loop="True"
                                AutoPlay="True"/>-->
                             <Label 
-                                 Grid.Column="2"
+                                 Grid.Column="1"
                                 Grid.Row="1"
                              VerticalTextAlignment="Center" 
                              Text="{Binding Title}" 

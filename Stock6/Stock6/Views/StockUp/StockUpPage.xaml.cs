@@ -5,6 +5,7 @@ using Stock6.Views.StockUp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -135,10 +136,15 @@ namespace Stock6.Views
                     View = grid
                 };
             });
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += async delegate {
+                await modelrefresh();
+            };
             listview.ItemTemplate = template;           
-            listview.Refreshing += async delegate {
-                   await modelrefresh();
-                  
+            listview.Refreshing +=delegate {
+                worker.RunWorkerAsync();
+
+
             };
             listview.ItemTapped += async (sender, e) => {
 
@@ -147,6 +153,11 @@ namespace Stock6.Views
                 scanPage.Title = "扫描物流单号条码";
                 await Navigation.PushAsync(scanPage);
             };
+            worker.RunWorkerCompleted += delegate
+            {
+                listview.EndRefresh();
+            };
+            listview.BeginRefresh();
         }
         private async Task modelrefresh()
         {
@@ -156,6 +167,7 @@ namespace Stock6.Views
             if (lists != null)
             {
                await Task.Run(() => {
+                   Task.Delay(500);
                 for (int i = 0; i < lists.Count(); i++)
                 {
                     string billstring = lists[i].Replace("[", "");
@@ -171,7 +183,6 @@ namespace Stock6.Views
                             Id = bill[4].ToString()
                         });
                 }
-                   listview.EndRefresh();
                });
             }
            
