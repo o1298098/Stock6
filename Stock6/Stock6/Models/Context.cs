@@ -42,12 +42,13 @@ namespace Stock6.Models
             ServerUrl = "http://canda.f3322.net:8003/k3cloud/";
             DataCenterId = "59a12c8ba824d2";//帐套Id 测试5ab05fc34e03d1 正式59a12c8ba824d2
             Task.Run(async ()=>{
-                _FtpUrl = await SecureStorage.GetAsync("FtpURL");
-                _FtpUser = await SecureStorage.GetAsync("FtpUser");
-                _FtpPassword = await SecureStorage.GetAsync("FtpPassword");
+                string furl= await SecureStorage.GetAsync("FtpURL");
+                string fuser= await SecureStorage.GetAsync("FtpUser");
+                string fpassword= await SecureStorage.GetAsync("FtpPassword");
+                _FtpUrl = string.IsNullOrEmpty(furl) ? "ftp://canda.f3322.net:8066/STOCKPIC/" : furl;
+                _FtpUser = string.IsNullOrEmpty(fuser) ? "administrator" : fuser;
+                _FtpPassword = string.IsNullOrEmpty(fpassword) ? "ergochef@2018" : fpassword;
             });
-
-            
         }         
 
         public event PropertyChangedEventHandler PropertyChanged;

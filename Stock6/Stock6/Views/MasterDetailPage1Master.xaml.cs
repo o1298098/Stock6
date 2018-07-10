@@ -26,7 +26,7 @@ namespace Stock6.Views
 
             BindingContext = new MasterDetailPage1MasterViewModel();
             ListView = MenuItemsListView;
-            LoginBtn = Userimg;
+            //LoginBtn = Userimg;
             OptionBtn = Option;
         }
 

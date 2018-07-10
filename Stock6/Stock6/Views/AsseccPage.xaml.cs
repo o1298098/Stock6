@@ -40,5 +40,10 @@ namespace Stock6.Views
         {
 
         }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            GC.Collect();
+        }
     }
 }

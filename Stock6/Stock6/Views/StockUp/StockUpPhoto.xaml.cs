@@ -17,6 +17,7 @@ using FFImageLoading.Forms;
 using System.Threading;
 using FFImageLoading;
 using Stock6.Action;
+using Stock6.apiHelper;
 
 namespace Stock6.Views
 {
@@ -52,7 +53,7 @@ namespace Stock6.Views
                 WidthRequest = 120,
                 HeightRequest = 120,
                 Scale = 0.4,
-                Source = "camera_black.png"
+                Source="camera_black.png"
 
             };
             BoxView box = new BoxView
@@ -61,13 +62,10 @@ namespace Stock6.Views
                 Color = Color.Black,
             };
             TapGestureRecognizer recognizer = new TapGestureRecognizer();
-            recognizer.Tapped += async (sender2, args) =>
+            recognizer.Tapped += async (s, args) =>
             {
                 if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-                {
                     return;
-                }
-
                 var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
                 {
                     Directory = "Test",
@@ -99,8 +97,7 @@ namespace Stock6.Views
                 activityIndicator.IsVisible = false;
             };
             scrollview.Scrolled += async (sender, e) =>
-            {
-               //ImageService.Instance.SetPauseWork(true);               
+            {         
                 if (scrollview.ScrollY >= scrollview.ContentSize.Height - scrollview.Height*1.5)
                 {
                     oldY = scrollview.ScrollY;
@@ -122,35 +119,43 @@ namespace Stock6.Views
                 if (BindingContext != null)
                 {
                     billno = BindingContext.ToString();
+                    if (selectedImages.Count > 0)
+                    {
+                        if (string.IsNullOrWhiteSpace(App.Context.FtpUrl) || string.IsNullOrWhiteSpace(App.Context.FtpUser) || string.IsNullOrWhiteSpace(App.Context.FtpPassword))
+                        {
+                            DependencyService.Get<IToast>().LongAlert("请在设置中完善ftp信息");
+                            return;
+                        }
+                        FtpHelper ftpHelper = new FtpHelper(App.Context.FtpUrl, App.Context.FtpUser, App.Context.FtpPassword);
+                        bool isdirexist = ftpHelper.DirectoryExist(billno);
+                        if (!isdirexist)
+                            ftpHelper.MakeDir(billno);
+                        progressbar.IsVisible = true;
+                        progressbar.Progress = 0;
+                        await Task.Run(() => {
+                            for (int i = 0; i < selectedImages.Count; i++)
+                            {
+                                ftpHelper.Upload(selectedImages[i].Path, billno);
+                                progressbar.Progress = (double)(i + 1) / (double)selectedImages.Count;
+                            }
+
+                        });
+
+                        progressbar.IsVisible = false;
+                        DependencyService.Get<IToast>().LongAlert("成功");
+                        List<object> Parameters = new List<object>();
+                        Parameters.Add(App.Context.DataCenterId);
+                        Parameters.Add(5);
+                        Parameters.Add(billno);
+                        Parameters.Add(App.Context.FtpUrl + billno);
+                        string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.UpdateStockUpScanState", Parameters);
+                    }
                 }
                 else
                 {
-                    billno = "bababab";
+                     DependencyService.Get<IToast>().LongAlert("请先扫描备货单条码后再上传图片");
                 }
-                if (selectedImages.Count > 0)
-                {
-                    if (string.IsNullOrWhiteSpace(App.Context.FtpUrl) || string.IsNullOrWhiteSpace(App.Context.FtpUser) || string.IsNullOrWhiteSpace(App.Context.FtpPassword)) {
-                       DependencyService.Get<IToast>().LongAlert("请在设置中完善ftp信息");
-                        return;
-                    }
-                    FtpHelper ftpHelper = new FtpHelper(App.Context.FtpUrl, App.Context.FtpUser, App.Context.FtpPassword);
-                    bool isdirexist = ftpHelper.DirectoryExist(billno);
-                    if (!isdirexist)
-                        ftpHelper.MakeDir(billno);
-                    progressbar.IsVisible = true;
-                    progressbar.Progress = 0;
-                  await  Task.Run(()=> {
-                        for (int i=0;i<selectedImages.Count;i++)
-                        {
-                            ftpHelper.Upload(selectedImages[i].Path, billno);
-                            progressbar.Progress = (double)(i + 1) / (double) selectedImages.Count;
-                        }
-                        
-                    });
-
-                    progressbar.IsVisible = false;
-                    DependencyService.Get<IToast>().LongAlert("成功");
-                }
+               
             };
             //BackgroundWorker worker = new BackgroundWorker();
             //worker.DoWork += Worker_DoWorkAsync;

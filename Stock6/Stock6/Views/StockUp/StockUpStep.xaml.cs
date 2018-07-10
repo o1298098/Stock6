@@ -32,7 +32,7 @@ namespace Stock6.Views.StockUp
                 scanBarAnimation.OnClick += async delegate
                 {
                     ScanPage scanPage = new ScanPage(1);
-                    scanPage.Title = "扫描一维码";
+                    scanPage.Title = "扫描备货单条码";
                     scanPage.BindingContext = stockUpBillModel;
                     await Navigation.PushAsync(scanPage);
                 //scanstacklayout.IsVisible = false;
@@ -48,7 +48,7 @@ namespace Stock6.Views.StockUp
                         await scanQrAnimation.TranslateTo(0, 0, 50);
                         await scanQrAnimation.TranslateTo(20, 0, 50);
                         await scanQrAnimation.TranslateTo(0, 0, 50);
-                        DependencyService.Get<IToast>().LongAlert("请先完成Step1");
+                        DependencyService.Get<IToast>().LongAlert("请先扫描备货单条码");
                     }
                     else
                     {
@@ -65,7 +65,7 @@ namespace Stock6.Views.StockUp
                     if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
                     {
                         scanPage = new ScanPage(1);
-                        scanPage.Title = "扫描一维码";
+                        scanPage.Title = "扫描备货单条码";
                     }
                     else
                     {

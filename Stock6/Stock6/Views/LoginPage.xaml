@@ -7,7 +7,7 @@
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Button x:Name="go" Text="go"></Button>
+           
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

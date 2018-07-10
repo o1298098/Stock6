@@ -27,14 +27,14 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
-         <local:CachedImage 
+         <!--<local:CachedImage 
               Source="menubackground.png"
               Grid.Column="0"
               Grid.ColumnSpan="5"
               Grid.Row="0"
               Grid.RowSpan="4"
               Aspect="AspectFill"
-              ></local:CachedImage>
+              ></local:CachedImage>-->
            <Label
               Grid.Column="1"
               Grid.ColumnSpan="2"
@@ -42,12 +42,12 @@
               Text="BaLaBaLa"
               TextColor="Black"
               Style="{DynamicResource SubtitleStyle}"/>
-           <customforms:CircleImage
+           <!--<customforms:CircleImage
               x:Name="Userimg"
               Grid.Column="1"
               Grid.Row="1"
               Source="xiaobin.jpg"
-              />
+              />-->
             </Grid>
       </ListView.Header>
       <ListView.ItemTemplate>

@@ -308,7 +308,7 @@ namespace Stock6.Views
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
             grid.Children.Add(zxing);
-            overlay.Children.Add(button, 0, 0);
+            //overlay.Children.Add(button, 0, 0);
             overlay.Children.Add(Loadinganimation,0,1);
             overlay.Children.Add(label, 0, 2);
             grid.Children.Add(overlay);

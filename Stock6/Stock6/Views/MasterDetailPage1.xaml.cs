@@ -16,11 +16,11 @@ namespace Stock6.Views
         {
             InitializeComponent();
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
-            TapGestureRecognizer recognizer=new TapGestureRecognizer();
-            recognizer.Tapped += async delegate {
-                await Navigation.PushAsync(new AsseccPage());
-            };
-            MasterPage.LoginBtn.GestureRecognizers.Add(recognizer);
+            //TapGestureRecognizer recognizer=new TapGestureRecognizer();
+            //recognizer.Tapped += async delegate {
+            //    await Navigation.PushAsync(new AsseccPage());
+            //};
+            //MasterPage.LoginBtn.GestureRecognizers.Add(recognizer);
             TapGestureRecognizer recognizer2 = new TapGestureRecognizer();
             recognizer2.Tapped += async delegate {
                 await Navigation.PushAsync(new OptionPage());
