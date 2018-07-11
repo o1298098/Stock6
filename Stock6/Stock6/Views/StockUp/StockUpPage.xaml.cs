@@ -183,6 +183,7 @@ namespace Stock6.Views
                             Id = bill[4].ToString()
                         });
                 }
+                   listview.IsRefreshing = false;
                });
             }
            

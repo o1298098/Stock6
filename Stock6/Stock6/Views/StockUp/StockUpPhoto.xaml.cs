@@ -42,7 +42,7 @@ namespace Stock6.Views
             this.PageSize = 24;
             this.Selected = 0;
             this.selectedImages = new List<ImageModel>();
-            ImageService.Instance.Config.MaxMemoryCacheSize = 100000;
+            ImageService.Instance.Config.MaxMemoryCacheSize = 1000;
             Grid firstgrid = new Grid()
             {
                 WidthRequest = 120,
@@ -104,14 +104,6 @@ namespace Stock6.Views
                     var result = await BindSearchResult();
                    
                 }
-                // if (scrollview.ScrollY - oldY >= 120)
-                //{
-                //    oldY = scrollview.ScrollY;
-                //    ImageService.Instance.SetPauseWork(false);
-
-                //}
-
-
             };
             SendBtn.Clicked +=async delegate
             {
@@ -185,14 +177,14 @@ namespace Stock6.Views
                                 HeightRequest = imageDimension,
                             };
                             
-                            CachedImage cachedImage = new CachedImage
+                             CachedImage cachedImage = new CachedImage
                             {
                                 Source = ImageSource.FromFile(filepath),
                                 WidthRequest = imageDimension,
                                 HeightRequest = imageDimension,
                                 Aspect = Aspect.AspectFill,
                                 DownsampleToViewSize = true,
-                                LoadingPlaceholder = "xiaobin.jpg"
+                                //LoadingPlaceholder = "xiaobin.jpg"
                             };
                             bool ischeck = false;
                             BoxView box = new BoxView {
@@ -283,7 +275,7 @@ namespace Stock6.Views
                                 HeightRequest = imageDimension,
                                 Aspect = Aspect.AspectFill,
                                 DownsampleToViewSize = true,
-                                LoadingPlaceholder = "xiaobin.jpg"
+                                //LoadingPlaceholder = "xiaobin.jpg"
                             };
                             flexLayout.Children.Add(cachedImage);
                         }

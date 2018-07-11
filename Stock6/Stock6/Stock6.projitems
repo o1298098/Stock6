@@ -23,8 +23,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CustomControls\CachedImageCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomControls\CircleImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomControls\CustomImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomControls\CustomListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomControls\ZXingOverlay.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Context.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ImageColloection.cs" />
@@ -69,6 +71,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ScanPage.xaml.cs">
       <DependentUpon>ScanPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\PhotoGallery.xaml.cs">
+      <DependentUpon>PhotoGallery.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPhoto.xaml.cs">
@@ -140,6 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\OptionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockUp\PhotoGallery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

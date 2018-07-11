@@ -1,4 +1,5 @@
 ﻿using Stock6.CustomControls;
+using Stock6.Views.StockUp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,9 +41,9 @@ namespace Stock6.Views
                 {
                     new MasterDetailPage1MenuItem { Id = 0, Title = "备货扫描",TargetType=typeof(StockUpPage),Icon="ScanIcon.json" },
                     new MasterDetailPage1MenuItem { Id = 1, Title = "组装拆卸",Icon="emoji_tongue.json" },
-                    new MasterDetailPage1MenuItem { Id = 2, Title = "待定",Icon="emoji_shock.json" },
-                    new MasterDetailPage1MenuItem { Id = 3, Title = "待定",Icon="emoji_wink.json"},
-                    new MasterDetailPage1MenuItem { Id = 4, Title = "待定",Icon="emoji_shock.json" },
+                    new MasterDetailPage1MenuItem { Id = 2, Title = "相册2",TargetType=typeof(PhotoGallery),Icon="emoji_shock.json" },
+                    //new MasterDetailPage1MenuItem { Id = 3, Title = "待定",Icon="emoji_wink.json"},
+                    //new MasterDetailPage1MenuItem { Id = 4, Title = "待定",Icon="emoji_shock.json" },
                 });
             }
             
