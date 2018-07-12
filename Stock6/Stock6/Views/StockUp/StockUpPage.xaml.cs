@@ -167,7 +167,7 @@ namespace Stock6.Views
             if (lists != null)
             {
                await Task.Run(() => {
-                   Task.Delay(500);
+                   Task.Delay(600);
                 for (int i = 0; i < lists.Count(); i++)
                 {
                     string billstring = lists[i].Replace("[", "");

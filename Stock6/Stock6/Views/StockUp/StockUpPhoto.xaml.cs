@@ -139,7 +139,7 @@ namespace Stock6.Views
                         Parameters.Add(App.Context.DataCenterId);
                         Parameters.Add(5);
                         Parameters.Add(billno);
-                        Parameters.Add(App.Context.FtpUrl + billno);
+                        Parameters.Add(App.Context.FtpUrl + billno+"/");
                         string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.UpdateStockUpScanState", Parameters);
                     }
                 }

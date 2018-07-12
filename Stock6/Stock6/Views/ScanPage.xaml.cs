@@ -51,7 +51,8 @@ namespace Stock6.Views
                         Loadinganimation.IsVisible = true;
                         //BackgroundWorker worker = new BackgroundWorker();
 
-                       await Task.Run(() => { 
+                        await Task.Run(() =>
+                        {
                             List<object> Parameters = new List<object>();
                             Parameters.Add(App.Context.DataCenterId);
                             Parameters.Add(result.ToString());
@@ -85,13 +86,13 @@ namespace Stock6.Views
                         StockUpBillModel stockUpBillModel = (StockUpBillModel)BindingContext;
                         if (qrstring.Substring(0, 2) != "#%")
                         {
-                            label.Text= "二维码数据格式有误";
+                            label.Text = "二维码数据格式有误";
                             return;
                         }
                         string jsonstring = qrstring.Substring(2, qrstring.Length - 2);
                         JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
                         if (jObject.ContainsKey("Id"))
-                        {                           
+                        {
                             string ID = jObject["Id"].ToString();
                             if ((bool)jObject["isgroup"])
                             {
@@ -114,7 +115,7 @@ namespace Stock6.Views
                                                          select new { q.F_XAY_IsCScan }).Count();
                                         if (scancount == 0)
                                         {
-                                          await  UpdateScanStateAsync(stockUpBillModel, ID, 1);
+                                            await UpdateScanStateAsync(stockUpBillModel, ID, 1);
                                         }
                                     }
                                     else
@@ -125,7 +126,7 @@ namespace Stock6.Views
                             }
                             else
                             {
-                               await UpdateScanStateAsync(stockUpBillModel, ID, 1);
+                                await UpdateScanStateAsync(stockUpBillModel, ID, 1);
                                 label.Text = "扫描成功";
                             }
                         }
@@ -146,6 +147,13 @@ namespace Stock6.Views
                             await Navigation.PopAsync();
                         }
                         else { label.Text = "err"; }
+                    }
+                    else if (mode == 4)
+                    {
+                        zxing.IsScanning = false;
+                        StringBuilder stringBuilder = (StringBuilder)BindingContext;
+                        stringBuilder.Append(result.ToString());
+                        await Navigation.PopAsync();
                     }
 
                 });

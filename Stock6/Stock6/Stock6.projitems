@@ -10,6 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockUp\SearchPhoto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -73,6 +77,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\ScanPage.xaml.cs">
       <DependentUpon>ScanPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\SearchPhoto.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SearchPhoto.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\PhotoGallery.xaml.cs">
       <DependentUpon>PhotoGallery.xaml</DependentUpon>
@@ -154,6 +162,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <Page Include="$(MSBuildThisFileDirectory)Views\StockUp\SearchPhoto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPhoto.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

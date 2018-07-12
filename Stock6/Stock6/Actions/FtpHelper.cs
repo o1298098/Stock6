@@ -51,6 +51,29 @@ namespace Stock6.Actions
                 //throw new Exception("Ftphelper Upload Error --> " + ex.Message);
             }
         }
+        public  Stream Download(string ftpfilepath)
+        {
+            Stream ftpStream = null;
+            FtpWebResponse response = null;
+            try
+            {
+                ftpfilepath = ftpfilepath.Replace("\\", "/");
+                string url =ftpfilepath;
+                FtpWebRequest reqFtp = (FtpWebRequest)FtpWebRequest.Create(new Uri(url));
+                reqFtp.UseBinary = true;
+                reqFtp.Credentials = new NetworkCredential(ftpUser, ftpPassword);
+                response = (FtpWebResponse)reqFtp.GetResponse();
+                ftpStream = response.GetResponseStream();
+            }
+            catch (Exception ee)
+            {
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+            return ftpStream;
+        }
         public void MakeDir(string dirName)
         {
             FtpWebRequest reqFTP;
@@ -87,27 +110,20 @@ namespace Stock6.Actions
             }
             return false;
         }
-        public string[] GetFilesDetailList()
+        public string[] GetFilesDetailList(string ftppath)
         {
             string[] downloadFiles;
             try
             {
                 StringBuilder result = new StringBuilder();
                 FtpWebRequest ftp;
-                ftp = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI));
+                ftp = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftppath));
                 ftp.Credentials = new NetworkCredential(ftpUser, ftpPassword);
                 ftp.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
                 ftp.UsePassive = true;
                 WebResponse response = ftp.GetResponse();
                 StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
-
-                //while (reader.Read() > 0)
-                //{
-
-                //}
                 string line = reader.ReadLine();
-                //line = reader.ReadLine();
-                //line = reader.ReadLine();
                 while (line != null)
                 {
                     result.Append(line);
@@ -128,7 +144,7 @@ namespace Stock6.Actions
         }
         public string[] GetDirectoryList()
         {
-            string[] drectory = GetFilesDetailList();
+            string[] drectory = GetFilesDetailList(ftpURI);
             string m = string.Empty;
             if (drectory != null)
             {
