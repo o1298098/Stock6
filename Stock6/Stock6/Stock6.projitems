@@ -16,10 +16,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Action\apiHelper\HttpClient.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Action\apiHelper\InvokeHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Action\FtpHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Action\Jsonhelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\apiHelper\HttpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\apiHelper\InvokeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\FtpHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\Jsonhelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\ImageColloection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ImageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\KingdeeJsonResultModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomControls\PasswordEntryCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpBillModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockUpJsonModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />

@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace Stock6.Action
+namespace Stock6.Actions
 {
     public class FtpHelper
     {

@@ -1,5 +1,5 @@
 ﻿using Lottie.Forms;
-using Stock6.action;
+using Stock6.Actions;
 using Stock6.ViewModels;
 using Stock6.Views.StockUp;
 using System;
@@ -155,7 +155,7 @@ namespace Stock6.Views
             };
             worker.RunWorkerCompleted += delegate
             {
-                listview.EndRefresh();
+                listview.IsRefreshing = false;
             };
             listview.BeginRefresh();
         }
@@ -183,7 +183,6 @@ namespace Stock6.Views
                             Id = bill[4].ToString()
                         });
                 }
-                   listview.IsRefreshing = false;
                });
             }
            

@@ -15,40 +15,33 @@ namespace Stock6.Views
 		public OptionPage ()
 		{
 			InitializeComponent ();
-            TableView tableView = new TableView
-            {
-                Intent = TableIntent.Settings,
-                Root = new TableRoot()
-            };
-
-            TableSection section = new TableSection();
-            TableSection section1 = new TableSection();
-            TableSection section2 = new TableSection();
-            EntryCell cellFtpURL = new EntryCell { Label = "FtpURL"};
-            EntryCell cellFtpUser = new EntryCell { Label = "FtpUser"};
-            EntryCell cellFtpPassword = new EntryCell { Label = "FtpPassword"};
+          
             Task.Run(async () => {
                 string FtpURL = await SecureStorage.GetAsync("FtpURL");
                 string FtpUser = await SecureStorage.GetAsync("FtpUser");
                 string FtpPassword = await SecureStorage.GetAsync("FtpPassword");
-                cellFtpURL.Text = string.IsNullOrWhiteSpace(FtpURL) ? "ftp://canda.f3322.net:8066/STOCKPIC/" : FtpURL;
-                cellFtpUser.Text = string.IsNullOrWhiteSpace(FtpUser) ? "administrator" : FtpUser;
-                cellFtpPassword.Text = string.IsNullOrWhiteSpace(FtpPassword) ? "ergochef@2018" : FtpPassword;
+                string KDURL = await SecureStorage.GetAsync("KDURL");
+                string KDDataCenterID = await SecureStorage.GetAsync("KDDataCenterID");
+                string KDUser = await SecureStorage.GetAsync("KDUser");
+                string KDPassword = await SecureStorage.GetAsync("KDPassword");
+                FtpUrlEntry.ValueText = string.IsNullOrWhiteSpace(FtpURL) ? "ftp://canda.f3322.net:8066/STOCKPIC/" : FtpURL;
+                FtpUserEntry.ValueText = string.IsNullOrWhiteSpace(FtpUser) ? "administrator" : FtpUser;
+                FtpPasswordEntry.ValueText = string.IsNullOrWhiteSpace(FtpPassword) ? "ergochef@2018" : FtpPassword;
+                KDUrlEntry.ValueText= string.IsNullOrWhiteSpace(KDURL) ? "http://canda.f3322.net:8003/K3CLOUD/" : KDURL;
+                KDDataCenterIDEntry.ValueText = string.IsNullOrWhiteSpace(KDDataCenterID) ? "59a12c8ba824d2" : KDDataCenterID;
+                KDUserEntry.ValueText = string.IsNullOrWhiteSpace(KDUser) ? "kingdee" : KDUser;
+                KDPasswordEntry.ValueText = string.IsNullOrWhiteSpace(KDPassword) ? "kd!123456" : KDPassword;
             });
-            section.Add(cellFtpURL);
-            section1.Add(cellFtpUser);
-            section2.Add(cellFtpPassword);
-            tableView.Root.Add(section);
-            tableView.Root.Add(section1);
-            tableView.Root.Add(section2);
             Savebtn.Clicked += async delegate {
-                await SecureStorage.SetAsync("FtpURL", cellFtpURL.Text);
-                await SecureStorage.SetAsync("FtpUser", cellFtpUser.Text);
-                await SecureStorage.SetAsync("FtpPassword", cellFtpPassword.Text);
+                await SecureStorage.SetAsync("FtpURL", FtpUrlEntry.ValueText);
+                await SecureStorage.SetAsync("FtpUser", FtpUserEntry.ValueText);
+                await SecureStorage.SetAsync("FtpPassword", FtpPasswordEntry.ValueText);
+                await SecureStorage.SetAsync("KDURL", KDUrlEntry.ValueText);
+                await SecureStorage.SetAsync("KDUser", KDUserEntry.ValueText);
+                await SecureStorage.SetAsync("KDPassword", KDPasswordEntry.ValueText);
                 DependencyService.Get<Services.IToast>().LongAlert("保存成功");
                 App.Context = new Models.Context();
              };
-            Content = tableView;
         }
 	}
 }

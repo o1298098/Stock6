@@ -16,8 +16,8 @@ using Stock6.CustomForms;
 using FFImageLoading.Forms;
 using System.Threading;
 using FFImageLoading;
-using Stock6.Action;
 using Stock6.apiHelper;
+using Stock6.Actions;
 
 namespace Stock6.Views
 {

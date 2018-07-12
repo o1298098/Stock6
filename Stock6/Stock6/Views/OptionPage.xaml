@@ -1,13 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"      
+             xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
+             xmlns:customcontrols="clr-namespace:Stock6.CustomControls"
+             Title="设置"
              x:Class="Stock6.Views.OptionPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="Savebtn" Text="保存"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-          
-        </StackLayout>
+        <sv:SettingsView HasUnevenRows="true">
+
+            <sv:Section Title="个人信息" FooterText="">
+                <sv:CommandCell IconSource="icon.png" IconSize="60,60" IconRadius="30"
+            Title="UserName" Description="o1298098@live.com"
+            Command="{Binding ToProfileCommand}" CommandParameter="{Binding Parameter}"
+            KeepSelectedUntilBack="true" />
+                <sv:ButtonCell Title="修改信息" TitleColor="{StaticResource TitleTextColor}"
+             TitleAlignment="Center" Command="{Binding SectionToggleCommand}" />
+            </sv:Section>
+            <sv:Section Title="FTP设置" FooterText="" IsVisible="{Binding SctionIsVisible}">
+                <sv:EntryCell x:Name="FtpUrlEntry" Title="服务器" ValueText="{Binding InputText.Value}" Placeholder="ftp://192.168.1.167" Keyboard="Url" TextAlignment="End" HintText="{Binding InputError.Value}" />
+                <sv:EntryCell x:Name="FtpUserEntry" Title="用户名" ValueText="{Binding InputText.Value}" Placeholder="user"  TextAlignment="End" HintText="{Binding InputError.Value}" />
+                <customcontrols:PasswordEntryCell x:Name="FtpPasswordEntry" Title="密码" ValueText="{Binding InputText.Value}" Placeholder="password"  TextAlignment="End" HintText="{Binding InputError.Value}" />
+            </sv:Section>
+            <sv:Section Title="金蝶账套" FooterText="" IsVisible="{Binding SctionIsVisible}">
+                <sv:EntryCell x:Name="KDUrlEntry" Title="服务器" ValueText="{Binding InputText.Value}" Placeholder="http://XXXXXXX/K3CLOUD/" Keyboard="Url" TextAlignment="End" HintText="{Binding InputError.Value}" />
+                <sv:EntryCell x:Name="KDDataCenterIDEntry" Title="数据中心ID" ValueText="{Binding InputText.Value}" Placeholder="可在k3中查看id"  TextAlignment="End" HintText="{Binding InputError.Value}" />
+                <sv:EntryCell x:Name="KDUserEntry" Title="用户名" ValueText="{Binding InputText.Value}" Placeholder="user"  TextAlignment="End" HintText="{Binding InputError.Value}" />
+                <customcontrols:PasswordEntryCell x:Name="KDPasswordEntry" Title="密码" ValueText="{Binding InputText.Value}" Placeholder="password"  TextAlignment="End" HintText="{Binding InputError.Value}" />
+            </sv:Section>
+        </sv:SettingsView>
+      
     </ContentPage.Content>
 </ContentPage>

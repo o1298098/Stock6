@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stock6.action
+namespace Stock6.Actions
 {
    public class Jsonhelper
     {

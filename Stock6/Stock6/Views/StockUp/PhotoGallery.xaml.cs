@@ -1,5 +1,5 @@
 ﻿using FFImageLoading;
-using Stock6.Action;
+using Stock6.Actions;
 using Stock6.apiHelper;
 using Stock6.CustomControls;
 using Stock6.Models;
@@ -39,7 +39,7 @@ namespace Stock6.Views.StockUp
             {
                 images = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
                 Selectedimages = new List<ImageModel>();
-                listView.ItemsSource = images;
+                listView.BeginRefresh();
             };
             listView.ItemsSource = images;
             listView.ItemTemplate = new DataTemplate(typeof(CachedImageCell));
@@ -59,11 +59,11 @@ namespace Stock6.Views.StockUp
                      Selectedimages.Add(selected);
                  }                 
              };
-            //listView.Refreshing += delegate
-            //{
-            //    listView.ItemsSource = images;
-            //    listView.EndRefresh();
-            //};
+            listView.Refreshing += delegate
+            {
+                listView.ItemsSource = images;
+                listView.EndRefresh();
+            };
             SendBtn.Clicked += async delegate
             {
                 string billno;
