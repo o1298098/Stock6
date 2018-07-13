@@ -73,6 +73,8 @@ namespace Stock6.Models
             get { return ImageSource.FromFile(this.path); }            
         }
 
+
+
     }
 
 }

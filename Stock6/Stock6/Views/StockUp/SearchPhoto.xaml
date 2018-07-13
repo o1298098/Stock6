@@ -10,7 +10,7 @@
             <ScrollView x:Name="scrollview">
                 <FlexLayout x:Name="flexLayout"
                         Wrap="Wrap"
-                        JustifyContent="SpaceAround"
+                        JustifyContent="SpaceEvenly"
                         FlowDirection="LeftToRight"/>
             </ScrollView>
 

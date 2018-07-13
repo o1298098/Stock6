@@ -3,6 +3,7 @@ using Lottie.Forms;
 using Stock6.Actions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,14 +17,16 @@ namespace Stock6.Views.StockUp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SearchPhoto : ContentPage
 	{
-        private static StringBuilder ftpurl;
-        private FtpHelper ftpHelper;
-        private CachedImage image;
+        static StringBuilder ftpurl;
+        FtpHelper ftpHelper;
+        CachedImage image;
+        List<string> fileslist;
 
         public SearchPhoto()
 		{
 			InitializeComponent ();
             ftpurl = new StringBuilder();
+            fileslist = new List<string>();
             ftpHelper = new FtpHelper(App.Context.FtpUrl, App.Context.FtpUser, App.Context.FtpPassword);
             image = new CachedImage();
             image.IsVisible = false;
@@ -37,8 +40,10 @@ namespace Stock6.Views.StockUp
             ScanPage scanPage = new ScanPage(4);
             scanPage.BindingContext = ftpurl;
             scanPage.Title = "扫描二维码查看图片";
-            scanbtn.Clicked += async delegate {               
-                await Navigation.PushAsync(scanPage);
+            scanbtn.Clicked += async delegate {
+                SearchPhotoDetail searchPhotoDetail = new SearchPhotoDetail();
+                searchPhotoDetail.BindingContext = fileslist;
+                await Navigation.PushAsync(searchPhotoDetail);
             };
             Task.Run(async() => {
                 await Navigation.PushAsync(scanPage);
@@ -50,35 +55,38 @@ namespace Stock6.Views.StockUp
             if (!string.IsNullOrWhiteSpace(ftpurl.ToString()))
             {
                 flexLayout.Children.Clear();
+                fileslist = new List<string>();
                 var path = ftpurl.ToString().Clone();
                 string[] files = ftpHelper.GetFilesDetailList(path.ToString());
-
                 if (files != null)
                 {
-                    foreach (var q in files)
-                    {
-                        int Mindex = q.IndexOf("M");
-                        string str = q.Substring(Mindex + 1).Trim();
-                        int index = str.IndexOf(" ");
-                        string file = str.Substring(index).Trim();
-                        CachedImage cachedImage = new CachedImage
+                    Device.BeginInvokeOnMainThread(() => {
+                        foreach (var q in files)
                         {
-                            Source = UriImageSource.FromStream(() => ftpHelper.Download(path.ToString() + file)),
-                            WidthRequest = 120,
-                            HeightRequest = 120,
-                            Aspect = Aspect.AspectFill,
-                            DownsampleToViewSize = true,
-                        };
-                        TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
-                        tapGestureRecognizer.Tapped += (sender, args) => {
-                            image.Source = cachedImage.Source;
-                            image.IsVisible = true;
-                        };
-                        cachedImage.GestureRecognizers.Add(tapGestureRecognizer);
-                        flexLayout.Children.Add(cachedImage);
-                    }
-
+                            int Mindex = q.IndexOf("M");
+                            string str = q.Substring(Mindex + 1).Trim();
+                            int index = str.IndexOf(" ");
+                            string file = str.Substring(index).Trim();
+                            fileslist.Add(path.ToString() + file);
+                            CachedImage cachedImage = new CachedImage
+                            {
+                                Source = UriImageSource.FromStream(() => ftpHelper.Download(path.ToString() + file)),
+                                WidthRequest = 120,
+                                HeightRequest = 120,
+                                Aspect = Aspect.AspectFill,
+                                DownsampleToViewSize = true,
+                            };
+                            TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
+                            tapGestureRecognizer.Tapped += (sender, args) => {
+                                image.Source = cachedImage.Source;
+                                image.IsVisible = true;
+                            };
+                            cachedImage.GestureRecognizers.Add(tapGestureRecognizer);
+                            flexLayout.Children.Add(cachedImage);
+                        }
+                    });
                 }
+                    
                 ftpurl = new StringBuilder();
             }
         }
