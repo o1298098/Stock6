@@ -89,7 +89,7 @@ namespace Stock6.Views
                             label.Text = "二维码数据格式有误";
                             return;
                         }
-                        string jsonstring = qrstring.Substring(2, qrstring.Length - 2);
+                        string jsonstring = qrstring.Substring(2);
                         JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
                         if (jObject.ContainsKey("Id"))
                         {
@@ -155,7 +155,32 @@ namespace Stock6.Views
                         stringBuilder.Append(result.ToString());
                         await Navigation.PopAsync();
                     }
-
+                    else if (mode==5)
+                    {
+                        Loadinganimation.IsVisible = true;
+                        string qrresult = BaseToString(result.ToString());
+                        if (qrresult.Substring(0, 2) != "#%")
+                        {
+                            label.Text = "二维码数据格式有误";
+                            return;
+                        }
+                        string jsonstring = qrresult.Substring(2);
+                        JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
+                        string json ="{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNO\",\"FilterString\":\"F_XAY_StockUpOrderEntity_FENTRYID="+ jObject["Id"].ToString() + "\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                        string[] lists = Actions.Jsonhelper.JsonToString(json);
+                        string billno = string.Empty;
+                        if (lists != null)
+                        {
+                            billno= lists[0];
+                            billno = billno.Replace("[","");
+                            billno = billno.Replace("]","");
+                            StockUpPhoto photopage = new StockUpPhoto();
+                            photopage.BindingContext = billno;
+                            Navigation.InsertPageBefore(photopage, this);
+                            await Navigation.PopAsync();
+                        }
+                       
+                    }
                 });
 
             label = new Label

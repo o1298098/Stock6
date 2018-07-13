@@ -42,23 +42,13 @@ namespace Stock6.Models
         {
             //ServerUrl = "http://canda.f3322.net:8003/k3cloud/";
             //DataCenterId = "59a12c8ba824d2";//帐套Id 测试5ab05fc34e03d1 正式59a12c8ba824d2
-            Task.Run(async () =>
-            {
-                string furl = await SecureStorage.GetAsync("FtpURL");
-                string fuser = await SecureStorage.GetAsync("FtpUser");
-                string fpassword = await SecureStorage.GetAsync("FtpPassword");
-                string kdurl = await SecureStorage.GetAsync("KDURL");
-                string kddataCenterID = await SecureStorage.GetAsync("KDDataCenterID");
-                string kduser = await SecureStorage.GetAsync("KDUser");
-                string kdpassword = await SecureStorage.GetAsync("KDPassword");
-                ServerUrl = string.IsNullOrWhiteSpace(kdurl) ? "http://canda.f3322.net:8003/k3cloud/" : kdurl;
-                DataCenterId = string.IsNullOrWhiteSpace(kddataCenterID) ? "59a12c8ba824d2" : kddataCenterID;
-                KDUser = string.IsNullOrWhiteSpace(kduser) ? "kingdee" : kduser;
-                KDPassword = string.IsNullOrWhiteSpace(kdpassword) ? "kd!123456" : kdpassword;
-                FtpUrl = string.IsNullOrEmpty(furl) ? "ftp://canda.f3322.net:8066/STOCKPIC/" : furl;
-                FtpUser = string.IsNullOrEmpty(fuser) ? "administrator" : fuser;
-                FtpPassword = string.IsNullOrEmpty(fpassword) ? "ergochef@2018" : fpassword;
-            });
+                FtpUrl = Preferences.Get("FtpURL", "ftp://canda.f3322.net:8066/STOCKPIC/");
+                FtpUser = Preferences.Get("FtpUser", "administrator");
+                FtpPassword = Preferences.Get("FtpPassword", "ergochef@2018");
+                ServerUrl = Preferences.Get("KDURL", "http://canda.f3322.net:8003/k3cloud/");
+                DataCenterId = Preferences.Get("KDDataCenterID", "59a12c8ba824d2");
+                KDUser = Preferences.Get("KDUser", "kingdee");
+                KDPassword = Preferences.Get("KDPassword", "kd!123456");
         }         
 
         public event PropertyChangedEventHandler PropertyChanged;

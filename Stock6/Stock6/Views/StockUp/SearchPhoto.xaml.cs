@@ -34,19 +34,22 @@ namespace Stock6.Views.StockUp
             };
             image.GestureRecognizers.Add(tapgr);
             grid.Children.Add(image);
-            scanbtn.Clicked += async delegate {
-                ScanPage scanPage = new ScanPage(4);
-                scanPage.BindingContext = ftpurl;
-                scanPage.Title = "扫描图片二维码";
+            ScanPage scanPage = new ScanPage(4);
+            scanPage.BindingContext = ftpurl;
+            scanPage.Title = "扫描二维码查看图片";
+            scanbtn.Clicked += async delegate {               
                 await Navigation.PushAsync(scanPage);
             };
+            Task.Run(async() => {
+                await Navigation.PushAsync(scanPage);
+            });
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
             if (!string.IsNullOrWhiteSpace(ftpurl.ToString()))
             {
-
+                flexLayout.Children.Clear();
                 var path = ftpurl.ToString().Clone();
                 string[] files = ftpHelper.GetFilesDetailList(path.ToString());
 

@@ -104,8 +104,6 @@ namespace Stock6.Views
                                 Label addrowlabel = new Label { Text =string.Format("{0} {1}{2}", bill[0] , (Convert.ToSingle( bill[1])).ToString("f0") , bill[2]) ,FontSize=10,Margin=new Thickness(15,0,0,2) };
                                 grid.Children.Add(addrowlabel, 0, rowcount - 1);
                                 Grid.SetColumnSpan(addrowlabel, 3);
-
-
                             }
                             clickstate = !clickstate;
                         }
@@ -137,7 +135,7 @@ namespace Stock6.Views
                 };
             });
             BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += async delegate {
+            worker.DoWork +=async delegate {
                 await modelrefresh();
             };
             listview.ItemTemplate = template;           
@@ -155,7 +153,7 @@ namespace Stock6.Views
             };
             worker.RunWorkerCompleted += delegate
             {
-                listview.IsRefreshing = false;
+                listview.EndRefresh();
             };
             listview.BeginRefresh();
         }
@@ -167,7 +165,7 @@ namespace Stock6.Views
             if (lists != null)
             {
                await Task.Run(() => {
-                   Task.Delay(600);
+                   Task.Delay(100);
                 for (int i = 0; i < lists.Count(); i++)
                 {
                     string billstring = lists[i].Replace("[", "");
