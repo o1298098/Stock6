@@ -309,25 +309,25 @@ namespace Stock6.Views
             #endregion
             overlay = new ZXingOverlay
             {
-                ShowFlashButton = false,
+                ShowFlashButton = true,
             };
             overlay.FlashButtonClicked += (sender, e) =>
             {
                 try
                 {
 
-                    //if (!zxing.IsTorchOn)
-                    //{
-                    //    sender.Image = "flashlighton.png";
-                    ////    CrossLampState = true;
-                    //    zxing.IsTorchOn = true;
+                    if (!zxing.IsTorchOn)
+                    {
+                        sender.Text = "关灯";
+                        //    CrossLampState = true;
+                        zxing.IsTorchOn = true;
 
-                    //}
-                    //else
-                    //{
-                    //    sender.Image = "flashlightoff.png";
-                    //    zxing.IsTorchOn = false;
-                    //}
+                    }
+                    else
+                    {
+                        sender.Text = "开灯";
+                        zxing.IsTorchOn = false;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -342,7 +342,7 @@ namespace Stock6.Views
             grid.Children.Add(zxing);
             //overlay.Children.Add(button, 0, 0);
             overlay.Children.Add(Loadinganimation,0,1);
-            overlay.Children.Add(label, 0, 2);
+            overlay.Children.Add(label, 0, 0);
             grid.Children.Add(overlay);
             Content = grid;
         }

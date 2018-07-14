@@ -23,11 +23,9 @@ namespace Stock6.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
-            Stormlion.PhotoBrowser.Droid.Platform.Init(this);
-            Xamarin.Forms.DependencyService.Register<Stormlion.PhotoBrowser.Droid.PhotoBrowserImplementation>();
             base.OnCreate(bundle);
             Instance = this;
+            Platform.Init(this);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);

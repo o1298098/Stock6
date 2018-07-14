@@ -47,6 +47,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\IPhotoViewer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IPicturePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IToast.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PhotoBrowserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StockUpPageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AsseccPage.xaml.cs">
       <DependentUpon>AsseccPage.xaml</DependentUpon>

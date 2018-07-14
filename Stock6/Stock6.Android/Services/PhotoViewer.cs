@@ -14,7 +14,7 @@ using Com.Stfalcon.Frescoimageviewer;
 
 namespace Stock6.Droid.Services
 {
-    public class PhotoViewer : IPhotoViewer
+    public class PhotoViewer 
     {
         protected static Com.Stfalcon.Frescoimageviewer.Adapter.ViewHolder _imageViewer;
         public void show()

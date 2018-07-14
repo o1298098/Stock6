@@ -78,12 +78,15 @@ namespace Stock6.Views
                 });
                 if (file == null)
                     return;
-                takaphoto.Source = ImageSource.FromStream(() =>
-                {
-                    var stream = file.GetStream();
-                    file.Dispose();
-                    return stream;
-                });
+                ImageModel model = new ImageModel(file.Path,111,"zaop","");
+                Grid grid = AddImage(model);
+                flexLayout.Children.Insert(1, grid);
+                //takaphoto.Source = ImageSource.FromStream(() =>
+                //{
+                //    var stream = file.GetStream();
+                //    file.Dispose();
+                //    return stream;
+                //});
             };
             box.GestureRecognizers.Add(recognizer);
             firstgrid.Children.Add(takaphoto);
@@ -166,76 +169,17 @@ namespace Stock6.Views
                     int curretcount = (this.PageIndex + 1) * this.PageSize;
                     int count = curretcount < images.Count ? curretcount : images.Count;
 
-                   
-                       Device.BeginInvokeOnMainThread(()=>{ 
+
+                Device.BeginInvokeOnMainThread(()=>{ 
                         for (int i = this.PageIndex * this.PageSize; i < count; i++)
-                        {
-                            string filepath = images[i].Path;
-                            Grid stack = new Grid()
-                            {
-                                WidthRequest = imageDimension,
-                                HeightRequest = imageDimension,
-                            };
-                            
-                             CachedImage cachedImage = new CachedImage
-                            {
-                                Source = ImageSource.FromFile(filepath),
-                                WidthRequest = imageDimension,
-                                HeightRequest = imageDimension,
-                                Aspect = Aspect.AspectFill,
-                                DownsampleToViewSize = true,
-                                //LoadingPlaceholder = "xiaobin.jpg"
-                            };
-                            bool ischeck = false;
-                            BoxView box = new BoxView {
-                                Opacity =0.5,
-                                Color = Color.Black,
-                            };
-                            Image selectpic = new Image
-                            {
-                                Source= "select_green.png",
-                                Margin=new Thickness(0,5,5,0),
-                                WidthRequest = 20,
-                                HeightRequest = 20,
-                                HorizontalOptions = LayoutOptions.End,
-                                VerticalOptions=LayoutOptions.Start
-                            };
-                            TapGestureRecognizer recognizer = new TapGestureRecognizer();
-                            ImageModel smodel = images[i];
-                            recognizer.Tapped += (sender, args) =>
-                            {
-                                if (ischeck)
-                                {
-                                    ischeck = !ischeck;
-                                    Selected--;
-                                    SendBtn.Text = string.Format("发送({0}/9)", Selected);
-                                    selectedImages.Remove(smodel);
-                                    stack.Children.Remove(selectpic);
-                                    stack.Children.Remove(box);
-                                }
-                                else
-                                {
-                                    if (Selected < 9)
-                                    {
-                                        ischeck = !ischeck;
-                                        Selected++;
-                                        SendBtn.Text = string.Format("发送({0}/9)", Selected);
-                                        selectedImages.Add(smodel);
-                                        stack.Children.Add(box);
-                                        stack.Children.Add(selectpic);
-                                    }
-                                   
-                                }
-                                
-                            };
-                            box.GestureRecognizers.Add(recognizer);
-                            cachedImage.GestureRecognizers.Add(recognizer);
-                            stack.Children.Add(cachedImage);
-                            flexLayout.Children.Add(stack);
+                    {
+                       
+                        Grid stack = AddImage(images[i]);
+                        flexLayout.Children.Add(stack);
 
 
-                        }
-                        this.PageIndex++;
+                    }
+                    this.PageIndex++;
                        });
                 return true;
                 }
@@ -243,6 +187,74 @@ namespace Stock6.Views
                 {
                     return false;
                 }           
+        }
+
+        private Grid AddImage(ImageModel imagemodel)
+        {
+            int imageDimension = Device.RuntimePlatform == Device.iOS ||
+                                    Device.RuntimePlatform == Device.Android ? 120 : 60;
+            Grid stack = new Grid()
+            {
+                WidthRequest = imageDimension,
+                HeightRequest = imageDimension,
+            };
+
+            CachedImage cachedImage = new CachedImage
+            {
+                Source = ImageSource.FromFile(imagemodel.Path),
+                WidthRequest = imageDimension,
+                HeightRequest = imageDimension,
+                Aspect = Aspect.AspectFill,
+                DownsampleToViewSize = true,
+                //LoadingPlaceholder = "xiaobin.jpg"
+            };
+            bool ischeck = false;
+            BoxView box = new BoxView
+            {
+                Opacity = 0.5,
+                Color = Color.Black,
+            };
+            Image selectpic = new Image
+            {
+                Source = "select_green.png",
+                Margin = new Thickness(0, 5, 5, 0),
+                WidthRequest = 20,
+                HeightRequest = 20,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Start
+            };
+            TapGestureRecognizer recognizer = new TapGestureRecognizer();
+            ImageModel smodel = imagemodel;
+            recognizer.Tapped += (sender, args) =>
+            {
+                if (ischeck)
+                {
+                    ischeck = !ischeck;
+                    Selected--;
+                    SendBtn.Text = string.Format("发送({0}/9)", Selected);
+                    selectedImages.Remove(smodel);
+                    stack.Children.Remove(selectpic);
+                    stack.Children.Remove(box);
+                }
+                else
+                {
+                    if (Selected < 9)
+                    {
+                        ischeck = !ischeck;
+                        Selected++;
+                        SendBtn.Text = string.Format("发送({0}/9)", Selected);
+                        selectedImages.Add(smodel);
+                        stack.Children.Add(box);
+                        stack.Children.Add(selectpic);
+                    }
+
+                }
+
+            };
+            box.GestureRecognizers.Add(recognizer);
+            cachedImage.GestureRecognizers.Add(recognizer);
+            stack.Children.Add(cachedImage);
+            return stack;
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

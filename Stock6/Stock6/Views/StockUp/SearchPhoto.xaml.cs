@@ -1,7 +1,8 @@
 ﻿using FFImageLoading.Forms;
 using Lottie.Forms;
 using Stock6.Actions;
-using Stormlion.PhotoBrowser;
+using Stock6.Models;
+using Stock6.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,29 +56,17 @@ namespace Stock6.Views.StockUp
         protected void OnClickedShowGallery(object sender, EventArgs e)
         {
             //Stormlion.PhotoBrowser.Droid.PhotoBrowserImplementation
-            new PhotoBrowser
+            new PhotoBrowserModel
             {
-                Photos = new List<Photo>
+                Photos = new List<ImageModel>
                     {
-                        new Photo
-                        {
-                            URL = "https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",
-                            Title = "Vincent"
-                        },
-                        new Photo
-                        {
-                            URL = "https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Jules.jpg",
-                            Title = "Jules"
-                        },
-                        new Photo
-                        {
-                            URL = "https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Korben.jpg",
-                            Title = "Korben"
-                        }
+                        new ImageModel("https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",0,"",""),
+                        new ImageModel("https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",0,"",""),
+                        new ImageModel("https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",0,"",""),
                     },
                 ActionButtonPressed = (index) =>
                 {
-                    PhotoBrowser.Close();
+                    PhotoBrowserModel.Close();
                 }
             }.Show();
         }
