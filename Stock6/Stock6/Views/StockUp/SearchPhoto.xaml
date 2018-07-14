@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Stock6.Views.StockUp.SearchPhoto">
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="scanbtn" Icon="QR.png"/>
+        <ToolbarItem x:Name="scanbtn" Icon="QR.png" Clicked="OnClickedShowGallery"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid x:Name="grid">
