@@ -65,7 +65,7 @@ namespace Stock6.Actions
                 response = (FtpWebResponse)reqFtp.GetResponse();
                 ftpStream = response.GetResponseStream();
             }
-            catch (Exception ee)
+            catch (Exception ex)
             {
                 if (response != null)
                 {

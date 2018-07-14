@@ -24,12 +24,14 @@ namespace Stock6.Views.StockUp
         FtpHelper ftpHelper;
         CachedImage image;
         List<string> fileslist;
+        List<ImageModel> models;
 
         public SearchPhoto()
 		{
 			InitializeComponent ();
             ftpurl = new StringBuilder();
             fileslist = new List<string>();
+            models = new List<ImageModel>();
             ftpHelper = new FtpHelper(App.Context.FtpUrl, App.Context.FtpUser, App.Context.FtpPassword);
             image = new CachedImage();
             image.IsVisible = false;
@@ -55,12 +57,18 @@ namespace Stock6.Views.StockUp
         }
         protected void OnClickedShowGallery(object sender, EventArgs e)
         {
+            string path = "/storage/emulated/0/Pictures/"+models[1].Name;
+            Stream stream = ftpHelper.Download(models[1].Path);
+            MemoryStream mStream = new MemoryStream();
+            stream.CopyTo(mStream);
+            StreamToFile(mStream, path);
+            string[] a = {  };
             //Stormlion.PhotoBrowser.Droid.PhotoBrowserImplementation
             new PhotoBrowserModel
             {
                 Photos = new List<ImageModel>
                     {
-                        new ImageModel("https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",0,"",""),
+                        new ImageModel(ImageSource.FromFile(path).ToString(),0,"",""),
                         new ImageModel("https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",0,"",""),
                         new ImageModel("https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",0,"",""),
                     },
@@ -89,6 +97,7 @@ namespace Stock6.Views.StockUp
                             int index = str.IndexOf(" ");
                             string file = str.Substring(index).Trim();
                             fileslist.Add(path.ToString() + file);
+                            models.Add(new ImageModel(path.ToString() + file, 0,file,file.Substring(file.IndexOf('.'))));
                             CachedImage cachedImage = new CachedImage
                             {
                                 Source = UriImageSource.FromStream(() => ftpHelper.Download(path.ToString() + file)),
@@ -111,5 +120,23 @@ namespace Stock6.Views.StockUp
                 ftpurl = new StringBuilder();
             }
         }
+
+        public void StreamToFile(Stream stream, string fileName)
+        {
+           
+            // 把 Stream 转换成 byte[] 
+            byte[] bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            // 设置当前流的位置为流的开始 
+            stream.Seek(0, SeekOrigin.Begin);
+
+            // 把 byte[] 写入文件 
+            FileStream fs = new FileStream(fileName, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(bytes);
+            bw.Close();
+            fs.Close();
+        }
+
+        }
     }
-}
