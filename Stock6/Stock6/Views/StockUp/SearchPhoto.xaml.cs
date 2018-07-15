@@ -1,16 +1,10 @@
 ﻿using FFImageLoading.Forms;
-using Lottie.Forms;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using Stock6.Actions;
 using Stock6.Models;
 using Stock6.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,7 +51,7 @@ namespace Stock6.Views.StockUp
         }       
         protected override void OnAppearing()
         {
-            base.OnAppearing();
+            base.OnAppearing();           
             if (!string.IsNullOrWhiteSpace(ftpurl.ToString()))
             {
                 flexLayout.Children.Clear();
@@ -129,18 +123,7 @@ namespace Stock6.Views.StockUp
         }
         protected override void OnDisappearing()
         {
-            base.OnDisappearing();
-            Task.Run(async () => {
-                var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
-                var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-
-                if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-                {
-                    var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Camera, Permission.Storage });
-                    cameraStatus = results[Permission.Camera];
-                    storageStatus = results[Permission.Storage];
-                }
-            });
+            base.OnDisappearing();           
             string localpath = "/storage/emulated/0/Pictures/Stock6/";
             if (Directory.Exists(localpath))
             {

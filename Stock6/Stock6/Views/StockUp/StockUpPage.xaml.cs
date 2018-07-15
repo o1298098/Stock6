@@ -22,7 +22,7 @@ namespace Stock6.Views
         private static ObservableCollection<StockUpPageModel> model;
         public StockUpPage ()
 		{
-			InitializeComponent ();
+			InitializeComponent ();          
             scanbtn.Clicked += async delegate {
                 await Navigation.PushAsync(new StockUpStep());
             };
@@ -155,7 +155,6 @@ namespace Stock6.Views
             {
                 listview.EndRefresh();
             };
-            listview.BeginRefresh();
         }
         private async Task modelrefresh()
         {
@@ -188,7 +187,7 @@ namespace Stock6.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            //listview.BeginRefresh();
+            listview.BeginRefresh();
         }
     }
 }

@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Stock6.Droid
 {
-    [Activity(NoHistory = true, Theme = "@style/Theme.Splash",
+    [Activity(NoHistory = true, Theme = "@style/Theme.Splash", MainLauncher = true,
     ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class SplashScreen : Activity
     {

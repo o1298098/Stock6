@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Lottie.Forms;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Stock6.Models;
 using Stock6.Services;
 using Xamarin.Forms;
@@ -19,8 +21,19 @@ namespace Stock6.Views.StockUp
         private bool stepstate;
         public StockUpStep ()
 		{
-			InitializeComponent ();            
-                stockUpBillModel = new StockUpBillModel();
+			InitializeComponent ();
+            Task.Run(async () => {
+                var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+                var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+                if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+                {
+                    var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Camera, Permission.Storage });
+                    cameraStatus = results[Permission.Camera];
+                    storageStatus = results[Permission.Storage];
+                }
+            });
+            stockUpBillModel = new StockUpBillModel();
                 stepstate = false;
                 BillNo.SetBinding(Label.TextProperty, new Binding("FBillNo") { Source = stockUpBillModel });
                 Name.SetBinding(Label.TextProperty, new Binding("F_XAY_Custom") { Source = stockUpBillModel });
