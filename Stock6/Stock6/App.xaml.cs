@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Stock6.Models;
 using Stock6.Views;
 using Xamarin.Forms;
@@ -12,7 +13,8 @@ namespace Stock6
 		{
 			InitializeComponent();
             MainPage =new NavigationPage( new MasterDetailPage1());
-            Context = new Context();            
+            Context = new Context();           
+           
         }
 
 		protected override void OnStart ()
@@ -29,5 +31,6 @@ namespace Stock6
 		{
 			// Handle when your app resumes
 		}
+        
 	}
 }

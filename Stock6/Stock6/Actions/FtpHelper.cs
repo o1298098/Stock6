@@ -64,6 +64,7 @@ namespace Stock6.Actions
                 reqFtp.Credentials = new NetworkCredential(ftpUser, ftpPassword);
                 response = (FtpWebResponse)reqFtp.GetResponse();
                 ftpStream = response.GetResponseStream();
+
             }
             catch (Exception ex)
             {

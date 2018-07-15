@@ -1,5 +1,7 @@
 ﻿using FFImageLoading.Forms;
 using Lottie.Forms;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Stock6.Actions;
 using Stock6.Models;
 using Stock6.ViewModels;
@@ -45,39 +47,14 @@ namespace Stock6.Views.StockUp
             ScanPage scanPage = new ScanPage(4);
             scanPage.BindingContext = ftpurl;
             scanPage.Title = "扫描二维码查看图片";
-            //scanbtn.Clicked += (s,e)=>{
-                //SearchPhotoDetail searchPhotoDetail = new SearchPhotoDetail();
-                //searchPhotoDetail.BindingContext = fileslist;
-                //await Navigation.PushAsync(searchPhotoDetail);
-                
-            //};
+            scanbtn.Clicked += async (s, e) =>
+            {
+                await Navigation.PushAsync(scanPage);
+            };
             Task.Run(async() => {
                 await Navigation.PushAsync(scanPage);
             });
-        }
-        protected void OnClickedShowGallery(object sender, EventArgs e)
-        {
-            string path = "/storage/emulated/0/Pictures/"+models[1].Name;
-            Stream stream = ftpHelper.Download(models[1].Path);
-            MemoryStream mStream = new MemoryStream();
-            stream.CopyTo(mStream);
-            StreamToFile(mStream, path);
-            string[] a = {  };
-            //Stormlion.PhotoBrowser.Droid.PhotoBrowserImplementation
-            new PhotoBrowserModel
-            {
-                Photos = new List<ImageModel>
-                    {
-                        new ImageModel(ImageSource.FromFile(path).ToString(),0,"",""),
-                        new ImageModel("https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",0,"",""),
-                        new ImageModel("https://raw.githubusercontent.com/stfalcon-studio/FrescoImageViewer/v.0.5.0/images/posters/Vincent.jpg",0,"",""),
-                    },
-                ActionButtonPressed = (index) =>
-                {
-                    PhotoBrowserModel.Close();
-                }
-            }.Show();
-        }
+        }       
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -87,55 +64,120 @@ namespace Stock6.Views.StockUp
                 fileslist = new List<string>();
                 var path = ftpurl.ToString().Clone();
                 string[] files = ftpHelper.GetFilesDetailList(path.ToString());
+                string localpath = "/storage/emulated/0/Pictures/Stock6/";
+                if (!Directory.Exists(localpath))
+                {
+                    Directory.CreateDirectory(localpath);
+                }
                 if (files != null)
                 {
-                    Device.BeginInvokeOnMainThread(() => {
+                    
+                    Device.BeginInvokeOnMainThread(async() => {
                         foreach (var q in files)
                         {
                             int Mindex = q.IndexOf("M");
                             string str = q.Substring(Mindex + 1).Trim();
                             int index = str.IndexOf(" ");
                             string file = str.Substring(index).Trim();
-                            fileslist.Add(path.ToString() + file);
-                            models.Add(new ImageModel(path.ToString() + file, 0,file,file.Substring(file.IndexOf('.'))));
+                            string localfilename = localpath + file;
+                            models.Add(new ImageModel(localfilename, 0, file, file.Substring(file.IndexOf('.'))));
                             CachedImage cachedImage = new CachedImage
                             {
-                                Source = UriImageSource.FromStream(() => ftpHelper.Download(path.ToString() + file)),
+                                Source = UriImageSource.FromStream(()=>ftpHelper.Download(path.ToString()+file)),
                                 WidthRequest = 120,
                                 HeightRequest = 120,
                                 Aspect = Aspect.AspectFill,
                                 DownsampleToViewSize = true,
                             };
                             TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
-                            tapGestureRecognizer.Tapped += (sender, args) => {
-                                image.Source = cachedImage.Source;
-                                image.IsVisible = true;
+                            tapGestureRecognizer.Tapped += async (sender, args) => {
+                                //image.Source = cachedImage.Source;
+                                //image.IsVisible = true;
+                                PhotoBrowserModel browserModel = new PhotoBrowserModel
+                                {
+                                    ActionButtonPressed = (i) =>
+                                    {
+                                        PhotoBrowserModel.Close();
+                                    }
+                                };
+                                browserModel.Photos = new List<ImageModel>();
+                                await Task.Run(() => {
+                                    foreach (var s in models)
+                                    {
+                                        browserModel.Photos.Add(new ImageModel(Com.Facebook.Common.Util.UriUtil.GetUriForFile(new Java.IO.File(s.Path)).ToString(), 0, "", ""));
+                                    }
+                                });
+                                browserModel.StartIndex =Array.IndexOf(files,q) ;
+                                browserModel.Show();
                             };
                             cachedImage.GestureRecognizers.Add(tapGestureRecognizer);
                             flexLayout.Children.Add(cachedImage);
                         }
+                        await Task.Run(() => {
+                        foreach (var t in models)
+                        {
+                                Stream stream = ftpHelper.Download(path.ToString() + t.Name);
+                                StreamToFile(stream, t.Path);
+                        }
+                        });
                     });
+                    
                 }
                     
                 ftpurl = new StringBuilder();
             }
         }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Task.Run(async () => {
+                var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+                var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+                if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+                {
+                    var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Camera, Permission.Storage });
+                    cameraStatus = results[Permission.Camera];
+                    storageStatus = results[Permission.Storage];
+                }
+            });
+            string localpath = "/storage/emulated/0/Pictures/Stock6/";
+            if (Directory.Exists(localpath))
+            {
+                DirectoryInfo dir = new DirectoryInfo(localpath);
+                FileSystemInfo[] fileinfo = dir.GetFileSystemInfos(); 
+                foreach (FileSystemInfo i in fileinfo)
+                {
+                    if (i is DirectoryInfo)            
+                    {
+                        DirectoryInfo subdir = new DirectoryInfo(i.FullName);
+                        subdir.Delete(true);
+                    }
+                    else
+                    {
+                        File.Delete(i.FullName);
+                    }
+                }
+            }
+
+        }
 
         public void StreamToFile(Stream stream, string fileName)
         {
-           
-            // 把 Stream 转换成 byte[] 
-            byte[] bytes = new byte[stream.Length];
-            stream.Read(bytes, 0, bytes.Length);
-            // 设置当前流的位置为流的开始 
-            stream.Seek(0, SeekOrigin.Begin);
+            FileStream fs = File.Create(fileName);
+            if (fs != null)
+            {
+                int buffer_count = 65536;
+                byte[] buffer = new byte[buffer_count];
+                int size = 0;
+                while ((size = stream.Read(buffer, 0, buffer_count)) > 0)
+                {
+                    fs.Write(buffer, 0, size);
+                }
+                fs.Flush();
+                fs.Close();
+            }
 
-            // 把 byte[] 写入文件 
-            FileStream fs = new FileStream(fileName, FileMode.Create);
-            BinaryWriter bw = new BinaryWriter(fs);
-            bw.Write(bytes);
-            bw.Close();
-            fs.Close();
         }
 
         }

@@ -68,7 +68,7 @@ namespace Stock6.Views
                     return;
                 var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
                 {
-                    Directory = "Test",
+                    Directory = "Stock6Media",
                     SaveToAlbum = true,
                     CompressionQuality = 75,
                     CustomPhotoSize = 50,
