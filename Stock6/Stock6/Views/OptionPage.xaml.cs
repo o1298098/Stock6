@@ -22,6 +22,8 @@ namespace Stock6.Views
                 KDDataCenterIDEntry.ValueText = Preferences.Get("KDDataCenterID", "59a12c8ba824d2");
                 KDUserEntry.ValueText = Preferences.Get("KDUser", "kingdee");
                 KDPasswordEntry.ValueText = Preferences.Get("KDPassword", "kd!123456");
+                validateNum.On=Convert.ToBoolean(Preferences.Get("ValidateLogisticsNum", "false"));
+                ScanHardMode.On= Convert.ToBoolean(Preferences.Get("ScanHardMode", "false"));
             Savebtn.Clicked += delegate {
                  Preferences.Set("FtpURL", FtpUrlEntry.ValueText);
                 Preferences.Set("FtpUser", FtpUserEntry.ValueText);
@@ -29,6 +31,8 @@ namespace Stock6.Views
                 Preferences.Set("KDURL", KDUrlEntry.ValueText);
                 Preferences.Set("KDUser", KDUserEntry.ValueText);
                 Preferences.Set("KDPassword", KDPasswordEntry.ValueText);
+                Preferences.Set("ValidateLogisticsNum", validateNum.On.ToString());
+                Preferences.Set("ScanHardMode", ScanHardMode.On.ToString());
                 DependencyService.Get<Services.IToast>().LongAlert("保存成功");
                 App.Context = new Models.Context();
              };

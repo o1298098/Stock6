@@ -37,6 +37,10 @@ namespace Stock6.Models
         /// FTP登陆密码
         /// </summary>
         public string FtpPassword { get; private set; }
+        /// <summary>
+        /// 扫描增强模式
+        /// </summary>
+        public bool ScanHardMode { get; private set; }
 
         public  Context()
         {
@@ -49,6 +53,7 @@ namespace Stock6.Models
                 DataCenterId = Preferences.Get("KDDataCenterID", "59a12c8ba824d2");
                 KDUser = Preferences.Get("KDUser", "kingdee");
                 KDPassword = Preferences.Get("KDPassword", "kd!123456");
+                ScanHardMode = Convert.ToBoolean(Preferences.Get("ScanHardMode", "false"));
         }         
 
         public event PropertyChangedEventHandler PropertyChanged;

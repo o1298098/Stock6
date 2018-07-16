@@ -92,11 +92,10 @@ namespace Stock6.CustomControls
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 //HeightRequest = 3,
-                //Image= "flashlightoff.png",
-                TextColor = Color.White,
-                Text="开灯",
-                Opacity=0.4,
-                BackgroundColor = Color.Black,
+                Image= "flash_on.png",  
+                Scale=0.3,
+                //Opacity=0.4,
+                BackgroundColor =Color.FromRgba(255,255,255,0),
                 AutomationId = "zxingDefaultOverlay_FlashButton",
             };
             flash.SetBinding(Button.IsVisibleProperty, new Binding(nameof(ShowFlashButton)));

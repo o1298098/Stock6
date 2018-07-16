@@ -91,11 +91,14 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MyMWPhotoBrower.cs" />
+    <Compile Include="Platform.cs" />
     <Compile Include="Renderer\CircleImageRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderer\PasswordEntryCellRenderer.cs" />
     <Compile Include="Services\CToast.cs" />
+    <Compile Include="Services\PhotoBrowserImplementation.cs" />
     <Compile Include="Services\PicturePickerImplementation.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist">

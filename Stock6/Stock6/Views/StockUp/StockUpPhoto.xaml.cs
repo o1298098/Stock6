@@ -18,6 +18,7 @@ using System.Threading;
 using FFImageLoading;
 using Stock6.apiHelper;
 using Stock6.Actions;
+using Xamarin.Essentials;
 
 namespace Stock6.Views
 {
@@ -110,7 +111,14 @@ namespace Stock6.Views
             };
             SendBtn.Clicked +=async delegate
             {
-                string billno ;
+                var current = Connectivity.NetworkAccess;
+                if (current != NetworkAccess.Internet)
+                {
+                    DependencyService.Get<IToast>().LongAlert("网络异常,请稍后重试！");
+                    return;
+                }
+                
+                string billno ;                
                 if (BindingContext != null)
                 {
                     billno = BindingContext.ToString();
@@ -138,12 +146,15 @@ namespace Stock6.Views
 
                         progressbar.IsVisible = false;
                         DependencyService.Get<IToast>().LongAlert("成功");
-                        List<object> Parameters = new List<object>();
-                        Parameters.Add(App.Context.DataCenterId);
-                        Parameters.Add(5);
-                        Parameters.Add(billno);
-                        Parameters.Add(App.Context.FtpUrl + billno+"/");
-                        string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.UpdateStockUpScanState", Parameters);
+                        if (billno.Contains("WLBHD"))
+                        {
+                            List<object> Parameters = new List<object>();
+                            Parameters.Add(App.Context.DataCenterId);
+                            Parameters.Add(5);
+                            Parameters.Add(billno);
+                            Parameters.Add(App.Context.FtpUrl + billno + "/");
+                            string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.UpdateStockUpScanState", Parameters);
+                        }                       
                     }
                 }
                 else

@@ -43,8 +43,7 @@ namespace Stock6.Views
                     new MasterDetailPage1MenuItem { Id = 1, Title = "图片上传",TargetType=typeof(PackingPage),Icon="emoji_wink.json"},
                     new MasterDetailPage1MenuItem { Id = 2, Title = "备货相册",TargetType=typeof(SearchPhoto),Icon="emoji_shock.json" },
                     new MasterDetailPage1MenuItem { Id = 3, Title = "组装拆卸",Icon="emoji_tongue.json" },
-                   
-                    //new MasterDetailPage1MenuItem { Id = 4, Title = "待定",Icon="emoji_shock.json" },
+                    new MasterDetailPage1MenuItem { Id = 4, Title = "待定",TargetType=typeof(TestWebview),Icon="emoji_shock.json" },
                 });
             }
             

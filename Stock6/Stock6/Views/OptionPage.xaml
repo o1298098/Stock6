@@ -30,6 +30,10 @@
                 <sv:EntryCell x:Name="KDUserEntry" Title="用户名" ValueText="{Binding InputText.Value}" Placeholder="user"  TextAlignment="End" HintText="{Binding InputError.Value}" />
                 <customcontrols:PasswordEntryCell x:Name="KDPasswordEntry" Title="密码" ValueText="{Binding InputText.Value}" Placeholder="password"  TextAlignment="End" HintText="{Binding InputError.Value}" />
             </sv:Section>
+            <sv:Section Title="扫描设置" FooterText="1.启用扫描增强模式会增加耗电量&#x0a;2.物流单商品数量验证开发中" IsVisible="{Binding SctionIsVisible}">
+                <sv:SwitchCell x:Name="validateNum" Title="验证物流单数量"></sv:SwitchCell>
+                <sv:SwitchCell x:Name="ScanHardMode" Title="增强模式"></sv:SwitchCell>
+            </sv:Section>
         </sv:SettingsView>
       
     </ContentPage.Content>

@@ -10,10 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockUp\SearchPhotoDetail.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockUp\SearchPhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,10 +80,6 @@
       <DependentUpon>ScanPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\SearchPhotoDetail.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>SearchPhotoDetail.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\PackingPage.xaml.cs">
       <DependentUpon>PackingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -110,6 +102,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpStep.xaml.cs">
       <DependentUpon>StockUpStep.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TestWebview.xaml.cs">
+      <DependentUpon>TestWebview.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -186,6 +182,10 @@
     <Page Include="$(MSBuildThisFileDirectory)Views\StockUp\StockUpPhoto.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TestWebview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <!--#if (CreateBackendProject)
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureDataStore.cs" />

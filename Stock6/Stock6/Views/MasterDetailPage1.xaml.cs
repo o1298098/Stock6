@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +29,18 @@ namespace Stock6.Views
                 await Navigation.PushAsync(new OptionPage());
             };
             MasterPage.OptionBtn.GestureRecognizers.Add(recognizer2);
+            this.Appearing += async delegate {               
+                    var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+                    var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+                    if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+                    {
+                        var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Camera, Permission.Storage });
+                        cameraStatus = results[Permission.Camera];
+                        storageStatus = results[Permission.Storage];
+                    }
+               
+            };
         }
 
         
@@ -45,5 +59,8 @@ namespace Stock6.Views
 
             MasterPage.ListView.SelectedItem = null;
         }
+
+       
+
     }
 }

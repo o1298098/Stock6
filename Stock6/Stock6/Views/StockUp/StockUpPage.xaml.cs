@@ -186,8 +186,8 @@ namespace Stock6.Views
         }
         protected override void OnAppearing()
         {
-            base.OnAppearing();
             listview.BeginRefresh();
+            base.OnAppearing();           
         }
     }
 }

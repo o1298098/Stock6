@@ -24,6 +24,7 @@ namespace Stock6.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             AiForms.Renderers.iOS.SettingsViewInit.Init();
+            Platform.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

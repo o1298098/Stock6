@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Stock6.Models;
 using Stock6.Views;
 using Xamarin.Forms;
@@ -11,9 +13,9 @@ namespace Stock6
         public static  Context Context;
         public App ()
 		{
-			InitializeComponent();
+			InitializeComponent();         
             MainPage =new NavigationPage( new MasterDetailPage1());           
-            Context = new Context();           
+            Context = new Context();
            
         }
 
@@ -31,6 +33,6 @@ namespace Stock6
 		{
 			// Handle when your app resumes
 		}
-        
-	}
+
+    }
 }

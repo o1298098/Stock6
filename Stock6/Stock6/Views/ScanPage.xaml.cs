@@ -27,17 +27,21 @@ namespace Stock6.Views
         private Label label;
         private Button button;
         private AnimationView Loadinganimation;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mode">1为扫描备货单号，2为扫描二维码，3为扫描物流单号，4为扫描k3备货单二维码查看图片，5为扫描二维码上传图片</param>
         public ScanPage (int mode)
 		{
 			InitializeComponent ();           
-            ZXing.Mobile.MobileBarcodeScanningOptions scanningOptions = new ZXing.Mobile.MobileBarcodeScanningOptions { DelayBetweenContinuousScans = 2000, PossibleFormats = new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.CODE_128, ZXing.BarcodeFormat.CODE_39, ZXing.BarcodeFormat.CODE_93, ZXing.BarcodeFormat.EAN_13, ZXing.BarcodeFormat.EAN_8 ,ZXing.BarcodeFormat.QR_CODE}};
+            ZXing.Mobile.MobileBarcodeScanningOptions scanningOptions = new ZXing.Mobile.MobileBarcodeScanningOptions { DelayBetweenContinuousScans = 2000, PossibleFormats = new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.CODE_128, ZXing.BarcodeFormat.CODE_39, ZXing.BarcodeFormat.CODE_93, ZXing.BarcodeFormat.EAN_13, ZXing.BarcodeFormat.EAN_8 ,ZXing.BarcodeFormat.QR_CODE},TryHarder=App.Context.ScanHardMode};
            
             zxing = new ZXingScannerView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Options = scanningOptions,
-            };
+            };            
             zxing.OnScanResult += (result) =>
 
                 Device.BeginInvokeOnMainThread(async () =>
@@ -156,30 +160,32 @@ namespace Stock6.Views
                         await Navigation.PopAsync();
                     }
                     else if (mode==5)
-                    {
-                        Loadinganimation.IsVisible = true;
+                    {                        
                         string qrresult = BaseToString(result.ToString());
+                        string billno = string.Empty;
                         if (qrresult.Substring(0, 2) != "#%")
                         {
-                            label.Text = "二维码数据格式有误";
-                            return;
+                            billno = result.ToString();
                         }
-                        string jsonstring = qrresult.Substring(2);
-                        JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
-                        string json ="{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNO\",\"FilterString\":\"F_XAY_StockUpOrderEntity_FENTRYID="+ jObject["Id"].ToString() + "\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
-                        string[] lists = Actions.Jsonhelper.JsonToString(json);
-                        string billno = string.Empty;
-                        if (lists != null)
+                        else
                         {
-                            billno= lists[0];
-                            billno = billno.Replace("[","");
-                            billno = billno.Replace("]","");
-                            StockUpPhoto photopage = new StockUpPhoto();
-                            photopage.BindingContext = billno;
-                            Navigation.InsertPageBefore(photopage, this);
-                            await Navigation.PopAsync();
-                        }
-                       
+                            Loadinganimation.IsVisible = true;
+                            string jsonstring = qrresult.Substring(2);
+                            JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
+                            string json = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNO\",\"FilterString\":\"F_XAY_StockUpOrderEntity_FENTRYID=" + jObject["Id"].ToString() + "\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                            string[] lists = Actions.Jsonhelper.JsonToString(json);
+                            if (lists != null)
+                            {
+                                billno = lists[0];
+                                billno = billno.Replace("[", "");
+                                billno = billno.Replace("]", "");
+
+                            }
+                        }                        
+                        StockUpPhoto photopage = new StockUpPhoto();
+                        photopage.BindingContext = billno;
+                        Navigation.InsertPageBefore(photopage, this);
+                        await Navigation.PopAsync();
                     }
                 });
 
@@ -318,14 +324,14 @@ namespace Stock6.Views
 
                     if (!zxing.IsTorchOn)
                     {
-                        sender.Text = "关灯";
+                        sender.Image = "flash_off.png";
                         //    CrossLampState = true;
                         zxing.IsTorchOn = true;
 
                     }
                     else
                     {
-                        sender.Text = "开灯";
+                        sender.Image= "flash_on.png";
                         zxing.IsTorchOn = false;
                     }
                 }
