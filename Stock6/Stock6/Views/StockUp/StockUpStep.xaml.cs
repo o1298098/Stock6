@@ -55,12 +55,14 @@ namespace Stock6.Views.StockUp
                 {
                     if (string.IsNullOrWhiteSpace(stockUpBillModel.FBillNo))
                     {
+                        scanQrAnimation.IsEnabled = false;
                         await scanQrAnimation.TranslateTo(20, 0, 50);
                         await scanQrAnimation.TranslateTo(0, 0, 50);
                         await scanQrAnimation.TranslateTo(-20, 0, 50);
                         await scanQrAnimation.TranslateTo(0, 0, 50);
                         await scanQrAnimation.TranslateTo(20, 0, 50);
                         await scanQrAnimation.TranslateTo(0, 0, 50);
+                        Device.BeginInvokeOnMainThread(()=> { scanQrAnimation.IsEnabled = true; });
                         DependencyService.Get<IToast>().LongAlert("请先扫描备货单条码");
                     }
                     else

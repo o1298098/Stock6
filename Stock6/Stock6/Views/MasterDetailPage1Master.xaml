@@ -55,8 +55,8 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="10"/>
-                                <!--<ColumnDefinition Width="1*"/>-->
-                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="7*"/>
                                 <ColumnDefinition Width="10"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -70,9 +70,14 @@
                                Animation="{Binding Icon}"
                                Loop="True"
                                AutoPlay="True"/>-->
+                            <Image Source="{Binding Icon}" 
+                                   Scale="0.8"
+                                   Grid.Column="1"
+                                   Grid.Row="1"
+                                   VerticalOptions="Center"></Image>
                             <Label 
-                                 Grid.Column="1"
-                                Grid.Row="1"
+                                 Grid.Column="2"
+                                 Grid.Row="1"
                              VerticalTextAlignment="Center" 
                              Text="{Binding Title}" 
                              FontSize="24"/>
@@ -103,7 +108,7 @@
                     Source="setting.png"
                     HeightRequest="50"
                     WidthRequest="50"
-                    Scale="0.8"
+                    Scale="0.7"
                     Aspect="AspectFill"></Image>
         </Grid>
     </StackLayout>

@@ -13,7 +13,10 @@ namespace Stock6
         public static  Context Context;
         public App ()
 		{
-			InitializeComponent();         
+#if DEBUG
+            LiveReload.Init();
+#endif
+            InitializeComponent();         
             MainPage =new NavigationPage( new MasterDetailPage1());           
             Context = new Context();
            
