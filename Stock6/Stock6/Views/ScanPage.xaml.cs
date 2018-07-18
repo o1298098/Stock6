@@ -95,15 +95,16 @@ namespace Stock6.Views
                         }
                         string jsonstring = qrstring.Substring(2);
                         JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
-                        if (jObject.ContainsKey("Id"))
+                        string[] stringarray = jsonstring.Split(',');
+                        if (stringarray.Count()>=3)
                         {
-                            string ID = jObject["Id"].ToString();
-                            if ((bool)jObject["isgroup"])
+                            string ID = stringarray[0];
+                            if (Convert.ToBoolean(stringarray[2]))
                             {
-                                var MaterialInfo = jObject["MaterialInfo"];
+                                var MaterialInfo = stringarray[3].Split('&');
                                 for (int i = 0; i < MaterialInfo.Count(); i++)
                                 {
-                                    string subID = MaterialInfo[i]["Id"].ToString();
+                                    string subID = MaterialInfo[i];
                                     List<object> Parameters = new List<object>();
                                     Parameters.Add(App.Context.DataCenterId);
                                     Parameters.Add(2);
@@ -171,15 +172,19 @@ namespace Stock6.Views
                         {
                             Loadinganimation.IsVisible = true;
                             string jsonstring = qrresult.Substring(2);
-                            JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
-                            string json = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNO\",\"FilterString\":\"F_XAY_StockUpOrderEntity_FENTRYID=" + jObject["Id"].ToString() + "\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
-                            string[] lists = Actions.Jsonhelper.JsonToString(json);
-                            if (lists != null)
+                            string[] stringarray = jsonstring.Split(',');
+                            if (stringarray.Count() >= 3)
                             {
-                                billno = lists[0];
-                                billno = billno.Replace("[", "");
-                                billno = billno.Replace("]", "");
+                                string ID = stringarray[0];
+                                string json = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"FBillNO\",\"FilterString\":\"F_XAY_StockUpOrderEntity_FENTRYID=" + ID + "\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                                string[] lists = Actions.Jsonhelper.JsonToString(json);
+                                if (lists != null)
+                                {
+                                    billno = lists[0];
+                                    billno = billno.Replace("[", "");
+                                    billno = billno.Replace("]", "");
 
+                                }
                             }
                         }                        
                         StockUpPhoto photopage = new StockUpPhoto();
