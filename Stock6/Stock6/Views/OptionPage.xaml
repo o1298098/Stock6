@@ -16,8 +16,8 @@
             Title="UserName" Description="o1298098@live.com"
             Command="{Binding ToProfileCommand}" CommandParameter="{Binding Parameter}"
             KeepSelectedUntilBack="true" />
-                <sv:ButtonCell Title="修改信息" TitleColor="{StaticResource TitleTextColor}"
-             TitleAlignment="Center" Command="{Binding SectionToggleCommand}" />
+                <sv:ButtonCell Title="修改信息" TitleColor="{StaticResource TitleTextColor}" TitleAlignment="Center"
+              Command="{Binding SectionToggleCommand}" />
             </sv:Section>
             <sv:Section Title="FTP设置" FooterText="" IsVisible="{Binding SctionIsVisible}">
                 <sv:EntryCell x:Name="FtpUrlEntry" Title="服务器" ValueText="{Binding InputText.Value}" Placeholder="ftp://192.168.1.167" Keyboard="Url" TextAlignment="End" HintText="{Binding InputError.Value}" />

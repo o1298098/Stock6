@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             x:Class="Stock6.Views.RegisterPage">
+    <ContentPage.Resources>
+        <Style TargetType="Entry" x:Key="entrystyle">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Default"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Focused">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#EBFFFF"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Wrong">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#FFE1FF"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid RowSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <forms:AnimationView
+                Grid.Column="1"
+                Grid.Row="0"
+                Animation="a_mountain.json"
+                WidthRequest="200"
+                Loop="True"
+                AutoPlay="True"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+            />
+            <Entry 
+                x:Name="nametext"
+                Grid.Column="1"
+                Grid.Row="1"
+                Placeholder="用户名"
+                Style="{StaticResource entrystyle}"
+                />
+            <Entry 
+                x:Name="password"
+                Grid.Column="1"
+                Grid.Row="2"                
+                IsPassword="True"
+                Placeholder="密码"
+                Style="{StaticResource entrystyle}"
+                />
+            <Entry 
+                x:Name="passwordt"
+                Grid.Column="1"
+                Grid.Row="3"
+                IsPassword="True"
+                Placeholder="确认密码"
+                Style="{StaticResource entrystyle}"
+                />
+            <Button
+                x:Name="submit"
+                Grid.Column="1"
+                Grid.Row="4"
+                CornerRadius="40"
+                Text="SIGN UP"
+                TextColor="White"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                BackgroundColor="#2196F3"
+                />
+            <forms:AnimationView
+                x:Name="loadingAnimation"
+                Animation="checked_loading.json"
+                WidthRequest="250"
+                HeightRequest="250"
+                Grid.ColumnSpan="3"
+                Grid.RowSpan="5"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="False"                
+            />
+        </Grid>       
+    </ContentPage.Content>
+</ContentPage>

@@ -21,7 +21,7 @@ namespace Stock6.Views
             TapGestureRecognizer recognizer = new TapGestureRecognizer();
             recognizer.Tapped += async delegate
             {
-                await Navigation.PushAsync(new AsseccPage());
+                await Navigation.PushAsync(new AccessPage());
             };
             MasterPage.LoginBtn.GestureRecognizers.Add(recognizer);
             TapGestureRecognizer recognizer2 = new TapGestureRecognizer();

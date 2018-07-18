@@ -45,11 +45,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\IToast.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PhotoBrowserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StockUpPageModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Assecc\AsseccPage.xaml.cs">
-      <DependentUpon>AsseccPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Access\AccessPage.xaml.cs">
+      <DependentUpon>AccessPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Assecc\LoginPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Access\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -72,7 +72,7 @@
       <DependentUpon>OptionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Assecc\RegisterPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Access\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -128,19 +128,19 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Assecc\AsseccPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Access\AccessPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Assecc\LoginPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Access\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Assecc\RegisterPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Access\RegisterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -188,7 +188,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Views\Assecc\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Access\" />
   </ItemGroup>
   <!--#if (CreateBackendProject)
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureDataStore.cs" />

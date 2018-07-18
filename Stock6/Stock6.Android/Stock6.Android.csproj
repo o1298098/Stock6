@@ -128,6 +128,8 @@
     <AndroidAsset Include="Assets\cubos.json" />
     <AndroidAsset Include="Assets\littlegirl.json" />
     <AndroidAsset Include="Assets\swing.json" />
+    <AndroidAsset Include="Assets\a_mountain.json" />
+    <AndroidAsset Include="Assets\checked_loading.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidAsset Include="Assets\loading_hamster.json" />

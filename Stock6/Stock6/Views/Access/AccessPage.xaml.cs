@@ -10,21 +10,13 @@ using Xamarin.Forms.Xaml;
 namespace Stock6.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AsseccPage : ContentPage
+	public partial class AccessPage : ContentPage
 	{
-		public AsseccPage()
+		public AccessPage()
 		{
 			InitializeComponent ();
             animationView.HorizontalOptions=LayoutOptions.FillAndExpand;
-            animationView.VerticalOptions = LayoutOptions.FillAndExpand;
-            login.Style = new Style(typeof(Button))
-            {
-                Setters = { new Setter { Property = Button.CornerRadiusProperty, Value = 40 } }
-            };
-            register.Style = new Style(typeof(Button))
-            {
-                Setters = { new Setter { Property = Button.CornerRadiusProperty, Value = 40 } }
-            };
+            animationView.VerticalOptions = LayoutOptions.FillAndExpand;          
             login.Clicked += async delegate
             {
                 var loginPage = new LoginPage();
