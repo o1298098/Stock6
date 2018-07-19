@@ -159,7 +159,7 @@ namespace Stock6.Views
 
             };
             listview.ItemTapped += async (sender, e) => {
-
+                isscan = true;
                 ScanPage scanPage = new ScanPage(3);
                 scanPage.BindingContext = e.Item;
                 scanPage.Title = "扫描物流单号条码";

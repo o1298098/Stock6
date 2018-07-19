@@ -37,8 +37,14 @@ namespace Stock6.Views
                 await Navigation.PushAsync(new OptionPage());
             };
             MasterPage.OptionBtn.GestureRecognizers.Add(recognizer2);
-            MasterPage.usernameLabel.SetBinding(Label.TextProperty, new Binding("name") { Source=App.Context.user });
+            MasterPage.usernameLabel.BindingContext = App.Context.user;
+            MasterPage.usernameLabel.SetBinding(Label.TextProperty, new Binding("name"));
             MasterPage.usernameLabel.BackgroundColor = Color.FromRgba(255, 255, 255, 0.8);
+            MasterPage.usernameLabel.BindingContextChanged += delegate
+            {
+                Device.BeginInvokeOnMainThread(()=> { MasterPage.usernameLabel.Text = App.Context.user.name; });
+                
+            };
             this.Appearing += async delegate {               
                     var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
                     var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);

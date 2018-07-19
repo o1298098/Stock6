@@ -88,7 +88,7 @@ namespace Stock6.apiHelper
             }
             catch (Exception ex)
             {
-                result = ex.Message;
+                result = "err";
             }
             return result;
         }

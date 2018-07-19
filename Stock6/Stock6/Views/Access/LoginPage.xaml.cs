@@ -52,7 +52,6 @@ namespace Stock6.Views
         {
             loadingAnimation.IsVisible = true;
             loadingAnimation.PlayProgressSegment(0, 0.59f);
-            Device.BeginInvokeOnMainThread(()=> {
                 if (password.Text != "")
                 {
                     string json = string.Format("{{ \"name\": \"{0}\",\"password\": \"{1}\"}}", nametext.Text, password.Text);
@@ -68,12 +67,10 @@ namespace Stock6.Views
                     }
                     else
                     {
-                        User user = new User();
-                        user.name = nametext.Text;
-                        user.token = callback;
-                        App.Context.user = user;
-                        Preferences.Set("User", nametext.Text);
-                        Preferences.Set("UserToken", callback);
+                            App.Context.user.name = nametext.Text;
+                            App.Context.user.token = callback;
+                            Preferences.Set("User", nametext.Text);
+                            Preferences.Set("UserToken", callback);
                         finsh = true;
                     }
 
@@ -83,7 +80,6 @@ namespace Stock6.Views
                     DependencyService.Get<IToast>().LongAlert("密码为空");
                     loadingAnimation.IsVisible = false;
                 }
-            });
             
         }      
     }

@@ -38,9 +38,12 @@ namespace Stock6.Views.StockUp
                 BillNo.SetBinding(Label.TextProperty, new Binding("FBillNo") { Source = stockUpBillModel });
                 Name.SetBinding(Label.TextProperty, new Binding("F_XAY_Custom") { Source = stockUpBillModel });
                 Phone.SetBinding(Label.TextProperty, new Binding("F_XAY_Phone") { Source = stockUpBillModel });
-                listview.ItemTapped += delegate
+                listview.ItemTapped +=async delegate
                 {
-                    var a = listview.ItemTemplate.Values;
+                    ScanPage scanPage = new ScanPage(2);
+                    scanPage.Title = "扫描二维码";
+                    scanPage.BindingContext = stockUpBillModel;
+                    await Navigation.PushAsync(scanPage);
                 };
                 scanBarAnimation.OnClick += async delegate
                 {
