@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
-             x:Class="Stock6.Views.LoginPage">
+             x:Class="Stock6.Views.LoginPage"
+             Title="登陆">
     <ContentPage.Resources>
         <Style TargetType="Entry" x:Key="entrystyle">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -77,6 +78,17 @@
                 HorizontalOptions="Center"
                 BackgroundColor="#2196F3"
                 ></Button>
+            <forms:AnimationView
+                x:Name="loadingAnimation"
+                Animation="checked_loading.json"
+                WidthRequest="250"
+                HeightRequest="250"
+                Grid.ColumnSpan="3"
+                Grid.RowSpan="4"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="False"                
+            />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

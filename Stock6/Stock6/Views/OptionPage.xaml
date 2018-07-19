@@ -12,7 +12,7 @@
         <sv:SettingsView HasUnevenRows="true">
 
             <sv:Section Title="个人信息" FooterText="">
-                <sv:CommandCell IconSource="icon.png" IconSize="60,60" IconRadius="30"
+                <sv:CommandCell x:Name="userlabel" IconSource="icon.png" IconSize="60,60" IconRadius="30"
             Title="UserName" Description="o1298098@live.com"
             Command="{Binding ToProfileCommand}" CommandParameter="{Binding Parameter}"
             KeepSelectedUntilBack="true" />

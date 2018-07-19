@@ -23,7 +23,7 @@
           <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
          <local:CachedImage 
@@ -35,11 +35,14 @@
               Aspect="AspectFill"
               ></local:CachedImage>
            <Label
+              x:Name="Username"
+              Text="lalala"
               Grid.Column="1"
               Grid.ColumnSpan="2"
               Grid.Row="2"
-              Text="BaLaBaLa"
               TextColor="Black"
+              Font="24"
+              HorizontalOptions="Start"
               Style="{DynamicResource SubtitleStyle}"/>
            <customforms:CircleImage
               x:Name="Userimg"

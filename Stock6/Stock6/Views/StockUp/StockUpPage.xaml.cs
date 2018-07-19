@@ -20,10 +20,13 @@ namespace Stock6.Views
 	public partial class StockUpPage : ContentPage
 	{
         private static ObservableCollection<StockUpPageModel> model;
+        private bool isscan;
         public StockUpPage ()
 		{
-			InitializeComponent ();          
+			InitializeComponent ();
+            isscan = false;
             scanbtn.Clicked += async delegate {
+                isscan = true;
                 await Navigation.PushAsync(new StockUpStep());
             };
             model= new ObservableCollection<StockUpPageModel>();
@@ -89,7 +92,7 @@ namespace Stock6.Views
                 {
                     if (!clickstate)
                     {
-                        string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"F_XAY_FMATERIAL.FName,F_XAY_Count,F_XAY_MARK\",\"FilterString\":\"FID =" + animation.ClassId + " and FBillStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                        string content = "{\"FormId\":\"9d0a72f2a1104fe1881969ad5a1fc22d\",\"FieldKeys\":\"F_XAY_FMATERIAL.FName,F_XAY_Count,F_XAY_MARK,F_XAY_MixMaterial\",\"FilterString\":\"FID =" + animation.ClassId + " and FBillStatus='A'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                         string[] lists = Jsonhelper.JsonToString(content);
                         if (lists != null)
                         {
@@ -101,7 +104,17 @@ namespace Stock6.Views
                                 string[] bill = billstring.Split(',');
                                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1,GridUnitType.Auto) });
                                 int rowcount = grid.RowDefinitions.Count;
-                                Label addrowlabel = new Label { Text =string.Format("{0} {1}{2}", bill[0] , (Convert.ToSingle( bill[1])).ToString("f0") , bill[2]) ,FontSize=10,Margin=new Thickness(15,0,0,2) };
+                                string labelstr;
+                                if (bill[0] == "物流散件")
+                                {
+                                    labelstr = bill[3];
+                                }
+                                else
+                                {
+                                    labelstr = string.Format("{0} {1}{2}", bill[0], (Convert.ToSingle(bill[1])).ToString("f0"), bill[2]);
+                                    
+                                }
+                                Label addrowlabel = new Label { Text = labelstr, FontSize=10,Margin=new Thickness(15,0,0,2) };
                                 grid.Children.Add(addrowlabel, 0, rowcount - 1);
                                 Grid.SetColumnSpan(addrowlabel, 3);
                             }
@@ -134,6 +147,7 @@ namespace Stock6.Views
                     View = grid
                 };
             });
+          
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork +=async delegate {
                 await modelrefresh();
@@ -186,7 +200,12 @@ namespace Stock6.Views
         }
         protected override void OnAppearing()
         {
-            //listview.BeginRefresh();
+            if (isscan)
+            {
+                listview.BeginRefresh();
+                isscan = false;
+            }
+
             base.OnAppearing();           
         }
     }

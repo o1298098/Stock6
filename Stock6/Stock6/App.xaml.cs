@@ -16,9 +16,9 @@ namespace Stock6
 #if DEBUG
             LiveReload.Init();
 #endif
-            InitializeComponent();         
-            MainPage =new NavigationPage( new MasterDetailPage1());           
+            InitializeComponent();
             Context = new Context();
+            MainPage =new NavigationPage( new MasterDetailPage1());
            
         }
 

@@ -21,7 +21,15 @@ namespace Stock6.Views
             TapGestureRecognizer recognizer = new TapGestureRecognizer();
             recognizer.Tapped += async delegate
             {
-                await Navigation.PushAsync(new AccessPage());
+                if (App.Context.user.token == "")
+                {
+                    await Navigation.PushAsync(new AccessPage());
+                }
+                else
+                {
+                    await Navigation.PushAsync(new OptionPage());
+                }
+                
             };
             MasterPage.LoginBtn.GestureRecognizers.Add(recognizer);
             TapGestureRecognizer recognizer2 = new TapGestureRecognizer();
@@ -29,6 +37,8 @@ namespace Stock6.Views
                 await Navigation.PushAsync(new OptionPage());
             };
             MasterPage.OptionBtn.GestureRecognizers.Add(recognizer2);
+            MasterPage.usernameLabel.SetBinding(Label.TextProperty, new Binding("name") { Source=App.Context.user });
+            MasterPage.usernameLabel.BackgroundColor = Color.FromRgba(255, 255, 255, 0.8);
             this.Appearing += async delegate {               
                     var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
                     var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);

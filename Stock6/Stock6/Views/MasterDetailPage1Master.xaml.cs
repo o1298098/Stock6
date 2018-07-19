@@ -20,6 +20,7 @@ namespace Stock6.Views
         public ListView ListView;
         public CircleImage LoginBtn;
         public Image OptionBtn;
+        public Label usernameLabel;
 
         public MasterDetailPage1Master()
         {
@@ -29,6 +30,7 @@ namespace Stock6.Views
             ListView = MenuItemsListView;
             LoginBtn = Userimg;
             OptionBtn = Option;
+            usernameLabel = Username;
         }
 
         class MasterDetailPage1MasterViewModel : INotifyPropertyChanged

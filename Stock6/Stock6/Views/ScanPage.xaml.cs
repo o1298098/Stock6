@@ -94,7 +94,6 @@ namespace Stock6.Views
                             return;
                         }
                         string jsonstring = qrstring.Substring(2);
-                        JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
                         string[] stringarray = jsonstring.Split(',');
                         if (stringarray.Count()>=3)
                         {

@@ -104,13 +104,12 @@ namespace Stock6.Views.StockUp
                 scanstacklayout.IsVisible = false;
                 resultstacklayout.IsVisible = true;                
                 Logistics.SetBinding(Label.TextProperty, new Binding("Value") { Source = stockUpBillModel.F_XAY_Logistics.SimpleName[0] });
-                if (stepstate) { 
+                //if (stepstate) { 
                 QRStacklayout.IsVisible = false;
-                //listview.IsVisible = true;
                 listview.ItemsSource = stockUpBillModel.XAY_StockUpOrderEntry;
                 UpdateUI();
                 QrResultstacklayout.IsVisible = true;
-                }
+                //}
                 stepstate = stepstate? stepstate:!stepstate;
             }
             base.OnAppearing();
