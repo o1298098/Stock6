@@ -13,10 +13,10 @@
 
             <sv:Section Title="个人信息" FooterText="">
                 <sv:CommandCell x:Name="userlabel" IconSource="icon.png" IconSize="60,60" IconRadius="30"
-            Title="UserName" Description="o1298098@live.com"
+            Title="UserName" Description="X"
             Command="{Binding ToProfileCommand}" CommandParameter="{Binding Parameter}"
             KeepSelectedUntilBack="true" />
-                <sv:ButtonCell Title="修改信息" TitleColor="{StaticResource TitleTextColor}" TitleAlignment="Center"
+                <sv:ButtonCell x:Name="Logout" Title="注销" TitleColor="{StaticResource TitleTextColor}" TitleAlignment="Center"
               Command="{Binding SectionToggleCommand}" />
             </sv:Section>
             <sv:Section Title="FTP设置" FooterText="" IsVisible="{Binding SctionIsVisible}">

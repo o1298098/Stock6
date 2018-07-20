@@ -38,7 +38,7 @@ namespace Stock6.Views
                     }
                     else
                     {
-                        loadingAnimation.Pause();
+                        loadingAnimation.IsVisible = false;
                         await Navigation.PopToRootAsync();
                     }
 
@@ -52,35 +52,38 @@ namespace Stock6.Views
         {
             loadingAnimation.IsVisible = true;
             loadingAnimation.PlayProgressSegment(0, 0.59f);
-                if (password.Text != "")
+            if (!string.IsNullOrWhiteSpace(password.Text))
+            {
+                string json = string.Format("{{ \"name\": \"{0}\",\"password\": \"{1}\"}}", nametext.Text, password.Text);
+                HttpClient httpClient = new HttpClient();
+                httpClient.Content = json;
+                httpClient.Url = "http://outlet.ergochefcn.com/candaapi/api/Login";
+                Task.Run(() =>
                 {
-                    string json = string.Format("{{ \"name\": \"{0}\",\"password\": \"{1}\"}}", nametext.Text, password.Text);
-                    HttpClient httpClient = new HttpClient();
-                    httpClient.Content = json;
-                    httpClient.Url = "http://outlet.ergochefcn.com/candaapi/api/Login";
                     string callback = httpClient.sendPost();
                     callback = callback.Replace("\"", "");
                     if (callback == "err")
                     {
+                    Device.BeginInvokeOnMainThread(() => {
                         DependencyService.Get<IToast>().LongAlert("用户名或密码错误");
                         loadingAnimation.IsVisible = false;
+                    });                       
                     }
                     else
                     {
-                            App.Context.user.name = nametext.Text;
-                            App.Context.user.token = callback;
-                            Preferences.Set("User", nametext.Text);
-                            Preferences.Set("UserToken", callback);
+                        App.Context.user.name = nametext.Text;
+                        App.Context.user.token = callback;
+                        Preferences.Set("User", nametext.Text);
+                        Preferences.Set("UserToken", callback);
                         finsh = true;
                     }
-
-                }
-                else
-                {
-                    DependencyService.Get<IToast>().LongAlert("密码为空");
-                    loadingAnimation.IsVisible = false;
-                }
-            
-        }      
+                });               
+            }
+            else
+            {
+                DependencyService.Get<IToast>().LongAlert("密码为空");
+                loadingAnimation.IsVisible = false;              
+            }
+        }
     }
 }

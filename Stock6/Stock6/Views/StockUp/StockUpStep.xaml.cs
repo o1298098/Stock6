@@ -133,6 +133,14 @@ namespace Stock6.Views.StockUp
                     BackgroundColor = Color.White,
                     Spacing=0
                 };
+                TapGestureRecognizer recognizer = new TapGestureRecognizer();
+                recognizer.Tapped +=async delegate {
+                    ScanPage scanPage = new ScanPage(2);
+                    scanPage.Title = "扫描二维码";
+                    scanPage.BindingContext = stockUpBillModel;
+                    await Navigation.PushAsync(scanPage);
+                };
+                sLayout.GestureRecognizers.Add(recognizer);
                 StackLayout title = new StackLayout
                 {
                     Orientation = StackOrientation.Horizontal,

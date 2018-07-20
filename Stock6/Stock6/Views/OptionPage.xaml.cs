@@ -37,6 +37,13 @@ namespace Stock6.Views
                 DependencyService.Get<Services.IToast>().LongAlert("保存成功");
                 App.Context = new Models.Context();
              };
+            Logout.Tapped += delegate {
+                App.Context.user.name = "Guest";
+                App.Context.user.token = "";
+                Preferences.Remove("User");
+                Preferences.Remove("UserToken");
+                userlabel.Title = Preferences.Get("User", "Guest");
+            };
         }
 	}
 }
