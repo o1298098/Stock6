@@ -54,7 +54,7 @@ namespace Stock6.Models
             //DataCenterId = "59a12c8ba824d2";//帐套Id 测试5ab05fc34e03d1 正式59a12c8ba824d2
             FtpUrl = Preferences.Get("FtpURL", "ftp://canda.f3322.net:8066/STOCKPIC/");
             FtpUser = Preferences.Get("FtpUser", "administrator");
-            FtpPassword = Preferences.Get("FtpPassword", "ergochef@2018");
+            FtpPassword = Preferences.Get("FtpPassword", "abc!123456");
             ServerUrl = Preferences.Get("KDURL", "http://canda.f3322.net:8003/k3cloud/");
             DataCenterId = Preferences.Get("KDDataCenterID", "59a12c8ba824d2");
             KDUser = Preferences.Get("KDUser", "kingdee");

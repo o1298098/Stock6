@@ -18,7 +18,7 @@ namespace Stock6.Views
                 userlabel.Title= Preferences.Get("User", "Guest");
             FtpUrlEntry.ValueText = Preferences.Get("FtpURL", "ftp://canda.f3322.net:8066/STOCKPIC/");
                 FtpUserEntry.ValueText = Preferences.Get("FtpUser", "administrator");
-                FtpPasswordEntry.ValueText = Preferences.Get("FtpPassword", "ergochef@2018");
+                FtpPasswordEntry.ValueText = Preferences.Get("FtpPassword", "abc!123456");
                 KDUrlEntry.ValueText = Preferences.Get("KDURL", "http://canda.f3322.net:8003/K3CLOUD/");
                 KDDataCenterIDEntry.ValueText = Preferences.Get("KDDataCenterID", "59a12c8ba824d2");
                 KDUserEntry.ValueText = Preferences.Get("KDUser", "kingdee");
