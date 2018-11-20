@@ -85,5 +85,15 @@ namespace Stock6.Views
                 loadingAnimation.IsVisible = false;              
             }
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (Device.RuntimePlatform == "Android")
+            {
+                DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+
+            }
+        }
     }
 }

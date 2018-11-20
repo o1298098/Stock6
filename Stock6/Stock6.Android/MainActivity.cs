@@ -15,7 +15,7 @@ using FFImageLoading;
 
 namespace Stock6.Droid
 {
-    [Activity(Label = "Stock6", Icon = "@drawable/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Stock6", Icon = "@drawable/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation|ConfigChanges.KeyboardHidden,WindowSoftInputMode =SoftInput.StateAlwaysHidden|SoftInput.AdjustResize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
@@ -29,7 +29,6 @@ namespace Stock6.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
-
             var config = new FFImageLoading.Config.Configuration()
             {
                 VerboseLogging = false,

@@ -45,7 +45,7 @@ namespace Stock6.Views
                     new MasterDetailPage1MenuItem { Id = 1, Title = "图片上传",TargetType=typeof(PackingPage),Icon="mango.png"},
                     new MasterDetailPage1MenuItem { Id = 2, Title = "备货相册",TargetType=typeof(SearchPhoto),Icon="Thaumatin.png" },
                     new MasterDetailPage1MenuItem { Id = 3, Title = "组装拆卸",Icon="mangosteen.png" },
-                    //new MasterDetailPage1MenuItem { Id = 4, Title = "待定",TargetType=typeof(TestWebview),Icon="emoji_shock.json" },
+                    new MasterDetailPage1MenuItem { Id = 4, Title = "待定",TargetType=typeof(TestWebview),Icon="emoji_shock.json" },
                 });
             }
             

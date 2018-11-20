@@ -11,7 +11,7 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.BIND_DEVICE_ADMIN" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
-	<application android:label="Stock6" android:icon="@drawable/icon">
+	<application android:label="Stock6" android:icon="@drawable/icon" android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
 		<provider android:name="android.support.v4.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
