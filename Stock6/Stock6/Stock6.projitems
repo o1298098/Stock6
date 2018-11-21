@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CustomControls\CustomImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomControls\CustomListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomControls\ZXingOverlay.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BlueToothModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Context.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ImageColloection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ImageModel.cs" />
@@ -52,6 +53,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Access\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\BlueToothTest.xaml.cs">
+      <DependentUpon>BlueToothTest.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\MasterDetailPage1.xaml.cs">
@@ -174,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockUp\PackingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\BlueToothTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

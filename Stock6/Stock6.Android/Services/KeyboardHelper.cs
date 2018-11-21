@@ -19,14 +19,19 @@ namespace Stock6.Droid.Services
 {
     public class KeyboardHelper : IKeyboardHelper
     {
+        static Context _context;
+        public static void Init(Context context)
+        {
+            _context = context;
+        }
         public void ShowKeyboard()
         {
             var context = Forms.Context;
-            var inputMethodManager = context.GetSystemService(Context.InputMethodService) as InputMethodManager;
+            var inputMethodManager = _context.GetSystemService(Context.InputMethodService) as InputMethodManager;
 
-            if (inputMethodManager != null && context is Activity)
+            if (inputMethodManager != null && _context is Activity)
             {
-                var activity = context as Activity;
+                var activity = _context as Activity;
                 var token = activity.CurrentFocus?.WindowToken;
                 inputMethodManager.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
             }
@@ -34,16 +39,14 @@ namespace Stock6.Droid.Services
 
         public void HideKeyboard()
         {
-            var context = Forms.Context;
-            var imm = context.GetSystemService(Context.InputMethodService) as InputMethodManager;
+            
+            var imm = _context.GetSystemService(Context.InputMethodService) as InputMethodManager;
 
-            if (imm != null && context is Activity)
+            if (imm != null && _context is Activity)
             {
-                var activity = context as Activity;
+                var activity = _context as Activity;
                 var token = activity.CurrentFocus?.WindowToken;
-                imm.HideSoftInputFromWindow(token,0);
-                imm.HideSoftInputFromInputMethod(token, 0);
-                imm.ToggleSoftInput(0,0);
+                imm.HideSoftInputFromWindow(activity.Window.DecorView.WindowToken, 0);
                 activity.Window.SetSoftInputMode(SoftInput.StateAlwaysHidden);
                 activity.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
                 activity.Window.DecorView.ClearFocus();

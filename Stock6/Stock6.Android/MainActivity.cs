@@ -12,10 +12,11 @@ using Android.Content;
 using Plugin.CurrentActivity;
 using FFImageLoading.Forms.Droid;
 using FFImageLoading;
+using Stock6.Droid.Services;
 
 namespace Stock6.Droid
 {
-    [Activity(Label = "Stock6", Icon = "@drawable/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation|ConfigChanges.KeyboardHidden,WindowSoftInputMode =SoftInput.StateAlwaysHidden|SoftInput.AdjustResize)]
+    [Activity(Label = "Stock6", Icon = "@drawable/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation|ConfigChanges.Keyboard|ConfigChanges.KeyboardHidden,WindowSoftInputMode =SoftInput.StateAlwaysHidden|SoftInput.AdjustResize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
@@ -26,6 +27,7 @@ namespace Stock6.Droid
             base.OnCreate(bundle);
             Instance = this;
             Platform.Init(this);
+            KeyboardHelper.Init(this);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
